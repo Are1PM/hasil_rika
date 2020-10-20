@@ -10,12 +10,12 @@ class DokumenKkp
         $tanggal_upload,
         $tahun;
 
-   function getIdMahasiswa()
+    function getIdMahasiswa()
     {
         return $this->id_mahasiswa;
     }
 
-   function getIdDokumenKkp()
+    function getIdDokumenKkp()
     {
         return $this->id_dokumen_kkp;
     }
@@ -28,8 +28,8 @@ class DokumenKkp
     {
         return $this->file_lengkap_laporan_kkp;
     }
-   
-     function getTanggalUpload()
+
+    function getTanggalUpload()
     {
         return $this->tanggal_upload;
     }
@@ -83,7 +83,7 @@ class DokumenKkp
     {
         $id_mahasiswa = $_SESSION['id_mahasiswa'];
 
-        $sql = "SELECT * FROM dokumen_kkp d, mahasiswa m, kelompok k, status_kelompok s,dosen ds, pembimbing_lapangan pl,instansi i where i.id_instansi=pl.id_instansi AND pl.id_kelompok=k.id_kelompok AND ds.id_dosen=k.id_dosen AND s.id_status_kelompok=m.id_status_kelompok AND k.id_kelompok=m.id_kelompok AND m.id_mahasiswa=d.id_mahasiswa AND d.id_mahasiswa='$id_mahasiswa'";
+        $sql = "SELECT * FROM mahasiswa m, kelompok k, status_kelompok s,dosen ds, pembimbing_lapangan pl,instansi i where i.id_instansi=pl.id_instansi AND pl.id_kelompok=k.id_kelompok AND ds.id_dosen=k.id_dosen AND s.id_status_kelompok=m.id_status_kelompok AND k.id_kelompok=m.id_kelompok AND m.id_mahasiswa='$id_mahasiswa'";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
 
         return $query;
@@ -91,9 +91,9 @@ class DokumenKkp
 
     public function queryJumlahDokumen()
     {
-        $sql= "SELECT count(id_dokumen_kkp) as jumlah_kkp FROM dokumen_kkp";
+        $sql = "SELECT count(id_dokumen_kkp) as jumlah_kkp FROM dokumen_kkp";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
@@ -141,7 +141,6 @@ class DokumenKkp
         } else {
             echo "Gagal";
         }
-
     }
 
     public function queryMengubahDokumen()
@@ -201,7 +200,7 @@ class DokumenKkp
                             </div>
                             <br>
                               <div class="form-group">
-                                <a href="?rik=detail-DokumenKkp&id_dokumen_kkp='.$id_dokumen_kkp.'"><button class="btn btn-info">Lihat Data</button></a>
+                                <a href="?rik=detail-DokumenKkp&id_dokumen_kkp=' . $id_dokumen_kkp . '"><button class="btn btn-info">Lihat Data</button></a>
                               </div>
                             </form>
                         </div>
@@ -233,7 +232,7 @@ class DokumenKkp
                             </div>
                             <br>
                               <div class="form-group">
-                                <a href="?rik=detail-DokumenKkp&id_dokumen_kkp='.$id_dokumen_kkp.'"><button class="btn btn-info">Lihat Data</button></a>
+                                <a href="?rik=detail-DokumenKkp&id_dokumen_kkp=' . $id_dokumen_kkp . '"><button class="btn btn-info">Lihat Data</button></a>
                               </div>
                             </form>
                         </div>
@@ -261,5 +260,6 @@ class DokumenKkp
 
 
     function __destruct()
-    { }
+    {
+    }
 }

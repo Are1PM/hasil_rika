@@ -1,9 +1,9 @@
 <div class="row">
-     <!--  page header -->
+    <!--  page header -->
     <div class="col-lg-12">
         <h1 class="page-header">Data Mahasiswa</h1>
     </div>
-     <!-- end  page header -->
+    <!-- end  page header -->
 </div>
 <div class="row">
     <div class="col-lg-12">
@@ -21,8 +21,9 @@
                         <thead>
                             <tr>
                                 <th width="35px">No.</th>
-                                <th>Id Mahasiswa</th>
-                                <th>Id Kelompok</th>
+                                <th>NIM Mahasiswa</th>
+                                <th>Nama Kelompok</th>
+                                <th>Status Kelompok</th>
                                 <th>Nama</th>
                                 <th>Angkatan</th>
                                 <th>E-Mail</th>
@@ -34,28 +35,29 @@
                         </thead>
                         <tbody>
                             <?php
-                                $i=1;
-                                foreach ($data_mahasiswa as $data) { ?>
-                               
-                            <tr class="even gradeC">
-                                <td><?= $i++; ?>.</td>
-                                <td><?= $data->id_mahasiswa; ?></td>
-                                <td><?= $data->id_kelompok; ?></td>
-                                <td><?= $data->nama_mahasiswa; ?></td>
-                                <td><?= $data->angkatan; ?></td>
-                                <td><?= $data->email; ?></td>
-                                <td><?= $data->number_handphone; ?></td>
-                                <td><?= $data->username; ?></td>
-                                <td><?= $data->password; ?></td>
+                            $i = 1;
+                            foreach ($data_mahasiswa as $data) { ?>
 
-                                <td class="center">
-                                    <a href="?rik=detail-mahasiswa&id_mahasiswa=<?= $data->id_mahasiswa; ?>&parameter=1"><i class="fa fa-eye"></i></a> |
-                                    <a href="?rik=ubah-mahasiswa&id_mahasiswa=<?= $data->id_mahasiswa; ?>&parameter=1"><i class="fa fa-pencil"></i></a> |
-                                    <a href="?rik=hapus-mahasiswa&id_mahasiswa=<?= $data->id_mahasiswa; ?>&r=<?= $_GET['r'] ?>" ><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
+                                <tr class="even gradeC">
+                                    <td><?= $i++; ?>.</td>
+                                    <td><?= $data->id_mahasiswa; ?></td>
+                                    <td><?= $data->nama_kelompok; ?></td>
+                                    <td><?= ($data->id_kelompok == 1) ? "Ketua" : "Anggota" ?></td>
+                                    <td><?= $data->nama_mahasiswa; ?></td>
+                                    <td><?= $data->angkatan; ?></td>
+                                    <td><?= $data->email; ?></td>
+                                    <td><?= $data->number_handphone; ?></td>
+                                    <td><?= $data->username; ?></td>
+                                    <td><?= $data->password; ?></td>
 
-                        <?php } ?>
+                                    <td class="center">
+                                        <a href="?rik=detail-mahasiswa&id_mahasiswa=<?= $data->id_mahasiswa; ?>&parameter=1"><i class="fa fa-eye"></i></a> |
+                                        <a href="?rik=ubah-mahasiswa&id_mahasiswa=<?= $data->id_mahasiswa; ?>&parameter=1"><i class="fa fa-pencil"></i></a> |
+                                        <a href="?rik=hapus-mahasiswa&id_mahasiswa=<?= $data->id_mahasiswa; ?>&r=<?= $_GET['r'] ?>"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -91,4 +93,3 @@ if (isset($_GET['pesan'])) {
     }
 }
 ?>
-

@@ -102,7 +102,7 @@ class mahasiswa
 
     public function queryMelihatMahasiswa()
     {
-        $sql= "SELECT * FROM mahasiswa where id_kelompok='$_GET[r]'";
+        $sql= "SELECT * FROM mahasiswa m, kelompok k where m.id_kelompok=k.id_kelompok AND m.id_kelompok='$_GET[r]'";
         $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
         
         return $query;
@@ -324,4 +324,3 @@ class mahasiswa
 
 
 }
-?>

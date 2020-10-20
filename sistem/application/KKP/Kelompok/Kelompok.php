@@ -3,11 +3,11 @@
 class Kelompok
 {
     public  $id_kelompok,
-            $nama_kelompok,
-            $tanggal_masuk,
-            $tanggal_keluar,
-            $id_dosen,
-            $tahun_akademik;
+        $nama_kelompok,
+        $tanggal_masuk,
+        $tanggal_keluar,
+        $id_dosen,
+        $tahun_akademik;
 
     function getIdKelompok()
     {
@@ -70,21 +70,21 @@ class Kelompok
     public function queryMelihatKelompok()
     {
         $tahun_akademik = $_POST['tahun_akademik'];
-        if ($tahun_akademik!="" && $id_instansi!=""){
+        if ($tahun_akademik != "" && $id_instansi != "") {
             $sql = "SELECT * FROM kelompok where id_instansi='$id_instansi'";
             $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
-        }else{
+        } else {
             $sql = "SELECT * FROM kelompok k,dosen d where d.id_dosen=k.id_dosen AND k.id_kelompok not in('0')";
             $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
         }
-            return $query;
+        return $query;
     }
 
     public function queryMencariKelompok()
     {
         $id_kelompok   = $this->getIdKelompok();
 
-        $sql = "SELECT * FROM kelompok k,pembimbing_lapangan p , instansi i, mahasiswa m, dosen d where p.id_pembimbing_lapangan=k.id_pembimbing_lapangan AND i.id_instansi=p.id_instansi AND m.id_mahasiswa=k.id_mahasiswa AND d.id_dosen=k.id_dosen AND k.id_kelompok='$id_kelompok'";
+        $sql = "SELECT * FROM kelompok k,pembimbing_lapangan p , instansi i, mahasiswa m, dosen d where i.id_instansi=p.id_instansi AND d.id_dosen=k.id_dosen AND k.id_kelompok='$id_kelompok'";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
 
         return $query;
@@ -146,13 +146,12 @@ class Kelompok
     {
         $id_kelompok            = $this->getIdKelompok();
         $nama_kelompok     = $this->getNamaKelompok();
-        $id_status_kelompok          = $this->getIdStatusKelompok();
         $tanggal_masuk     = $this->getTanggalMasuk();
         $tanggal_keluar      = $this->getTanggalKeluar();
         $id_dosen      = $this->getIdDosen();
         $tahun_akademik      = $this->getTahunAkademik();
 
-        $sql = "UPDATE kelompok SET id_mahasiswa='$id_mahasiswa',id_pembimbing_lapangan='$id_instansi',nama_kelompok='$nama_kelompok', id_status_kelompok='$id_status_kelompok',tanggal_masuk='$tanggal_masuk',tanggal_keluar='$tanggal_keluar', id_dosen='$id_dosen', tahun_akademik='$tahun_akademik' where id_kelompok='$id_kelompok'";
+        $sql = "UPDATE kelompok SET nama_kelompok='$nama_kelompok',tanggal_masuk='$tanggal_masuk',tanggal_keluar='$tanggal_keluar', id_dosen='$id_dosen', tahun_akademik='$tahun_akademik' where id_kelompok='$id_kelompok'";
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
 
@@ -199,5 +198,6 @@ class Kelompok
 
 
     function __destruct()
-    { }
+    {
+    }
 }

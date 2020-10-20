@@ -1,14 +1,14 @@
 <style type="text/css">
-    td{
-        width :100px;
+    td {
+        width: 100px;
     }
 </style>
 <div class="row">
-     <!--  page header -->
+    <!--  page header -->
     <div class="col-lg-12">
         <h1 class="page-header">Detail Dokumen KKP</h1>
     </div>
-     <!-- end  page header -->
+    <!-- end  page header -->
 </div>
 <div class="row">
     <div class="col-lg-12">
@@ -63,57 +63,63 @@
                             </tr>
                             <?php
                             $id_dokumen_kkp = $data_DokumenKkp->id_dokumen_kkp;
-                            $validasi = new MengelolaValidasiDokumenKkp('','',$id_dokumen_kkp,'','','');
+                            $validasi = new MengelolaValidasiDokumenKkp('', '', $id_dokumen_kkp, '', '', '');
                             $val      = $validasi->MencariDokumenKkp();
+
 
                             ?>
                             <tr>
                                 <td>File BAB I</td>
                                 <td>
-                                  <a href="assets/dokumen_kkp/<?= $data_DokumenKkp->file_bab_I ?>" title="<?= $data_DokumenKkp->file_bab_I ?>">Preview</a> |
-                                  <?php
-                                   if ($data_DokumenKkp->file_bab_I=='' AND $val->Id_status_validasi=='') { 
-                                    echo '<a href="#" class="validasi_kkp">Upload</a>';
-                                   }elseif ($data_DokumenKkp->file_bab_I!='' AND $val->Id_status_validasi==''){ 
-                                    echo '<label class="label label-info">Menunggu Validasi</label> | ';
-                                    echo '<a href="#" class="validasi_kkp">Reset</a>';
-                                   }elseif ($data_DokumenKkp->file_bab_I!='' AND $val->Id_status_validasi=='2'){ 
-                                    echo '<label class="label label-info">Menunggu Validasi</label> | ';
-                                    echo '<a href="#" class="validasi_kkp">Reset</a>';
-                                   }else{
-                                    if ($val->Id_status_validasi==1) {
-                                      echo '<label class="label label-success">Selesai</label>';
-                                    }elseif ($val->Id_status_validasi==2 AND $data_DokumenKkp->file_bab_I==''){
-                                      echo '<a href="#" class="validasi_kkp">Upload Ulang</a>';
-                                    }else{
-                                      echo '<label class="label label-success">Selesai</label>';
+                                    <a href="assets/dokumen_kkp/<?= $data_DokumenKkp->file_bab_I ?>" title="<?= $data_DokumenKkp->file_bab_I ?>">Preview</a> |
+                                    <?php
+                                    if (!$_SESSION['hak_akses'] == "admin") {
+
+                                        if ($data_DokumenKkp->file_bab_I == '' and $val->Id_status_validasi == '') {
+                                            echo '<a href="#" class="validasi_kkp">Upload</a>';
+                                        } elseif ($data_DokumenKkp->file_bab_I != '' and $val->Id_status_validasi == '') {
+                                            echo '<label class="label label-info">Menunggu Validasi</label> | ';
+                                            echo '<a href="#" class="validasi_kkp">Reset</a>';
+                                        } elseif ($data_DokumenKkp->file_bab_I != '' and $val->Id_status_validasi == '2') {
+                                            echo '<label class="label label-info">Menunggu Validasi</label> | ';
+                                            echo '<a href="#" class="validasi_kkp">Reset</a>';
+                                        } else {
+                                            if ($val->Id_status_validasi == 1) {
+                                                echo '<label class="label label-success">Selesai</label>';
+                                            } elseif ($val->Id_status_validasi == 2 and $data_DokumenKkp->file_bab_I == '') {
+                                                echo '<a href="#" class="validasi_kkp">Upload Ulang</a>';
+                                            } else {
+                                                echo '<label class="label label-success">Selesai</label>';
+                                            }
+                                        }
                                     }
-                                   }
                                     ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>File Lengkap Laporan KKP</td>
                                 <td>
-                                  <a href="assets/dokumen_kkp/<?= $data_DokumenKkp->file_lengkap_laporan_kkp ?>" title="<?= $data_DokumenKkp->file_lengkap_laporan_kkp ?>">Preview</a> |
-                                  <?php
-                                   if ($data_DokumenKkp->file_lengkap_laporan_kkp=='' AND $val->Id_status_validasi=='') { 
-                                    echo '<a href="#" class="validasi_kkp">Upload</a>';
-                                   }elseif ($data_DokumenKkp->file_lengkap_laporan_kkp!='' AND $val->Id_status_validasi==''){ 
-                                    echo '<label class="label label-info">Menunggu Validasi</label> | ';
-                                    echo '<a href="#" class="validasi_kkp">Reset</a>';
-                                   }elseif ($data_DokumenKkp->file_lengkap_laporan_kkp!='' AND $val->Id_status_validasi=='2'){ 
-                                    echo '<label class="label label-info">Menunggu Validasi</label> | ';
-                                    echo '<a href="#" class="validasi_kkp">Reset</a>';
-                                   }else{
-                                    if ($val->Id_status_validasi==1) {
-                                      echo '<label class="label label-success">Selesai</label>';
-                                    }elseif ($data_DokumenKkp->file_lengkap_laporan_kkp=='' AND $val->Id_status_validasi==2){
-                                      echo '<a href="#" class="validasi_kkp">Upload Ulang</a>';
-                                    }else{
-                                      echo '<label class="label label-success">Selesai</label>';
+                                    <a href="assets/dokumen_kkp/<?= $data_DokumenKkp->file_lengkap_laporan_kkp ?>" title="<?= $data_DokumenKkp->file_lengkap_laporan_kkp ?>">Preview</a> |
+                                    <?php
+                                    if (!$_SESSION['hak_akses'] == "admin") {
+                                        if ($data_DokumenKkp->file_lengkap_laporan_kkp == '' and $val->Id_status_validasi == '') {
+                                            echo '<a href="#" class="validasi_kkp">Upload</a>';
+                                        } elseif ($data_DokumenKkp->file_lengkap_laporan_kkp != '' and $val->Id_status_validasi == '') {
+                                            echo '<label class="label label-info">Menunggu Validasi</label> | ';
+                                            echo '<a href="#" class="validasi_kkp">Reset</a>';
+                                        } elseif ($data_DokumenKkp->file_lengkap_laporan_kkp != '' and $val->Id_status_validasi == '2') {
+                                            echo '<label class="label label-info">Menunggu Validasi</label> | ';
+                                            echo '<a href="#" class="validasi_kkp">Reset</a>';
+                                        } else {
+                                            if ($val->Id_status_validasi == 1) {
+                                                echo '<label class="label label-success">Selesai</label>';
+                                            } elseif ($data_DokumenKkp->file_lengkap_laporan_kkp == '' and $val->Id_status_validasi == 2) {
+                                                echo '<a href="#" class="validasi_kkp">Upload Ulang</a>';
+                                            } else {
+                                                echo '<label class="label label-success">Selesai</label>';
+                                            }
+                                        }
                                     }
-                                   }
                                     ?>
                                 </td>
                             </tr>
@@ -126,23 +132,23 @@
                                 <td><?= $data_DokumenKkp->tahun; ?></td>
                             </tr>
                             <?php
-                              if ($val->keterangan!='') { ?>
-                            <tr>
-                                <td colspan="2">
-                                    Catatan : <label class="label label-danger"><?= $val->keterangan ?></label>
-                                </td>
-                            </tr>
+                            if ($val->keterangan != '') { ?>
+                                <tr>
+                                    <td colspan="2">
+                                        Catatan : <label class="label label-danger"><?= $val->keterangan ?></label>
+                                    </td>
+                                </tr>
                             <?php } ?>
                             <tr>
                                 <td></td>
                                 <td>
-                                  <?php
-                                    if ($val->Id_status_validasi=='' OR $val->Id_status_validasi==2) {
-                                      echo '<a href="#" class="validasi_kkp btn btn-warning" data-id="<?= $data_DokumenKkp->id_dokumen_kkp; ?>" data="<?= $data_DokumenKkp->id_upload_kkp; ?>"> Validasi</a>';
-                                    }else{
-                                      echo '<i class="label label-warning">Telah di Validasi.</i>';
+                                    <?php
+                                    if ($val->Id_status_validasi == '' or $val->Id_status_validasi == 2) {
+                                        echo '<a href="#" class="validasi_kkp btn btn-warning" data-id="<?= $data_DokumenKkp->id_dokumen_kkp; ?>" data="<?= $data_DokumenKkp->id_upload_kkp; ?>"> Validasi</a>';
+                                    } else {
+                                        echo '<i class="label label-warning">Telah di Validasi.</i>';
                                     }
-                                  ?>
+                                    ?>
                                 </td>
                             </tr>
                         </tbody>
@@ -170,14 +176,14 @@ if (isset($_GET['pesan'])) {
                           </div>
                           <br>
                             <div class="form-group">
-                              <a href="?rik=detail-DokumenKkp&id_dokumen_kkp='.$_GET[id_dokumen_kkp].'"><button class="btn btn-info">Kembali</button></a>
+                              <a href="?rik=detail-DokumenKkp&id_dokumen_kkp=' . $_GET[id_dokumen_kkp] . '"><button class="btn btn-info">Kembali</button></a>
                             </div>
                           </form>
                       </div>
                   </div>
               </div>
           </div>';
-    }else if ($_GET['pesan'] == "validasi-gagal") {
+    } else if ($_GET['pesan'] == "validasi-gagal") {
         echo '<div id="myModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
                   <div class="modal-content">
@@ -190,7 +196,7 @@ if (isset($_GET['pesan'])) {
                           </div>
                           <br>
                             <div class="form-group">
-                              <a href="?rik=detail-DokumenKkp&id_dokumen_kkp='.$_GET[id_dokumen_kkp].'"><button class="btn btn-info">Kembali</button></a>
+                              <a href="?rik=detail-DokumenKkp&id_dokumen_kkp=' . $_GET[id_dokumen_kkp] . '"><button class="btn btn-info">Kembali</button></a>
                             </div>
                           </form>
                       </div>

@@ -20,40 +20,8 @@
                                 <input type="hidden" class="form-control" name="id_kelompok" value="<?= $data->id_kelompok; ?>">
                             </div>
                             <div class="form-group">
-                                <label>Mahasiswa</label>
-                                <select name="id_mahasiswa" class="form-control select2" required="">
-                                    <option>--Pilih--</option>
-                                    <?php
-                                    foreach ($data_mahasiswa as $datab) { ?>
-                                        <option value="<?= $data->id_mahasiswa ?>" <?php
-                                        if ($data->id_mahasiswa == $datab->id_mahasiswa) {
-                                            echo "selected";
-                                        }
-                                        ?>><?= $datab->nama_mahasiswa ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="nama_instansi">Nama Pembimbing Lapangan</label>
-                                <select name="id_pembimbing_lapangan" class="form-control select2" required="">
-                                    <option>--Pilih--</option>
-                                    <?php
-                                    foreach ($PembimbingLapangan as $datab) { ?>
-                                        <option value="<?= $datab->id_pembimbing_lapangan ?>" <?php
-                                            if ($data->id_pembimbing_lapangan == $datab->id_pembimbing_lapangan) {
-                                                echo "selected";
-                                            }
-                                            ?>><?= $datab->nama_pembimbing_lapangan ?> - <?= $datab->nama_instansi ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
                                 <label>Nama Kelompok</label>
                                 <input type="text" name="nama_kelompok" value="<?= $data->nama_kelompok; ?>" class="form-control" placeholder="Nama kelompok" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Status Dalam Kelompok</label>
-                                <input type="text" name="id_status_kelompok" class="form-control" value="<?= $data->id_status_kelompok; ?>" placeholder="Status dalam kelompok" required>
                             </div>
                             <div class="form-group">
                                 <label>Tanggal Masuk</label>
@@ -69,14 +37,11 @@
                                     <option>--Pilih--</option>
                                     <?php
                                     foreach ($data_dosen as $datapp) { ?>
-                                        <option value="<?= $datapp->id_dosen ?>"
-                                            <?php
-                                            if ($data->id_dosen == $datapp->id_dosen) {
-                                                echo "selected";
-                                            }
-                                            ?>
-
-                                            ><?= $datapp->nama ?></option>
+                                        <option value="<?= $datapp->id_dosen ?>" <?php
+                                                                                    if ($data->id_dosen == $datapp->id_dosen) {
+                                                                                        echo "selected";
+                                                                                    }
+                                                                                    ?>><?= $datapp->nama ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -97,8 +62,10 @@
                             $tanggal_keluar = $_POST['tanggal_keluar'];
                             $id_dosen = $_POST['id_dosen'];
                             $tahun_akademik = $_POST['tahun_akademik'];
-
-                            $tambah = new MengelolaKelompok($id_kelompok, $nama_kelompok, $id_status_kelompok, $tanggal_masuk, $tanggal_keluar, $id_dosen, $tahun_akademik);
+                            // print_r($_POST);
+                            // die;
+                            // $id_kelompok = '',$nama_kelompok = '', $tanggal_masuk = '', $tanggal_keluar = '', $id_dosen='', $tahun_akademik = ''
+                            $tambah = new MengelolaKelompok($id_kelompok, $nama_kelompok, $tanggal_masuk, $tanggal_keluar, $id_dosen, $tahun_akademik);
                             $tambah->MengubahKelompok();
                         }
                         ?>
