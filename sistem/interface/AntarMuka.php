@@ -374,7 +374,7 @@ class AntarMuka
 	function tampilAdmin()
 	{
 		$data_Admin = $this->Admin->MelihatAdmin();
-		require "application/pengguna/Admin/data.php";
+		require "application/pengguna/admin/data.php";
 	}
 	/**
 	 * 
@@ -432,8 +432,9 @@ class AntarMuka
 	{
 		$data_dosen = $this->dosen->MelihatDosen();
 		$data_Uploadskripsi = $this->UploadSkripsi->MelihatDokumen();
+		$data_sdp = $this->status_dosen_pembimbing->MelihatStatusDosenPembimbing();
 
-		require "application/KKP/Kelompok/Dosen_Pembimbing/form-tambah.php";
+		require "application/SKRIPSI/Dosen_Pembimbing/form-tambah.php";
 	}
 	function formPencarianDosenPembimbing($sesi = '')
 	{
@@ -451,7 +452,7 @@ class AntarMuka
 	function tampilDosenPembimbing()
 	{
 		$DosenPembimbing = $this->DosenPembimbing->MelihatDosenPembimbing();
-		require "application/KKP/Kelompok/Dosen_Pembimbing/data.php";
+		require "application/SKRIPSI/Dosen_Pembimbing/data.php";
 	}
 	/**
 	 * 

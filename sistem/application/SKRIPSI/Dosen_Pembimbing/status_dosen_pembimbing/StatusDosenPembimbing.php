@@ -3,8 +3,8 @@
 class StatusDosenPembimbing
 {
     public $id_status_dosen_pembimbing,
-           $status_dosen_pembimbing;
-           
+        $status_dosen_pembimbing;
+
     function getIdStatusDosenPembimbing()
     {
         return $this->id_status_dosen_pembimbing;
@@ -14,9 +14,9 @@ class StatusDosenPembimbing
     {
         return $this->status_dosen_pembimbing;
     }
-   
 
-    
+
+
     function setIdStatusDosenPembimbing($id_status_dosen_pembimbing)
     {
         $this->id_status_dosen_pembimbing = $id_status_dosen_pembimbing;
@@ -26,16 +26,16 @@ class StatusDosenPembimbing
     {
         $this->status_dosen_pembimbing = $status_dosen_pembimbing;
     }
-    
-     
 
-   
+
+
+
 
     public function queryMelihatStatusDosenPembimbing()
     {
-        $sql= "SELECT * FROM status_dosen_pembimbing";
+        $sql = "SELECT * FROM status_dosen_pembimbing";
         $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
@@ -43,9 +43,9 @@ class StatusDosenPembimbing
     {
         $id_status_dosen_pembimbing   = $this->getIdStatusDosenPembimbing();
 
-        $sql= "SELECT * FROM status_dosen_pembimbing where id_status_dosen_pembimbing='$id_status_dosen_pembimbing'";
+        $sql = "SELECT * FROM status_dosen_pembimbing where id_status_dosen_pembimbing='$id_status_dosen_pembimbing'";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
@@ -53,8 +53,8 @@ class StatusDosenPembimbing
     {
         $status_dosen_pembimbing     = $this->getStatusDosenPembimbing();
 
-         
-       
+
+
         $sql = "INSERT into status_dosen_pembimbing values (NULL,'$status_dosen_pembimbing')";
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
@@ -79,7 +79,7 @@ class StatusDosenPembimbing
                     </div>
                 </div>
             </div>';
-        }else{
+        } else {
             echo '<br><div class="alert alert-danger text-center">
                 Gagal
             </div>';
@@ -90,8 +90,8 @@ class StatusDosenPembimbing
     {
         $id_status_dosen_pembimbing  = $this->getIdStatusDosenPembimbing();
         $status_dosen_pembimbing = $this->getStatusDosenPembimbing();
-       
-        
+
+
 
         $sql = "UPDATE status_dosen_pembimbing SET status_dosen_pembimbing='$status_dosen_pembimbing' where id_status_dosen_pembimbing='$id_status_dosen_pembimbing'";
         $prepare = $this->konek->execute()->prepare($sql);
@@ -117,7 +117,7 @@ class StatusDosenPembimbing
                     </div>
                 </div>
             </div>';
-        }else{
+        } else {
             echo "Gagal";
         }
     }
@@ -132,18 +132,14 @@ class StatusDosenPembimbing
 
         if ($proses) {
             echo "berhasil di hapus";
-        }else{
+        } else {
             echo "Gagal";
         }
-
     }
 
- 
+
 
     function __destruct()
     {
-
     }
-
-
 }

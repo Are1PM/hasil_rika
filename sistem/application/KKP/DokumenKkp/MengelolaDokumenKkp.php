@@ -3,19 +3,17 @@ require "DokumenKkp.php";
 
 class MengelolaDokumenKkp extends DokumenKkp
 {
-	public function __construct($id_dokumen_kkp ='',$id_mahasiswa='',$tanggal_upload ='',$tahun='',$file_bab_I='',$file_lengkap_laporan_kkp ='')
-    {   
-            $this->konek = new KoneksiBasisData();
+	public function __construct($id_dokumen_kkp = '', $id_mahasiswa = '', $tanggal_upload = '', $tahun = '', $file_bab_I = '', $file_lengkap_laporan_kkp = '')
+	{
+		$this->konek = new KoneksiBasisData();
 
-            $this->id_mahasiswa				= $id_mahasiswa;
-            $this->id_dokumen_kkp			= $id_dokumen_kkp;
-            $this->file_bab_I     			= $file_bab_I;
-            $this->file_lengkap_laporan_kkp = $file_lengkap_laporan_kkp;
-            $this->tanggal_upload  		    = $tanggal_upload;
-            $this->tahun     				= $tahun;
-
-           
-    }
+		$this->id_mahasiswa				= $id_mahasiswa;
+		$this->id_dokumen_kkp			= $id_dokumen_kkp;
+		$this->file_bab_I     			= $file_bab_I;
+		$this->file_lengkap_laporan_kkp = $file_lengkap_laporan_kkp;
+		$this->tanggal_upload  		    = $tanggal_upload;
+		$this->tahun     				= $tahun;
+	}
 
 	function MelihatDokumen()
 	{
@@ -37,14 +35,9 @@ class MengelolaDokumenKkp extends DokumenKkp
 		return $this->queryMencariDokumen();
 	}
 
-	function AksiFileBab1()
+	function MencariDokumenKKP($id_mahasiswa)
 	{
-		return $this->queryBab1();
-	}
-
-	function AksiFileLengkap()
-	{
-		return $this->queryBab1();
+		return $this->queryMencariDokumenKKP($id_mahasiswa);
 	}
 
 	function MemasukkanDokumen()
@@ -57,8 +50,18 @@ class MengelolaDokumenKkp extends DokumenKkp
 		return $this->queryMengubahDokumen();
 	}
 
+	function MengubahDokumenKKP()
+	{
+		return $this->queryMengubahDokumenKKP();
+	}
+
 	function MenghapusDokumen()
 	{
 		return $this->queryMenghapusDokumen();
+	}
+
+	function MencariByTahun($tahun)
+	{
+		return $this->queryMencariByTahun($tahun);
 	}
 }

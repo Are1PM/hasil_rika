@@ -14,15 +14,15 @@ session_start();
                 <div class="form-group">
                     <input type="hidden" value="<?= $_POST['id_dokumen_kkp']; ?>" name="id_dokumen_kkp">
                 </div>
-                 <div class="form-group">
+                <div class="form-group">
                     <input type="hidden" value="<?= $_SESSION['id_admin']; ?>" name="id_admin">
                 </div>
                 <div class="form-group">
                     <label>Status Validasi</label>
                     <select name="id_status_validasi" class="form-control" required="">
                         <option value="">--Pilih--</option>
-                        <option value="1">Tidak Valid</option>
-                        <option value="2">Valid</option>
+                        <option value="1">Valid</option>
+                        <option value="2">Tidak Valid</option>
                     </select>
                 </div>
                 <div class="form-group">

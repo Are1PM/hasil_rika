@@ -144,7 +144,7 @@
                                 <td>
                                     <?php
                                     if ($val->Id_status_validasi == '' or $val->Id_status_validasi == 2) {
-                                        echo '<a href="#" class="validasi_kkp btn btn-warning" data-id="<?= $data_DokumenKkp->id_dokumen_kkp; ?>" data="<?= $data_DokumenKkp->id_upload_kkp; ?>"> Validasi</a>';
+                                        echo '<a href="#" class="validasi_kkp btn btn-warning" data-id="' . $data_DokumenKkp->id_dokumen_kkp . '" data="' . $data_DokumenKkp->id_upload_kkp . '"> Validasi</a>';
                                     } else {
                                         echo '<i class="label label-warning">Telah di Validasi.</i>';
                                     }
@@ -176,7 +176,7 @@ if (isset($_GET['pesan'])) {
                           </div>
                           <br>
                             <div class="form-group">
-                              <a href="?rik=detail-DokumenKkp&id_dokumen_kkp=' . $_GET[id_dokumen_kkp] . '"><button class="btn btn-info">Kembali</button></a>
+                              <a href="?rik=detail-DokumenKkp&id_dokumen_kkp=' . $_GET["id_dokumen_kkp"] . '"><button class="btn btn-info">Kembali</button></a>
                             </div>
                           </form>
                       </div>
@@ -196,7 +196,7 @@ if (isset($_GET['pesan'])) {
                           </div>
                           <br>
                             <div class="form-group">
-                              <a href="?rik=detail-DokumenKkp&id_dokumen_kkp=' . $_GET[id_dokumen_kkp] . '"><button class="btn btn-info">Kembali</button></a>
+                              <a href="?rik=detail-DokumenKkp&id_dokumen_kkp=' . $_GET["id_dokumen_kkp"] . '"><button class="btn btn-info">Kembali</button></a>
                             </div>
                           </form>
                       </div>

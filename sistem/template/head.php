@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,11 +16,10 @@
     <link href="assets/css/main-style.css" rel="stylesheet" />
     <!-- Page-Level CSS -->
     <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
-    
+
     <link href="assets/css/new.css" rel="stylesheet" />
     <!-- Page-Level CSS -->
     <link href="assets/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" />
-   <link rel="stylesheet" type="text/css" href="assets/sw/dist/sweetalert.css">
-    
-</head>
+    <link rel="stylesheet" type="text/css" href="assets/sw/dist/sweetalert.css">
 
+</head>

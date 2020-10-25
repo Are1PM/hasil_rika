@@ -217,6 +217,9 @@
  		});
  	});
 
+ 	function cetak() {
+ 		window.print()
+ 	}
  	// function in berfungsi untuk memindahkan data kolom yang di klik menuju text box
  	function masuk(txt, data) {
  		document.getElementById('textbox').value = data; // ini berfungsi mengisi value  yang ber id textbox

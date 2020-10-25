@@ -23,7 +23,7 @@
                                     <?php
                                     foreach ($data_dosen as $datal) { ?>
 
-                                    <option value="<?= $datal->id_dosen ?>"><?= $datal->nama ?></option>
+                                        <option value="<?= $datal->id_dosen ?>"><?= $datal->nama ?></option>
 
                                     <?php } ?>
                                 </select>
@@ -35,14 +35,22 @@
                                     <?php
                                     foreach ($data_Uploadskripsi as $datak) { ?>
 
-                                    <option value="<?= $datak->id_bimbingan ?>"><?= $datak->nama_mahasiswa ?></option>
+                                        <option value="<?= $datak->id_bimbingan ?>"><?= $datak->nama_mahasiswa ?></option>
 
                                     <?php } ?>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Status Dosen Pembimbing</label>
-                                <input type="text" name="id_status_dosen_pembimbing" class="form-control" placeholder="Status Bimbingan" required>
+                                <select name="id_status_dosen_pembimbing" class="form-control select2">
+                                    <option>--Pilih--</option>
+                                    <?php
+                                    foreach ($data_sdp as $dt) { ?>
+
+                                        <option value="<?= $dt->id_status_dosen_pembimbing ?>"><?= $dt->status_dosen_pembimbing ?></option>
+
+                                    <?php } ?>
+                                </select>
                             </div>
                             <button type="submit" class="btn btn-primary" name="simpan">Simpan</button>
                             <button type="reset" class="btn btn-success">Reset</button>
@@ -55,9 +63,8 @@
                             $id_status_dosen_pembimbing = $_POST['id_status_dosen_pembimbing'];
 
 
-                            $tambah = new MengelolaDosenPembimbing('',$id_dosen,$id_bimbingan,$id_status_dosen_pembimbing);
+                            $tambah = new MengelolaDosenPembimbing('', $id_dosen, $id_bimbingan, $id_status_dosen_pembimbing);
                             $tambah->MemasukkanDosenPembimbing();
-                            
                         }
                         ?>
                     </div>

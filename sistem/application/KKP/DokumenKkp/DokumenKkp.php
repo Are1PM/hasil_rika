@@ -52,7 +52,7 @@ class DokumenKkp
 
     function setFileBabI($file_bab_I)
     {
-        $this->file_bab_I = $file_bab_Iile;
+        $this->file_bab_I = $file_bab_I;
     }
 
     function setFileLengkapLapranKp($file_lengkap_laporan_kkp)
@@ -83,9 +83,19 @@ class DokumenKkp
     {
         $id_mahasiswa = $_SESSION['id_mahasiswa'];
 
-        $sql = "SELECT * FROM mahasiswa m, kelompok k, status_kelompok s,dosen ds, pembimbing_lapangan pl,instansi i where i.id_instansi=pl.id_instansi AND pl.id_kelompok=k.id_kelompok AND ds.id_dosen=k.id_dosen AND s.id_status_kelompok=m.id_status_kelompok AND k.id_kelompok=m.id_kelompok AND m.id_mahasiswa='$id_mahasiswa'";
-        $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
+        $sql = "
+            SELECT *, m.id_mahasiswa FROM mahasiswa m
+            LEFT JOIN kelompok k ON m.id_kelompok=k.id_kelompok
+            LEFT JOIN dokumen_kkp d ON m.id_mahasiswa=d.id_mahasiswa
+            LEFT JOIN dosen ds ON k.id_dosen=ds.id_dosen
+            LEFT JOIN pembimbing_lapangan pl ON k.id_kelompok=pl.id_kelompok
+            LEFT JOIN instansi i ON pl.id_instansi=i.id_instansi
+            LEFT JOIN status_kelompok s ON m.id_status_kelompok=s.id_status_kelompok
+            LEFT JOIN memvalidasi_dokumen_kkp mdk ON d.id_dokumen_kkp=mdk.id_dokumen_kkp                
+            WHERE m.id_mahasiswa='$id_mahasiswa'
+            ";
 
+        $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
         return $query;
     }
 
@@ -101,7 +111,15 @@ class DokumenKkp
     {
         $id_dokumen_kkp   = $this->getIdDokumenKkp();
 
+
         $sql = "SELECT * FROM dokumen_kkp d, mahasiswa m, kelompok k, status_kelompok s,dosen ds, pembimbing_lapangan pl,instansi i where i.id_instansi=pl.id_instansi AND pl.id_kelompok=k.id_kelompok AND ds.id_dosen=k.id_dosen AND s.id_status_kelompok=m.id_status_kelompok AND k.id_kelompok=m.id_kelompok AND m.id_mahasiswa=d.id_mahasiswa AND d.id_dokumen_kkp='$id_dokumen_kkp'";
+        $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
+        return $query;
+    }
+
+    public function queryMencariDokumenKKP($id_mahasiswa)
+    {
+        $sql = "SELECT COUNT(*) as ada FROM dokumen_kkp WHERE id_mahasiswa='$id_mahasiswa'";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
         return $query;
     }
@@ -173,6 +191,78 @@ class DokumenKkp
                     </div>
                 </div>
             </div>';
+        } else {
+            echo "Gagal";
+        }
+    }
+
+    public function queryMengubahDokumenKKP()
+    {
+
+        $id_mahasiswa               = $this->getIdMahasiswa();
+        $tanggal_upload             = $this->getTanggalUpload();
+        $tahun                      = $this->getTahun();
+        $file_bab_I                 = $this->getFileBabI();
+        $file_lengkap_laporan_kkp   = $this->getFileLengkapLaporanKkp();
+
+        $this->konek->execute()->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
+
+
+        $sql = "UPDATE dokumen_kkp SET tahun='$tahun', tanggal_upload='$tanggal_upload', file_bab_I='$file_bab_I', file_lengkap_laporan_kkp='$file_lengkap_laporan_kkp' WHERE id_mahasiswa='$id_mahasiswa'";
+        $prepare = $this->konek->execute()->prepare($sql);
+        $prepare->execute();
+
+        $sql = "SELECT id_dokumen_kkp FROM dokumen_kkp WHERE id_mahasiswa='$id_mahasiswa'";
+        $proses = $this->konek->execute()->query($sql)->fetch();
+
+        if ($proses) {
+
+            $id_dokumen_kkp = $proses['id_dokumen_kkp'];
+            $sql = "DELETE FROM memvalidasi_dokumen_kkp WHERE id_dokumen_kkp='$id_dokumen_kkp'";
+            $prepare = $this->konek->execute()->prepare($sql);
+            $proses = $prepare->execute();
+
+            if ($proses) {
+                echo '<div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <br><div class="alert alert-success text-center">
+                                    Berhasil diupload ulang 
+                                </div>
+                                <br>
+                                  <div class="form-group">
+                                    <a href="?rik=data-DokumenKkp"><button class="btn btn-info">Lihat Data</button></a>
+                                  </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+            } else {
+                echo '<div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <br><div class="alert alert-warning text-center">
+                                Dokumen telah diupload ulang 
+                            </div>
+                            <br>
+                              <div class="form-group">
+                                <a href="?rik=data-DokumenKkp"><button class="btn btn-info">Lihat Data</button></a>
+                              </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+            }
         } else {
             echo "Gagal";
         }
@@ -257,7 +347,54 @@ class DokumenKkp
         }
     }
 
+    public function queryMencariByTahun($tahun)
+    {
+        if (isset($_SESSION['hak_akses'])) {
 
+            $sql = "
+                SELECT
+                    m.id_mahasiswa,m.nama_mahasiswa,m.email,dk.tahun,i.nama_instansi,dk.file_lengkap_laporan_kkp
+                FROM
+                    dokumen_kkp dk
+                LEFT JOIN
+                    mahasiswa m
+                ON m.id_mahasiswa=dk.id_mahasiswa
+                LEFT JOIN
+                    kelompok k
+                ON k.id_kelompok=m.id_kelompok
+                LEFT JOIN
+                    pembimbing_lapangan pl
+                ON pl.id_kelompok=k.id_kelompok
+                LEFT JOIN
+                    instansi i
+                ON i.id_instansi=pl.id_instansi
+                WHERE dk.tahun='$tahun'
+            ";
+        } else {
+            $sql = "
+                SELECT
+                    m.id_mahasiswa,m.nama_mahasiswa,m.email,dk.tahun,i.nama_instansi,dk.file_bab_I
+                FROM
+                    dokumen_kkp dk
+                LEFT JOIN
+                    mahasiswa m
+                ON m.id_mahasiswa=dk.id_mahasiswa
+                LEFT JOIN
+                    kelompok k
+                ON k.id_kelompok=m.id_kelompok
+                LEFT JOIN
+                    pembimbing_lapangan pl
+                ON pl.id_kelompok=k.id_kelompok
+                LEFT JOIN
+                    instansi i
+                ON i.id_instansi=pl.id_instansi
+                WHERE dk.tahun='$tahun'
+            ";
+        }
+
+        $hasil = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
+        return $hasil;
+    }
 
     function __destruct()
     {

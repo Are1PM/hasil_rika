@@ -3,8 +3,8 @@
 class DosenPembimbing
 {
     public $id_dosen_pembimbing,
-           $id_dosen,
-           $id_status_dosen_pembimbing;
+        $id_dosen,
+        $id_status_dosen_pembimbing;
 
     function getIdDosenPembimbing()
     {
@@ -33,20 +33,21 @@ class DosenPembimbing
     }
     function setIdStatusDosenPembimbing($id_status_dosen_pembimbing)
     {
-        $this->id_status_dosen_pembimbing=$id_status_dosen_pembimbing;
+        $this->id_status_dosen_pembimbing = $id_status_dosen_pembimbing;
     }
-    
-    
+
+
     public function queryMelihatDosenPembimbing()
     {
-        $id_mahasiswa=$_SESSION['id_mahasiswa'];
-        if ($_SESSION['hak_akses']=="mahasiswa") {
+        $id_mahasiswa = $_SESSION['id_mahasiswa'];
+        if ($_SESSION['hak_akses'] == "mahasiswa") {
             $sql = "SELECT * from dosen_pembimbing p, dosen d, bimbingan m where m.id_mahasiswa='$id_mahasiswa' AND d.id_dosen=p.id_dosen AND m.id_bimbingan=p.id_upload";
-        }else{
-            $sql = "SELECT * from dosen_pembimbing p, dosen d, bimbingan m where d.id_dosen=p.id_dosen AND m.id_bimbingan=p.id_upload";
+        } else {
+            $sql = "SELECT * FROM bimbingan b LEFT JOIN dosen_pembimbing dp ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing LEFT JOIN status_dosen_pembimbing sdp ON dp.Id_status_dosen_pembimbing=sdp.Id_status_dosen_pembimbning";
         }
-        
+
         $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
+
 
         return $query;
     }
@@ -72,7 +73,7 @@ class DosenPembimbing
 
         return $query;
     }
-    
+
 
     public function queryMemasukkanDosenPembimbing()
     {
@@ -81,7 +82,7 @@ class DosenPembimbing
         $id_status_dosen_pembimbing        = $this->getIdStatusDosenPembimbing();
 
 
-       $sql = "INSERT into dosen_pembimbing values (NULL,'$id_dosen','$id_bimbingan','$id_status_dosen_pembimbing')";
+        $sql = "INSERT into dosen_pembimbing values (NULL,'$id_dosen','$id_bimbingan','$id_status_dosen_pembimbing')";
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
 
@@ -167,5 +168,6 @@ class DosenPembimbing
 
 
     function __destruct()
-    { }
+    {
+    }
 }

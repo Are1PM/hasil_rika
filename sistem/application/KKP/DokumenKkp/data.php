@@ -10,10 +10,13 @@
         <!-- Advanced Tables -->
         <div class="panel panel-default">
             <div class="panel-heading">
-                <a href="?rik=tambah-DokumenKkp&m=<?= $_SESSION['id_mahasiswa'] ?>" class="btn btn-primary">
-                    <i class="fa fa-cloud-upload"></i>
-                    Upload
-                </a>
+                <?php if ($data->Id_status_validasi != 1) : ?>
+                    <a href="?rik=tambah-DokumenKkp&m=<?= $_SESSION['id_mahasiswa'] ?>" class="btn btn-primary">
+                        <i class="fa fa-cloud-upload"></i>
+                        Upload
+                    </a>
+                <?php endif; ?>
+
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -78,7 +81,7 @@
                                             echo '| <a href="#" class="validasi_kkp">Reset</a>';
                                         }
                                     } elseif ($data->file_bab_I != '' and $val->Id_status_validasi == '2') {
-                                        echo '<label class="label label-info">Menunggu Validasi</label>';
+                                        echo '<label class="label label-danger">Tidak Valid</label>';
                                         if ($_SESSION['hak_akses'] == 'admin') {
                                             echo ' | <a href="#" class="validasi_kkp">Reset</a>';
                                         }
@@ -99,22 +102,22 @@
                                 <td>
                                     <a href="assets/dokumen_kkp/<?= $data->file_lengkap_laporan_kkp ?>" title="<?= $data->file_lengkap_laporan_kkp ?>">Preview</a> |
                                     <?php
-                                    if ($data->file_lengkap_laporan_kkp == '' and $val->Id_status_validasi == '') {
+                                    if ($data->file_lengkap_laporan_kkp == '' and $data->Id_status_validasi == '') {
                                         echo '<a href="#" class="validasi_kkp">Upload</a>';
-                                    } elseif ($data->file_lengkap_laporan_kkp != '' and $val->Id_status_validasi == '') {
+                                    } elseif ($data->file_lengkap_laporan_kkp != '' and $data->Id_status_validasi == "") {
                                         echo '<label class="label label-info">Menunggu Validasi</label>';
                                         if ($_SESSION['hak_akses'] == 'admin') {
                                             echo ' | <a href="#" class="validasi_kkp">Reset</a>';
                                         }
-                                    } elseif ($data->file_lengkap_laporan_kkp != '' and $val->Id_status_validasi == '2') {
-                                        echo '<label class="label label-info">Menunggu Validasi</label>';
+                                    } elseif ($data->file_lengkap_laporan_kkp != '' and $data->Id_status_validasi == 2) {
+                                        echo '<label class="label label-danger">Tidak Valid</label>';
                                         if ($_SESSION['hak_akses'] == 'admin') {
                                             echo ' | <a href="#" class="validasi_kkp">Reset</a>';
                                         }
                                     } else {
-                                        if ($val->Id_status_validasi == 1) {
+                                        if ($data->Id_status_validasi == 1) {
                                             echo '<label class="label label-success">Selesai</label>';
-                                        } elseif ($data->file_lengkap_laporan_kkp == '' and $val->Id_status_validasi == 2) {
+                                        } elseif ($data->file_lengkap_laporan_kkp == '' and $data->Id_status_validasi == 2) {
                                             echo '<a href="#" class="validasi_kkp">Upload Ulang</a>';
                                         } else {
                                             echo '<label class="label label-success">Selesai</label>';
@@ -132,10 +135,11 @@
                                 <td><?= $data->tahun; ?></td>
                             </tr>
                             <?php
-                            if ($val->keterangan != '') { ?>
+                            if ($data->keterangan != "") { ?>
                                 <tr>
+                                    <td>Catatan</td>
                                     <td colspan="2">
-                                        Catatan : <label class="label label-danger"><?= $val->keterangan ?></label>
+                                        <label class="label label-danger"><?= $data->keterangan ?></label>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -143,10 +147,12 @@
                                 <td></td>
                                 <td>
                                     <?php
-                                    if ($val->Id_status_validasi == '' or $val->Id_status_validasi == 2) {
+                                    if ($data->Id_status_validasi == '' or $data->Id_status_validasi == 2) {
                                         if ($_SESSION['hak_akses'] == 'admin') {
                                             echo '<a href="#" class="validasi_kkp btn btn-warning" data-id="<?= $data->id_dokumen_kkp; ?>" data="<?= $data->id_upload_kkp; ?>"> Validasi</a>';
                                         }
+                                    } elseif ($_SESSION['hak_akses'] == 'mahasiswa') {
+                                        echo '<button class="validasi_kkp btn btn-warning" onclick="cetak()"> Cetak</button>';
                                     } else {
                                         echo '<i class="label label-warning">Telah di Validasi.</i>';
                                     }

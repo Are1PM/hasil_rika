@@ -3,11 +3,11 @@
 class ValidasiDokumenKKP
 {
     public $id_val_kkp,
-           $id_dokumen_kkp,
-           $id_admin,
-           $tanggal_validasi,
-           $id_status_validasi,
-           $keterangan;
+        $id_dokumen_kkp,
+        $id_admin,
+        $tanggal_validasi,
+        $id_status_validasi,
+        $keterangan;
 
     function getIdValKkp()
     {
@@ -29,7 +29,7 @@ class ValidasiDokumenKKP
         return $this->tanggal_validasi;
     }
 
-    function getIsStatusValidasi()
+    function getIdStatusValidasi()
     {
         return $this->id_status_validasi;
     }
@@ -38,10 +38,10 @@ class ValidasiDokumenKKP
     {
         return $this->keterangan;
     }
-     
 
 
-    
+
+
     function setIdValKkp($id_val_kkp)
     {
         $this->id_val_kkp = $id_val_kkp;
@@ -68,9 +68,9 @@ class ValidasiDokumenKKP
 
     public function queryMelihatDokumenKkp()
     {
-        $sql= "SELECT * FROM memvalidasi_dokumen_kkp";
+        $sql = "SELECT * FROM memvalidasi_dokumen_kkp";
         $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
@@ -78,31 +78,30 @@ class ValidasiDokumenKKP
     {
         $id_dokumen_kkp = $this->getIdDokumenKkp();
 
-        $sql= "SELECT * FROM memvalidasi_dokumen_kkp where id_dokumen_kkp='$id_dokumen_kkp'";
+        $sql = "SELECT * FROM memvalidasi_dokumen_kkp where id_dokumen_kkp='$id_dokumen_kkp'";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
     public function queryJumlahDokumen()
     {
-        $sql= "SELECT count(id_val_kkp) as jumlah_validasi FROM memvalidasi_dokumen_kkp";
+        $sql = "SELECT count(id_val_kkp) as jumlah_validasi FROM memvalidasi_dokumen_kkp";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
 
     public function queryMemeriksaDokumenKkp()
     {
-        $id_val_kkp  = $this->getIdValKkp();
         $id_dokumen_kkp        = $this->getIdDokumenKkp();
         $id_admin    = $this->getIdAdmin();
         $tanggal_validasi    = $this->getTanggalValidasi();
         $id_status_validasi     = $this->getIdStatusValidasi();
         $keterangan     = $this->getKeterangan();
-        
-        $sql = "INSERT into memvalidasi_dokumen_kkp values (null,'$id_admin','$id_dokumen_kkp','$tanggal_validasi','$id_status_validasi','$keterangan')";
+
+        $sql = "INSERT INTO memvalidasi_dokumen_kkp values (null,'$id_admin','$id_dokumen_kkp','$tanggal_validasi','$id_status_validasi','$keterangan')";
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
 
@@ -126,7 +125,7 @@ class ValidasiDokumenKKP
                     </div>
                 </div>
             </div>';
-        }else{
+        } else {
             echo '<br><div class="alert alert-danger text-center">
                 Gagal
             </div>';
@@ -141,7 +140,7 @@ class ValidasiDokumenKKP
         $tanggal_validasi     = $this->getTanggalValidasi();
         $id_status_validasi     = $this->getIdStatusValidasi();
         $keterangan   = $this->getKeterangan();
-        
+
         $sql = "UPDATE memvalidasi_dokumen_kkp SET id_dokumen_kkp='$id_dokumen_kkp',id_admin='$id_admin',id_status_validasi='$id_status_validasi',tanggal_validasi='$tanggal_validasi',keterangan='$keterangan' where id_val_kkp='$id_val_kkp'";
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
@@ -166,7 +165,7 @@ class ValidasiDokumenKKP
                     </div>
                 </div>
             </div>';
-        }else{
+        } else {
             echo "Gagal";
         }
     }
@@ -181,19 +180,14 @@ class ValidasiDokumenKKP
 
         if ($proses) {
             echo "berhasil di hapus";
-        }else{
+        } else {
             echo "Gagal";
         }
-
     }
 
- 
+
 
     function __destruct()
     {
-
     }
-
-
 }
-?>

@@ -41,21 +41,23 @@
                                         <a href="?rik=detail-DokumenKkp&id_dokumen_kkp=<?= $data->id_dokumen_kkp; ?>">Kelengkapan dokumen</a>
                                     </td>
                                     <?php
-                                        $id_dokumen_kkp = $data->id_dokumen_kkp;
-                                        $validasi = new MengelolaValidasiDokumenKkp('','',$id_dokumen_kkp,'','','');
-                                        $val      = $validasi->MencariDokumenKkp();
+                                    $id_dokumen_kkp = $data->id_dokumen_kkp;
+                                    $validasi = new MengelolaValidasiDokumenKkp('', '', $id_dokumen_kkp, '', '', '');
+                                    $val      = $validasi->MencariDokumenKkp();
                                     ?>
                                     <td>
                                         <?php
-                                        if ($val->Id_status_validasi==1) {
+                                        if ($val->Id_status_validasi == 1) {
                                             echo '<i class="label label-success">Telah di Validasi</i>';
-                                        }else{
+                                        } elseif ($val->Id_status_validasi == 2) {
+                                            echo '<i class="label label-warning">Tidak Valid</i>';
+                                        } else {
                                             echo '<i class="label label-danger">Belum di Validasi</i>';
                                         }
                                         ?>
                                     </td>
                                     <td class="center">
-                                        
+
                                         <a href="?rik=hapus-DokumenKkp&id_dokumen_kkp=<?= $data->id_dokumen_kkp; ?>" onclick="javascript: return confirm('Anda yakin ingin menghapus ?')">
                                             <i class="fa fa-trash-o"></i>
                                         </a>

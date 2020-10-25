@@ -31,23 +31,6 @@
                             <button type="submit" class="btn btn-primary" name="simpan">Simpan</button>
                             <button type="reset" class="btn btn-success">Reset</button>
                         </form>
-                        <?php
-                        if (isset($_POST['simpan'])) {
-
-                            $id_mahasiswa                   = $_POST['id_mahasiswa'];
-                            $tanggal_upload                 = date("d-m-Y");
-                            $tahun                          = date("Y");
-                            $file_bab_1                     = $_FILES['file_bab_1']['name'];
-                            $temp_file_bab_1                = $_FILES['file_bab_1']['tmp_name'];
-
-                            $file_lengkap_laporan_kkp       = $_FILES['file_lengkap_laporan_kkp']['name'];
-                            $temp_file_lengkap_laporan_kkp  = $_FILES['file_lengkap_laporan_kkp']['tmp_name'];
-
-
-                            $tambah = new MengelolaDokumenKkp('', $id_mahasiswa, $tanggal_upload, $tahun, $file_bab_1, $file_lengkap_laporan_kkp);
-                            $tambah->MemasukkanDokumen();
-                        }
-                        ?>
                     </div>
                 </div>
             </div>
@@ -55,3 +38,8 @@
         <!-- End Form Elements -->
     </div>
 </div>
+
+<?php
+
+include "proses-upload.php";
+?>

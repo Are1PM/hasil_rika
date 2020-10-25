@@ -3,14 +3,14 @@
 class mahasiswa
 {
     public $id_mahasiswa,
-           $id_kelompok,
-           $id_status_kelompok,
-           $nama_mahasiswa,
-           $angkatan,
-           $username,
-           $password,
-           $email,
-           $number_handphone;
+        $id_kelompok,
+        $id_status_kelompok,
+        $nama_mahasiswa,
+        $angkatan,
+        $username,
+        $password,
+        $email,
+        $number_handphone;
 
     function getIdMahasiswa()
     {
@@ -50,13 +50,13 @@ class mahasiswa
     {
         return $this->email;
     }
-     function getNumberHandphone()
+    function getNumberHandphone()
     {
         return $this->number_handphone;
     }
 
 
-    
+
     function setIdMahasiswa($id_mahasiswa)
     {
         $this->id_mahasiswa = $id_mahasiswa;
@@ -102,24 +102,28 @@ class mahasiswa
 
     public function queryMelihatMahasiswa()
     {
-        $sql= "SELECT * FROM mahasiswa m, kelompok k where m.id_kelompok=k.id_kelompok AND m.id_kelompok='$_GET[r]'";
+        if (isset($_GET['r'])) {
+            $sql = "SELECT * FROM mahasiswa m, kelompok k where m.id_kelompok=k.id_kelompok AND m.id_kelompok='$_GET[r]'";
+        } else {
+            $sql = "SELECT * FROM mahasiswa m, kelompok k where m.id_kelompok=k.id_kelompok";
+        }
         $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
     public function muchMahasiswa()
     {
-        $sql= "SELECT * FROM mahasiswa where id_kelompok in ('0')";
+        $sql = "SELECT * FROM mahasiswa where id_kelompok in ('0')";
         $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
         return $query;
     }
 
     public function queryJumlahMahasiswa()
     {
-        $sql= "SELECT count(id_mahasiswa) as jumlah_mahasiswa FROM mahasiswa";
+        $sql = "SELECT count(id_mahasiswa) as jumlah_mahasiswa FROM mahasiswa";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
@@ -131,9 +135,9 @@ class mahasiswa
         $angkatan       = $this->getAngkatan();
         $username       = $this->getUsername();
 
-        $sql= "SELECT * FROM mahasiswa where id_mahasiswa='$id_mahasiswa' OR nama_mahasiswa='$nama' OR angkatan='$angkatan' OR username='$username'";
+        $sql = "SELECT * FROM mahasiswa m LEFT JOIN kelompok k ON k.id_kelompok=m.id_kelompok LEFT JOIN status_kelompok sk ON sk.id_status_kelompok=m.id_status_kelompok where  m.id_mahasiswa='$id_mahasiswa' OR m.nama_mahasiswa='$nama' OR m.angkatan='$angkatan' OR m.username='$username'";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
@@ -153,8 +157,8 @@ class mahasiswa
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
 
-        if ($_SESSION['hak_akses']!="") {
-           
+        if ($_SESSION['hak_akses'] != "") {
+
             if ($proses) {
                 echo '<div id="myModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
@@ -168,21 +172,21 @@ class mahasiswa
                                 </div>
                                 <br>
                                   <div class="form-group">
-                                    <a href="?rik=data-mahasiswa&r='.$id_kelompok.'"><button class="btn btn-info">Lihat Data</button></a>
+                                    <a href="?rik=data-mahasiswa&r=' . $id_kelompok . '"><button class="btn btn-info">Lihat Data</button></a>
                                   </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>';
-            }else{
+            } else {
                 echo '<br><div class="alert alert-danger text-center">
                     Gagal
                 </div>';
             }
         }
         if ($proses) {
-           echo '<div class="container">
+            echo '<div class="container">
                     <div id="myModal" class="modal fade" role="dialog">
                         <div class="modal-dialog">
                             <!-- Modal content-->
@@ -223,14 +227,14 @@ class mahasiswa
                             </div>
                             <br>
                               <div class="form-group">
-                                <a href="?rik=data-mahasiswa&r='.$id_kelompok.'"><button class="btn btn-info">Lihat Data</button></a>
+                                <a href="?rik=data-mahasiswa&r=' . $id_kelompok . '"><button class="btn btn-info">Lihat Data</button></a>
                               </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>';
-        }else{
+        } else {
             echo "Gagal";
         }
     }
@@ -245,7 +249,7 @@ class mahasiswa
         $username      = $this->getUsername();
         $password      = $this->getPassword();
         $email         = $this->getEmail();
-        $number_handphone= $this->getNumberHandphone();
+        $number_handphone = $this->getNumberHandphone();
 
         $sql = "UPDATE mahasiswa SET id_status_kelompok='$id_status_kelompok',nama_mahasiswa='$nama',angkatan='$angkatan',username='$username',password='$password',email='$email',number_handphone='$number_handphone' where id_mahasiswa='$id_mahasiswa'";
         $prepare = $this->konek->execute()->prepare($sql);
@@ -264,14 +268,14 @@ class mahasiswa
                             </div>
                             <br>
                               <div class="form-group">
-                                <a href="?rik=data-mahasiswa&r='.$id_kelompok.'"><button class="btn btn-info">Lihat Data</button></a>
+                                <a href="?rik=data-mahasiswa&r=' . $id_kelompok . '"><button class="btn btn-info">Lihat Data</button></a>
                               </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>';
-        }else{
+        } else {
             echo "Gagal";
         }
     }
@@ -298,7 +302,7 @@ class mahasiswa
                             </div>
                             <br>
                               <div class="form-group">
-                                <a href="?rik=data-mahasiswa&r='.$id_kelompok.'"><button class="btn btn-info">Kembali</button></a>
+                                <a href="?rik=data-mahasiswa&r=' . $id_kelompok . '"><button class="btn btn-info">Kembali</button></a>
                               </div>
                             </form>
                         </div>
@@ -306,12 +310,11 @@ class mahasiswa
                 </div>
             </div>';
         }
-
     }
 
     public function queryCekLogin($username, $password)
     {
-        $sql= "SELECT * FROM mahasiswa where username='$username' AND password='$password'";
+        $sql = "SELECT * FROM mahasiswa where username='$username' AND password='$password'";
         $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
 
         return $query;
@@ -319,8 +322,5 @@ class mahasiswa
 
     function __destruct()
     {
-
     }
-
-
 }

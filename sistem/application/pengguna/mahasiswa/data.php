@@ -22,14 +22,12 @@
                             <tr>
                                 <th width="35px">No.</th>
                                 <th>NIM Mahasiswa</th>
-                                <th>Nama Kelompok</th>
-                                <th>Status Kelompok</th>
+
                                 <th>Nama</th>
                                 <th>Angkatan</th>
                                 <th>E-Mail</th>
                                 <th>Number Handphone</th>
-                                <th>Username</th>
-                                <th>Password</th>
+
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -41,14 +39,11 @@
                                 <tr class="even gradeC">
                                     <td><?= $i++; ?>.</td>
                                     <td><?= $data->id_mahasiswa; ?></td>
-                                    <td><?= $data->nama_kelompok; ?></td>
-                                    <td><?= ($data->id_kelompok == 1) ? "Ketua" : "Anggota" ?></td>
+
                                     <td><?= $data->nama_mahasiswa; ?></td>
                                     <td><?= $data->angkatan; ?></td>
                                     <td><?= $data->email; ?></td>
                                     <td><?= $data->number_handphone; ?></td>
-                                    <td><?= $data->username; ?></td>
-                                    <td><?= $data->password; ?></td>
 
                                     <td class="center">
                                         <a href="?rik=detail-mahasiswa&id_mahasiswa=<?= $data->id_mahasiswa; ?>&parameter=1"><i class="fa fa-eye"></i></a> |

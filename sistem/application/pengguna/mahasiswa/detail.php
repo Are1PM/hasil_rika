@@ -19,6 +19,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
+
                     <table class="table table-striped table-hover">
                         <tbody>
                             <tr>
@@ -27,7 +28,11 @@
                             </tr>
                             <tr>
                                 <td><b>Kelompok</b></td>
-                                <td><?= $data_mahasiswa->id_kelompok; ?></td>
+                                <td><?= $data_mahasiswa->nama_kelompok; ?></td>
+                            </tr>
+                            <tr>
+                                <td><b>Status Kelompok</b></td>
+                                <td><?= $data_mahasiswa->status_kelompok; ?></td>
                             </tr>
                             <tr>
                                 <td><b>Nama mahasiswa</b></td>
@@ -41,7 +46,7 @@
                                 <td><b>E-mail</b></td>
                                 <td><?= $data_mahasiswa->email; ?></td>
                             </tr>
-                             <tr>
+                            <tr>
                                 <td><b>Number Handphone</b></td>
                                 <td><?= $data_mahasiswa->number_handphone; ?></td>
                             </tr>
