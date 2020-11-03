@@ -3,13 +3,12 @@
 class Bimbingan
 {
     public $id_mahasiswa,
-           $id_bimbingan,
-           $id_dosen_pembimbing,
-           $judul,
-           $tahun,
-           $abstrak_indonesia,
-           $abstrak_inggris,
-           $tanggal_upload;
+        $id_bimbingan,
+        $judul,
+        $tahun,
+        $abstrak_indonesia,
+        $abstrak_inggris,
+        $tanggal_upload;
 
     function getIdBimbingan()
     {
@@ -19,10 +18,6 @@ class Bimbingan
     function getIdMahasiswa()
     {
         return $this->id_mahasiswa;
-    }
-     function getIdDosenPembimbing()
-    {
-        return $this->id_dosen_pembimbing;
     }
 
     function getJudul()
@@ -50,7 +45,7 @@ class Bimbingan
     }
 
 
-    
+
     function setIdBimbingan($id_bimbingan)
     {
         $this->id_bimbingan = $id_bimbingan;
@@ -59,11 +54,6 @@ class Bimbingan
     function setIdMahasiswa($id_mahasiswa)
     {
         $this->id_mahasiswa = $id_mahasiswa;
-    }
-
-    function setIdDosenPembimbing($id_dosen_pembimbing)
-    {
-        $this->id_dosen_pembimbing = $id_dosen_pembimbing;
     }
 
     function setJudul($judul)
@@ -85,44 +75,63 @@ class Bimbingan
         $this->abstrak_inggris = $abstrak_inggris;
     }
 
+    // ============== SUDAH DI PERBAIKI =============================
+    // ============== SUDAH DI PERBAIKI =============================
     public function queryMelihatDokumen()
     {
         $id_mahasiswa   = $_SESSION['id_mahasiswa'];
 
-        if ($_SESSION['hak_akses']=="mahasiswa") {
-            $sql= "SELECT * FROM bimbingan u,mahasiswa m where u.id_mahasiswa='$id_mahasiswa' AND m.id_mahasiswa=u.id_mahasiswa";
-        }else{
-            if ($id_mahasiswa !="") {
-        
-            $sql= "SELECT * FROM bimbingan where id_mahasiswa='$id_mahasiswa'";
+        if ($_SESSION['hak_akses'] == "mahasiswa") {
+            $sql = "SELECT * FROM bimbingan u,mahasiswa m where u.id_mahasiswa='$id_mahasiswa' AND judul<>'-' AND m.id_mahasiswa=u.id_mahasiswa";
+        } else {
+            if ($id_mahasiswa != "") {
 
-            }else{
-                $sql= "SELECT * FROM bimbingan u,mahasiswa m where m.id_mahasiswa=u.id_mahasiswa";
-
+                $sql = "SELECT * FROM bimbingan where id_mahasiswa='$id_mahasiswa'";
+            } else {
+                $sql = "SELECT * FROM bimbingan u,mahasiswa m where m.id_mahasiswa=u.id_mahasiswa";
             }
         }
 
-        
+
         $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
+    // ============== SUDAH DI PERBAIKI =============================
+    // ============== SUDAH DI PERBAIKI =============================
     public function queryMencariDokumen()
     {
-        $id_bimbingan = $this->getIdBimbingan();
-        $sql="SELECT * FROM bimbingan ms, mahasiswa m,dosen_pembimbing d where ms.id_bimbingan='$id_bimbingan' AND m.id_mahasiswa=ms.id_mahasiswa AND d.id_upload=ms.id_bimbingan";
+        $id_mahasiswa = $_SESSION['id_mahasiswa'];
+        // $sql = "
+        // SELECT * FROM 
+        // bimbingan b
+        // LEFT JOIN mahasiswa m
+        // ON m.id_mahasiswa=b.id_mahasiswa
+        // LEFT JOIN  dosen_pembimbing dp 
+        // ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing
+        // LEFT JOIN dokumen_skripsi dsk
+        // ON b.id_bimbingan=dsk.id_bimbingan
+        // WHERE b.id_mahasiswa='$id_mahasiswa'
+        // ";
+        $sql = "
+        SELECT * FROM 
+        mahasiswa m
+        LEFT JOIN bimbingan b
+        ON m.id_mahasiswa=b.id_mahasiswa AND b.judul<>'-'
+        WHERE b.id_mahasiswa='$id_mahasiswa'
+        ";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
         return $query;
     }
 
-    
+
 
     public function queryPencarianDokumen()
     {
         $judul   = $this->getJudul();
         $tahun   = $this->getTahun();
-        $sql= "SELECT * FROM dokumen_skripsi dk, bimbingan mf,mahasiswa m,memvalidasi_dokumen_skripsi mds where mf.judul like '%$judul%' AND mf.tahun='$tahun' AND dk.id_bimbingan=mf.id_bimbingan AND m.id_mahasiswa=mf.id_mahasiswa AND mds.id_dokumen_skripsi=dk.id_dokumen_skripsi";
+        $sql = "SELECT * FROM dokumen_skripsi dk, bimbingan mf,mahasiswa m,memvalidasi_dokumen_skripsi mds where mf.judul like '%$judul%' AND mf.tahun='$tahun' AND dk.id_bimbingan=mf.id_bimbingan AND m.id_mahasiswa=mf.id_mahasiswa AND mds.id_dokumen_skripsi=dk.id_dokumen_skripsi";
         $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
         return $query;
     }
@@ -131,25 +140,38 @@ class Bimbingan
     {
         $id_mahasiswa   = $_SESSION['id_mahasiswa'];
 
-        $sql= "SELECT * FROM bimbingan where id_mahasiswa='$id_mahasiswa'";
+        $sql = "SELECT * FROM bimbingan where id_mahasiswa='$id_mahasiswa'";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
+    // ============== SUDAH DI PERBAIKI =============================
+    // ============== SUDAH DI PERBAIKI =============================
     public function queryMemasukkanDokumen()
     {
         $id_mahasiswa  = $this->getIdMahasiswa();
-        $id_dosen_pembimbing  = $this->getIdDosenPembimbing();
         $judul         = $this->getJudul();
         $tahun     = $this->getTahun();
         $abstrak_indonesia     = $this->getAbstrakIndonesia();
         $abstrak_inggris     = $this->getAbstrakInggris();
         $tanggal_upload = $this->getTanggalUpload();
-       
-        $sql = "INSERT into bimbingan values (null,'$id_mahasiswa','$id_dosen_pembimbing','$judul','$tahun','$abstrak_inggris','$abstrak_indonesia','$tanggal_upload')";
+
+        // $sql = "INSERT into bimbingan values (null,'$id_mahasiswa','$judul','$tahun','$abstrak_inggris','$abstrak_indonesia','$tanggal_upload')";
+        $sql = "UPDATE bimbingan 
+                SET 
+                    judul='$judul', 
+                    tahun='$tahun', 
+                    abstrak_inggris='$abstrak_inggris',
+                    abstrak_indonesia='$abstrak_indonesia',
+                    tanggal_upload='$tanggal_upload'
+                WHERE
+                    id_mahasiswa='$id_mahasiswa'";
+
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
+        // print_r($this->konek->execute()->errorInfo());
+        // die;
 
         if ($proses) {
             echo '<div id="myModal" class="modal fade" role="dialog">
@@ -171,7 +193,7 @@ class Bimbingan
                     </div>
                 </div>
             </div>';
-        }else{
+        } else {
             echo '<br><div class="alert alert-danger text-center">
                 Gagal
             </div>';
@@ -180,7 +202,7 @@ class Bimbingan
 
     public function queryMengubahDokumen()
     {
-       $id_bimbingan  = $this->getIdBimbingan();
+        $id_bimbingan  = $this->getIdBimbingan();
         $judul          = $this->getJudul();
         $abstrak_indonesia     = $this->getAbstrakIndonesia();
         $abstrak_inggris    = $this->getAbstrakInggris();
@@ -209,7 +231,7 @@ class Bimbingan
                     </div>
                 </div>
             </div>';
-        }else{
+        } else {
             echo "Gagal";
         }
     }
@@ -224,19 +246,14 @@ class Bimbingan
 
         if ($proses) {
             echo "berhasil di hapus";
-        }else{
+        } else {
             echo "Gagal";
         }
-
     }
 
- 
+
 
     function __destruct()
     {
-
     }
-
-
 }
-?>

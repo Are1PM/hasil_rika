@@ -1,9 +1,9 @@
 <div class="row">
-     <!--  page header -->
+    <!--  page header -->
     <div class="col-lg-12">
-        <h1 class="page-header">Data Bimbingan</h1>
+        <h1 class="page-header">Data Skripsi</h1>
     </div>
-     <!-- end  page header -->
+    <!-- end  page header -->
 </div>
 <div class="row">
     <div class="col-lg-12">
@@ -11,14 +11,18 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <?php
+                if ($cek->judul == "-") { ?>
 
-                if ($cek->id_mahasiswa=="") { ?>
-                  
-                <a href="?rik=tambah-Bimbingan" class="btn btn-primary">
-                    <i class="fa fa-plus"></i>
-                    Tambah
-                </a>
+                    <a href="?rik=tambah-UploadSkripsi" class="btn btn-primary">
+                        <i class="fa fa-plus"></i>
+                        Tambah
+                    </a>
 
+                <?php } elseif ($cek->id_mahasiswa == NULL) { ?>
+                    <br>
+                    <div class="alert alert-info text-center">
+                        Minta ke admin untuk menginputkan pembimbing terlebih dahulu.
+                    </div>
                 <?php } ?>
             </div>
             <div class="panel-body">
@@ -35,20 +39,20 @@
                         </thead>
                         <tbody>
                             <?php
-                                $i=1;
-                                foreach ($data_Bimbingan as $data) { ?>
-                            <tr class="even gradeC">
-                                <td><?= $i++; ?>.</td>
-                                <td><?= $data->id_mahasiswa; ?></td>
-                                <td><?= $data->judul; ?></td>
-                                <td><?= $data->tahun; ?></td>
-                                <td class="center">
-                                    <a href="?rik=detail-Bimbingan&id_bimbingan=<?= $data->id_bimbingan; ?>&parameter=1"><i class="fa fa-upload"></i></a> |
-                                    <a href="?rik=ubah-Bimbingan&id_bimbingan=<?= $data->id_bimbingan; ?>&parameter=1"><i class="fa fa-pencil"></i></a> 
-                                </td>
-                            </tr>
+                            $i = 1;
+                            foreach ($data_Uploadskripsi as $data) { ?>
+                                <tr class="even gradeC">
+                                    <td><?= $i++; ?>.</td>
+                                    <td><?= $data->id_mahasiswa; ?></td>
+                                    <td><?= $data->judul; ?></td>
+                                    <td><?= $data->tahun; ?></td>
+                                    <td class="center">
+                                        <a href="?rik=detail-UploadSkripsi&id_upload=<?= $data->id_bimbingan; ?>&parameter=1"><i class="fa fa-upload"></i></a> |
+                                        <a href="?rik=ubah-UploadSkripsi&id_upload=<?= $data->id_bimbingan; ?>&parameter=1"><i class="fa fa-pencil"></i></a>
+                                    </td>
+                                </tr>
 
-                        <?php } ?>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -73,14 +77,14 @@ if (isset($_GET['pesan'])) {
                           </div>
                           <br>
                             <div class="form-group">
-                              <a href="?rik=data-Bimbingan"><button class="btn btn-info">Kembali</button></a>
+                              <a href="?rik=data-UploadSkripsi"><button class="btn btn-info">Kembali</button></a>
                             </div>
                           </form>
                       </div>
                   </div>
               </div>
           </div>';
-    }else if ($_GET['pesan'] == "invalid-formatfile") {
+    } else if ($_GET['pesan'] == "invalid-formatfile") {
         echo '<div id="myModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
                   <div class="modal-content">
@@ -93,14 +97,14 @@ if (isset($_GET['pesan'])) {
                           </div>
                           <br>
                             <div class="form-group">
-                              <a href="?rik=data-Bimbingan"><button class="btn btn-info">Kembali</button></a>
+                              <a href="?rik=data-UploadSkripsi"><button class="btn btn-info">Kembali</button></a>
                             </div>
                           </form>
                       </div>
                   </div>
               </div>
           </div>';
-    }else if ($_GET['pesan'] == "invalid-size") {
+    } else if ($_GET['pesan'] == "invalid-size") {
         echo '<div id="myModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
                   <div class="modal-content">
@@ -113,7 +117,7 @@ if (isset($_GET['pesan'])) {
                           </div>
                           <br>
                             <div class="form-group">
-                              <a href="?rik=data-Bimbingan"><button class="btn btn-info">Kembali</button></a>
+                              <a href="?rik=data-UploadSkripsi"><button class="btn btn-info">Kembali</button></a>
                             </div>
                           </form>
                       </div>

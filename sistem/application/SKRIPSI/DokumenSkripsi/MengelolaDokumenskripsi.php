@@ -3,19 +3,18 @@ require "DokumenSkripsi.php";
 
 class MengelolaDokumenSkripsi extends DokumenSkripsi
 {
-	public function __construct($id_dokumen_skripsi='',$id_bimbingan='',$file_abstrak_inggris ='',$file_abstrak_indonesia ='',$file_bab_I='',$file_lengkap_skripsi ='',$file_lengkap_proposal='')
-    {   
-            $this->konek = new KoneksiBasisData();
+	public function __construct($id_dokumen_skripsi = '', $id_bimbingan = '', $file_abstrak_inggris = '', $file_abstrak_indonesia = '', $file_bab_I = '', $file_lengkap_skripsi = '', $file_lengkap_proposal = '')
+	{
+		$this->konek = new KoneksiBasisData();
 
-            $this->id_dokumen_skripsi  = $id_dokumen_skripsi;
-            $this->id_bimbingan =$id_bimbingan;
-            $this->file_abstrak_inggris    = $file_abstrak_inggris;
-            $this->file_abstrak_indonesia   = $file_abstrak_indonesia;
-            $this->file_bab_I = $file_bab_I;
-            $this->file_full_skripsi= $file_lengkap_skripsi;
-            $this->file_full_proposal = $file_lengkap_proposal;
-           
-    }
+		$this->id_dokumen_skripsi  = $id_dokumen_skripsi;
+		$this->id_bimbingan = $id_bimbingan;
+		$this->file_abstrak_inggris    = $file_abstrak_inggris;
+		$this->file_abstrak_indonesia   = $file_abstrak_indonesia;
+		$this->file_bab_I = $file_bab_I;
+		$this->file_full_skripsi = $file_lengkap_skripsi;
+		$this->file_full_proposal = $file_lengkap_proposal;
+	}
 
 	function MelihatDokumen()
 	{
@@ -31,7 +30,7 @@ class MengelolaDokumenSkripsi extends DokumenSkripsi
 	{
 		return $this->queryMencariDokumen();
 	}
-	
+
 
 	function MencariDokumenabc()
 	{
@@ -54,30 +53,29 @@ class MengelolaDokumenSkripsi extends DokumenSkripsi
 	}
 	function ValidasiDokumen()
 	{
-		
 	}
 	function DownloadDokumen()
 	{
-		
 	}
 	function DownloadAbstrak()
 	{
-		
+	}
+
+	// Cek jika data dokumen skripsi ada
+	function cek()
+	{
+		return $this->queryCek();
 	}
 	function cekFile($cek)
- 
 	{
 		$angka = array("*");
-		$hasil ='0';
+		$hasil = '0';
 		$jml_kata = count($angka);
-		for ($i=0;$i<$jml_kata;$i++){
-			if (stristr($cek,$angka[$i])) { 
-				$hasil='1'; 
+		for ($i = 0; $i < $jml_kata; $i++) {
+			if (stristr($cek, $angka[$i])) {
+				$hasil = '1';
 			}
 		}
-			return $hasil;
+		return $hasil;
 	}
 }
-
-
-?>

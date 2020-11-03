@@ -3,11 +3,11 @@
 class ValidasiDokumenSkripsi
 {
     public $id_val_skripsi,
-           $id_dokumen_skripsi,
-           $id_admin,
-           $tanggal_validasi,
-           $id_status_validasi,
-           $keterangan;
+        $id_dokumen_skripsi,
+        $id_admin,
+        $tanggal_validasi,
+        $id_status_validasi,
+        $keterangan;
 
     function getIdValSkripsi()
     {
@@ -38,10 +38,10 @@ class ValidasiDokumenSkripsi
     {
         return $this->keterangan;
     }
-     
 
 
-    
+
+
     function setIdValSkripsi($id_val_skripsi)
     {
         $this->id_val_skripsi = $id_val_skripsi;
@@ -72,17 +72,17 @@ class ValidasiDokumenSkripsi
 
     public function queryMelihatDokumenSkripsi()
     {
-        $sql= "SELECT * FROM memvalidasi_dokumen_skripsi";
+        $sql = "SELECT * FROM memvalidasi_dokumen_skripsi";
         $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
     public function queryJumlahSudahValidasi()
     {
-        $sql= "SELECT count(id_val_skripsi) as jumlah_validasi FROM memvalidasi_dokumen_skripsi";
+        $sql = "SELECT count(id_val_skripsi) as jumlah_validasi FROM memvalidasi_dokumen_skripsi";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
@@ -91,13 +91,23 @@ class ValidasiDokumenSkripsi
     {
         $id_dokumen_skripsi   = $this->getIdDokumenSkripsi();
 
-        $sql= "SELECT * FROM memvalidasi_dokumen_skripsi where id_dokumen_skripsi='$id_dokumen_skripsi'";
+        $sql = "SELECT * FROM memvalidasi_dokumen_skripsi where id_dokumen_skripsi='$id_dokumen_skripsi'";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
-   public function queryMemeriksaDokumenSkripsi()
+    public function queryMencariValidasi()
+    {
+        $id_dokumen_skripsi   = $this->getIdDokumenSkripsi();
+
+        $sql = "SELECT * FROM memvalidasi_dokumen_skripsi where id_dokumen_skripsi='$id_dokumen_skripsi'";
+        $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
+
+        return $query;
+    }
+
+    public function queryMemeriksaDokumenSkripsi()
     {
         $id_val_skripsi  = $this->getIdValSkripsi();
         $id_dokumen_skripsi        = $this->getIdDokumenSkripsi();
@@ -105,7 +115,7 @@ class ValidasiDokumenSkripsi
         $tanggal_validasi    = $this->getTanggalValidasi();
         $id_status_validasi     = $this->getIdStatusValidasi();
         $keterangan     = $this->getKeterangan();
-        
+
         $sql = "INSERT into memvalidasi_dokumen_skripsi values (null,'$id_dokumen_skripsi','$id_admin','$tanggal_validasi','$id_status_validasi','keterangan')";
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
@@ -130,7 +140,7 @@ class ValidasiDokumenSkripsi
                     </div>
                 </div>
             </div>';
-        }else{
+        } else {
             echo '<br><div class="alert alert-danger text-center">
                 Gagal
             </div>';
@@ -146,7 +156,7 @@ class ValidasiDokumenSkripsi
         $tanggal_validasi     = $this->getTanggalValidasi();
         $id_status_validasi     = $this->getIdStatusValidasi();
         $keterangan   = $this->getKeterangan();
-        
+
         $sql = "UPDATE memvalidasi_dokumen_kkp SET id_dokumen_skripsi='$id_dokumen_skripsi',id_admin='$id_admin',tanggal_validasi='$tanggal_validasi',keterangan='$keterangan' where id_val_skripsi='$id_val_skripsi'";
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
@@ -171,7 +181,7 @@ class ValidasiDokumenSkripsi
                     </div>
                 </div>
             </div>';
-        }else{
+        } else {
             echo "Gagal";
         }
     }
@@ -186,19 +196,14 @@ class ValidasiDokumenSkripsi
 
         if ($proses) {
             echo "berhasil di hapus";
-        }else{
+        } else {
             echo "Gagal";
         }
-
     }
 
- 
+
 
     function __destruct()
     {
-
     }
-
-
 }
-?>

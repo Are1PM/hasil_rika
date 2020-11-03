@@ -3,24 +3,29 @@ require "Mahasiswa.php";
 
 class MengelolaMahasiswa extends Mahasiswa
 {
-	public function __construct($id_mahasiswa ='',$id_kelompok ='',$id_status_kelompok='',$nama_mahasiswa ='',$angkatan ='',$email='',$number_handphone='',$username ='',$password='')
-    {   
-            $this->konek = new KoneksiBasisData();
+	public function __construct($id_mahasiswa = '', $id_kelompok = '', $id_status_kelompok = '', $nama_mahasiswa = '', $angkatan = '', $email = '', $number_handphone = '', $username = '', $password = '')
+	{
+		$this->konek = new KoneksiBasisData();
 
-            $this->id_mahasiswa  = $id_mahasiswa;
-            $this->id_kelompok  = $id_kelompok;
-            $this->id_status_kelompok  = $id_status_kelompok;
-            $this->nama_mahasiswa= $nama_mahasiswa;
-            $this->angkatan      = $angkatan;
-            $this->username    	 = $username;
-            $this->password    	 = $password;
-            $this->email 	 	 = $email;
-            $this->number_handphone = $number_handphone;
-    }
+		$this->id_mahasiswa  = $id_mahasiswa;
+		$this->id_kelompok  = $id_kelompok;
+		$this->id_status_kelompok  = $id_status_kelompok;
+		$this->nama_mahasiswa = $nama_mahasiswa;
+		$this->angkatan      = $angkatan;
+		$this->username    	 = $username;
+		$this->password    	 = $password;
+		$this->email 	 	 = $email;
+		$this->number_handphone = $number_handphone;
+	}
 
 	function MelihatMahasiswa()
 	{
 		return $this->queryMelihatMahasiswa();
+	}
+
+	function MelihatMahasiswaSkripsi($id_mahasiswa = "")
+	{
+		return $this->queryMelihatMahasiswaSkripsi($id_mahasiswa);
 	}
 
 	function semuaMahasiswa()
@@ -57,8 +62,4 @@ class MengelolaMahasiswa extends Mahasiswa
 	{
 		return $this->queryMenghapusMahasiswa();
 	}
-
 }
-
-
-?>

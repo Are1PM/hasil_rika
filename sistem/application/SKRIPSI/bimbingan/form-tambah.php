@@ -1,7 +1,7 @@
 <div class="row">
      <!-- page header -->
     <div class="col-lg-12">
-        <h1 class="page-header">Tambah Bimbingan</h1>
+        <h1 class="page-header">Tambah Upload Skripsi</h1>
     </div>
     <!--end page header -->
 </div>
@@ -35,15 +35,14 @@
                         if (isset($_POST['simpan'])) {
                         
                             $id_mahasiswa = $_SESSION['id_mahasiswa'];
-                            $id_dosen_pembimbing = $_SESSION['id_dosen_pembimbing'];
                             $judul=$_POST['judul'];
                             $tahun=date("Y");
                             $abstrak_bahasa_inggris=$_POST['abstrak_bahasa_inggris'];
                             $abstrak_bahasa_indonesia=$_POST['abstrak_bahasa_indonesia'];
                             $tanggal_upload=date("Y-m-d");
 
-                            $tambah = new MengelolaBimbingan('',$id_mahasiswa, $id_dosen_pembimbing, $judul, $tahun, $abstrak_bahasa_inggris, $abstrak_bahasa_indonesia, $tanggal_upload);
-                            $tambah->MemasukkanBimbingan();
+                            $tambah = new MengelolaBimbingan('',$id_mahasiswa, $judul, $tahun, $abstrak_bahasa_inggris, $abstrak_bahasa_indonesia, $tanggal_upload);
+                            $tambah->MemasukkanDokumen();
                             
 
                         }

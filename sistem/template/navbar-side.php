@@ -23,14 +23,13 @@
                         } ?>">
                 <a href="index.php"> <i class="fa fa-home fa-fw"></i> Dashboard</a>
             </li>
-            <?php
-            if ($_SESSION['hak_akses'] == "admin") { ?>
 
-                <li class="<?php if ($_GET['rik'] == "data-Instansi" or $_GET['rik'] == "tambah-Instansi" or $_GET['rik'] == "detail-Instansi" or $_GET['rik'] == "ubah-Instansi" or $_GET['rik'] == "data-pembimbing-lapangan" or $_GET['rik'] == "tambah-pembimbing-lapangan" or $_GET['rik'] == "detail-pembimbing" or $_GET['rik'] == "ubah-pembimbing" or $_GET['rik'] == "data-dosen-pembimbing" or $_GET['rik'] == "tambah-dosen-pembimbing" or $_GET['rik'] == "detail-dosen-pembimbing" or $_GET['rik'] == "ubah-dosen-pembimbing") {
-                                echo 'active';
-                            } ?>">
-                    <a href="#"><i class="fa fa-folder-open fa-fw"></i> Master Data<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
+            <li class="<?php if ($_GET['rik'] == "data-Instansi" or $_GET['rik'] == "tambah-Instansi" or $_GET['rik'] == "detail-Instansi" or $_GET['rik'] == "ubah-Instansi" or $_GET['rik'] == "data-pembimbing-lapangan" or $_GET['rik'] == "tambah-pembimbing-lapangan" or $_GET['rik'] == "detail-pembimbing" or $_GET['rik'] == "ubah-pembimbing" or $_GET['rik'] == "data-dosen-pembimbing" or $_GET['rik'] == "tambah-dosen-pembimbing" or $_GET['rik'] == "detail-dosen-pembimbing" or $_GET['rik'] == "ubah-dosen-pembimbing") {
+                            echo 'active';
+                        } ?>">
+                <a href="#"><i class="fa fa-folder-open fa-fw"></i> Master Data<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <?php if ($_SESSION['hak_akses'] == "admin" or $_SESSION['hak_akses'] == "mahasiswa") { ?>
                         <li class="child-menu <?php if ($_GET['rik'] == "data-dosen-pembimbing" or $_GET['rik'] == "tambah-dosen-pembimbing" or $_GET['rik'] == "detail-dosen-pembimbing" or $_GET['rik'] == "ubah-dosen-pembimbing") {
                                                     echo 'selected';
                                                 } ?>">
@@ -49,9 +48,9 @@
                                                 } ?>">
                             <a href="?rik=data-Instansi">Instansi</a>
                         </li>
-                    </ul>
-                </li>
-            <?php } ?>
+                    <?php } ?>
+                </ul>
+            </li>
 
 
             <?php if ($_SESSION['hak_akses'] == "admin" or $_SESSION['hak_akses'] == "mahasiswa") { ?>

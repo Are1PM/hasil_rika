@@ -3,18 +3,17 @@ require "ValidasiDokumenSkripsi.php";
 
 class MengelolaValidasiDokumenSkripsi extends ValidasiDokumenSkripsi
 {
-	public function __construct($id_val_skripsi ='',$id_admin ='',$id_dokumen_skripsi ='',$tanggal_validasi='',$id_status_validasi='',$keterangan='')
-    {   
-            $this->konek = new KoneksiBasisData();
+	public function __construct($id_val_skripsi = '', $id_admin = '', $id_dokumen_skripsi = '', $tanggal_validasi = '', $id_status_validasi = '', $keterangan = '')
+	{
+		$this->konek = new KoneksiBasisData();
 
-            $this->id_val_skripsi  		= $id_val_skripsi;
-            $this->id_admin   			= $id_admin;
-            $this->id_dokumen_skripsi   = $id_dokumen_skripsi;
-            $this->tanggal_validasi 	= $tanggal_validasi;
-            $this->id_status_validasi	= $id_status_validasi;
-            $this->keterangan	 		= $keterangan;
-           
-    }
+		$this->id_val_skripsi  		= $id_val_skripsi;
+		$this->id_admin   			= $id_admin;
+		$this->id_dokumen_skripsi   = $id_dokumen_skripsi;
+		$this->tanggal_validasi 	= $tanggal_validasi;
+		$this->id_status_validasi	= $id_status_validasi;
+		$this->keterangan	 		= $keterangan;
+	}
 
 	function MelihatDokumenSkripsi()
 	{
@@ -31,6 +30,11 @@ class MengelolaValidasiDokumenSkripsi extends ValidasiDokumenSkripsi
 		return $this->queryMencariDokumenSkripsi();
 	}
 
+	function mencariValidasi()
+	{
+		return $this->queryMencariValidasi();
+	}
+
 	function MemasukkanDokumenSkripsi()
 	{
 		return $this->queryMemeriksaDokumenSkripsi();
@@ -45,8 +49,4 @@ class MengelolaValidasiDokumenSkripsi extends ValidasiDokumenSkripsi
 	{
 		return $this->queryMenghapusDokumenSkripsi();
 	}
-
 }
-
-
-?>

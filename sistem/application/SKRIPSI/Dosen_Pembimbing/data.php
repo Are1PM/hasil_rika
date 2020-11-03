@@ -1,4 +1,3 @@
-
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Dosen Pembimbing</h1>
@@ -29,17 +28,19 @@
                         <tbody>
                             <?php
                             $i = 1;
+                            // print_r($DosenPembimbing);
+                            // die;
                             foreach ($DosenPembimbing as $data) { ?>
-                            <tr class="even gradeC">
-                                <td><?= $i++; ?>.</td>
-                                <td><?= $data->nama; ?></td>
-                                <td><?= $data->judul; ?></td>
-                                <td><?= $data->id_status_dosen_pembimbing; ?></td>
-                                <td class="center">
-                                    <a href="?rik=detail-dosen-pembimbing&id_dosen_pembimbing=<?= $data->id_dosen_pembimbing; ?>&parameter=1"><i class="fa fa-eye"></i></a> |
-                                    <a href="?rik=ubah-dosen-pembimbing&id_dosen_pembimbing=<?= $data->id_dosen_pembimbing; ?>&parameter=1"><i class="fa fa-pencil"></i></a> |
-                                    <a href="?rik=hapus-dosen-pembimbing&id_dosen_pembimbing=<?= $data->id_dosen_pembimbing; ?>" onclick="javascript: return confirm('Anda yakin ingin menghapus ?')"><i class="fa fa-trash-o"></i></a> 
-                                </td>
+                                <tr class="even gradeC">
+                                    <td><?= $i++; ?>.</td>
+                                    <td><?= $data->nama; ?></td>
+                                    <td><?= $data->judul; ?></td>
+                                    <td><?= $data->status_dosen_pembimbing; ?></td>
+                                    <td class="center">
+                                        <a href="?rik=detail-dosen-pembimbing&id_dosen_pembimbing=<?= $data->Id_dosen_pembimbing; ?>&parameter=1"><i class="fa fa-eye"></i></a> |
+                                        <a href="?rik=ubah-dosen-pembimbing&id_dosen_pembimbing=<?= $data->Id_dosen_pembimbing; ?>&parameter=1"><i class="fa fa-pencil"></i></a> |
+                                        <a href="?rik=hapus-dosen-pembimbing&id_dosen_pembimbing=<?= $data->Id_dosen_pembimbing; ?>" onclick="javascript: return confirm('Anda yakin ingin menghapus ?')"><i class="fa fa-trash-o"></i></a>
+                                    </td>
                                 </tr>
 
                             <?php } ?>

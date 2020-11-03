@@ -31,7 +31,7 @@
                             </tr>
                             <tr>
                                 <td><b>Status Pembimbing</b></td>
-                                <td><?= $data->id_status_dosen_pembimbing; ?></td>
+                                <td><?= $data->status_dosen_pembimbing; ?></td>
                             </tr>
                         </tbody>
                     </table>

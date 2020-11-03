@@ -2,13 +2,20 @@
 
 class DosenPembimbing
 {
-    public $id_dosen_pembimbing,
+    public
+        $id_mahasiswa,
         $id_dosen,
-        $id_status_dosen_pembimbing;
+        $id_status_dosen_pembimbing,
+        $id_dosen_pembimbing;
 
     function getIdDosenPembimbing()
     {
         return $this->id_dosen_pembimbing;
+    }
+
+    function getIdMahasiswa()
+    {
+        return $this->id_mahasiswa;
     }
 
     function getIdDosen()
@@ -36,55 +43,92 @@ class DosenPembimbing
         $this->id_status_dosen_pembimbing = $id_status_dosen_pembimbing;
     }
 
-
+    // ============== SUDAH DI PERBAIKI =============================
+    // ============== SUDAH DI PERBAIKI =============================
     public function queryMelihatDosenPembimbing()
     {
         $id_mahasiswa = $_SESSION['id_mahasiswa'];
-        if ($_SESSION['hak_akses'] == "mahasiswa") {
-            $sql = "SELECT * from dosen_pembimbing p, dosen d, bimbingan m where m.id_mahasiswa='$id_mahasiswa' AND d.id_dosen=p.id_dosen AND m.id_bimbingan=p.id_upload";
-        } else {
-            $sql = "SELECT * FROM bimbingan b LEFT JOIN dosen_pembimbing dp ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing LEFT JOIN status_dosen_pembimbing sdp ON dp.Id_status_dosen_pembimbing=sdp.Id_status_dosen_pembimbning";
-        }
 
+        if ($_SESSION['hak_akses'] == "mahasiswa") {
+            $sql = "SELECT * FROM dosen_pembimbing dp
+            LEFT JOIN dosen ds ON ds.id_dosen=dp.id_dosen 
+            LEFT JOIN bimbingan b ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing 
+            LEFT JOIN status_dosen_pembimbing sdp ON dp.Id_status_dosen_pembimbing=sdp.Id_status_dosen_pembimbning
+            WHERE b.id_mahasiswa='$id_mahasiswa'
+            ";
+        } else {
+            $sql = "SELECT * FROM dosen_pembimbing dp
+            LEFT JOIN dosen ds ON ds.id_dosen=dp.id_dosen 
+            LEFT JOIN bimbingan b ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing 
+            LEFT JOIN status_dosen_pembimbing sdp ON dp.Id_status_dosen_pembimbing=sdp.Id_status_dosen_pembimbning";
+        }
         $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
 
-
         return $query;
     }
 
-    public function queryMencariDosenPembimbing()
-    {
-        $id_dosen_pembimbing = $this->getIdDosenPembimbing();
 
-        $sql = "SELECT * FROM dosen_pembimbing p, dosen d, bimbingan m where p.id_dosen_pembimbing='$id_dosen_pembimbing' AND d.id_dosen=p.id_dosen AND m.id_bimbingan=p.id_upload";
+    // ============== SUDAH DI PERBAIKI =============================
+    // ============== SUDAH DI PERBAIKI =============================
+    public function queryMencariDosenPembimbing($id)
+    {
+        $id_dosen_pembimbing = $id;
+
+        $sql = "
+        SELECT * FROM dosen_pembimbing dp
+        LEFT JOIN dosen ds ON ds.id_dosen=dp.id_dosen 
+        LEFT JOIN bimbingan b ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing 
+        LEFT JOIN status_dosen_pembimbing sdp ON dp.Id_status_dosen_pembimbing=sdp.Id_status_dosen_pembimbning
+        WHERE dp.id_dosen_pembimbing='$id_dosen_pembimbing'
+        ";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
 
         return $query;
     }
 
+    // ============== SUDAH DI PERBAIKI =============================
+    // ============== SUDAH DI PERBAIKI =============================
     public function queryMencariDosen()
     {
-        $id_status_dosen_pembimbing = $this->getIdStatusDosenPembimbing();
-        $id_bimbingan        = $this->getIdBimbingan();
-
-
-        $sql = "SELECT * FROM dosen_pembimbing p, dosen d where p.status_pembimbing='$id_status_dosen_pembimbing' AND d.id_dosen=p.id_dosen AND p.id_upload='$id_bimbingan'";
+        $status = $this->getStatusPembimbing();
+        $id_mahasiswa = $_SESSION['id_mahasiswa'];
+        $sql = "
+        SELECT * FROM 
+        bimbingan b
+        LEFT JOIN  dosen_pembimbing dp 
+        ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing
+        LEFT JOIN dosen d
+        ON dp.id_dosen=d.id_dosen
+        WHERE b.id_mahasiswa='$id_mahasiswa' AND dp.Id_status_dosen_pembimbing='$status'
+        ";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
 
         return $query;
     }
 
 
+    // ============== SUDAH DI PERBAIKI =============================
+    // ============== SUDAH DI PERBAIKI =============================
     public function queryMemasukkanDosenPembimbing()
     {
-        $id_bimbingan        = $this->getIdBimbingan();
+        $id_mahasiswa        = $this->getIdMahasiswa();
         $id_dosen        = $this->getIdDosen();
-        $id_status_dosen_pembimbing        = $this->getIdStatusDosenPembimbing();
+        $id_status_dosen_pembimbing        = $this->getStatusPembimbing();
+        $con = $this->konek->execute();
 
+        $sql = "INSERT INTO dosen_pembimbing (id_dosen,Id_status_dosen_pembimbing) values('$id_dosen','$id_status_dosen_pembimbing');";
+        $exe = $con->exec($sql);
 
-        $sql = "INSERT into dosen_pembimbing values (NULL,'$id_dosen','$id_bimbingan','$id_status_dosen_pembimbing')";
+        $last_id = $con->lastInsertId();
+
+        $sql = "INSERT INTO bimbingan values (NULL,'$id_mahasiswa','-',YEAR(NOW()),'','',NOW(),'$last_id')";
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
+
+        // var_dump($last_id);
+        // var_dump($proses);
+        // print_r($con->errorInfo());
+        // die;
 
         if ($proses) {
             echo '<div id="myModal" class="modal fade" role="dialog">
@@ -150,6 +194,8 @@ class DosenPembimbing
         }
     }
 
+    // ============== SUDAH DI PERBAIKI =============================
+    // ============== SUDAH DI PERBAIKI =============================
     public function queryMenghapusDosenPembimbing()
     {
         $id_dosen_pembimbing = $this->getIdDosenPembimbing();

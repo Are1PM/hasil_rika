@@ -30,12 +30,12 @@
                             </div>
                             <div class="form-group">
                                 <label>Mahasiswa yang dibimbing</label>
-                                <select name="id_bimbingan" class="form-control select2">
+                                <select name="id_mahasiswa" class="form-control select2">
                                     <option>--Pilih--</option>
                                     <?php
                                     foreach ($data_Uploadskripsi as $datak) { ?>
 
-                                        <option value="<?= $datak->id_bimbingan ?>"><?= $datak->nama_mahasiswa ?></option>
+                                        <option value="<?= $datak->id_mahasiswa ?>"><?= $datak->nama_mahasiswa ?></option>
 
                                     <?php } ?>
                                 </select>
@@ -47,7 +47,7 @@
                                     <?php
                                     foreach ($data_sdp as $dt) { ?>
 
-                                        <option value="<?= $dt->id_status_dosen_pembimbing ?>"><?= $dt->status_dosen_pembimbing ?></option>
+                                        <option value="<?= $dt->Id_status_dosen_pembimbning ?>"><?= $dt->status_dosen_pembimbing ?></option>
 
                                     <?php } ?>
                                 </select>
@@ -58,12 +58,11 @@
                         <?php
                         if (isset($_POST['simpan'])) {
 
+                            $id_mahasiswa = $_POST['id_mahasiswa'];
                             $id_dosen = $_POST['id_dosen'];
-                            $id_bimbingan = $_POST['id_bimbingan'];
                             $id_status_dosen_pembimbing = $_POST['id_status_dosen_pembimbing'];
 
-
-                            $tambah = new MengelolaDosenPembimbing('', $id_dosen, $id_bimbingan, $id_status_dosen_pembimbing);
+                            $tambah = new MengelolaDosenPembimbing('', $id_dosen, $id_mahasiswa, $id_status_dosen_pembimbing);
                             $tambah->MemasukkanDosenPembimbing();
                         }
                         ?>

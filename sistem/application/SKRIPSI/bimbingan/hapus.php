@@ -1,9 +1,9 @@
 <?php
 
-require "Mengelola_Bimbingan.php";
+require "Mengelola_Uploadskripsi.php";
 
-$id_bimbingan=$_GET['id_bimbingan'];
+$id_upload=$_GET['id_mahasiswa'];
 
-$data = new MengelolaBimbingan($id_bimbingan);
-$data->MenghapusBimbingan();
+$data = new MengelolaBimbingan($id_upload);
+$data->MenghapusDokumen();
 

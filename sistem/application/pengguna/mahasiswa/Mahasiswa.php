@@ -112,6 +112,18 @@ class mahasiswa
         return $query;
     }
 
+    public function queryMelihatMahasiswaSkripsi($id)
+    {
+        if ($id != "") {
+            $sql = "SELECT * FROM mahasiswa WHERE id_mahasiswa='$id'";
+        } else {
+            $sql = "SELECT * FROM mahasiswa";
+        }
+        $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
+
+        return $query;
+    }
+
     public function muchMahasiswa()
     {
         $sql = "SELECT * FROM mahasiswa where id_kelompok in ('0')";

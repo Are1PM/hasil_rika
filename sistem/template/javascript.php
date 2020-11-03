@@ -69,23 +69,23 @@
  	});
 
  	// // mengupload skripsi
- 	// $(".upload-file-skripsi").click(function() {
- 	// 	$.ajax({
- 	// 		type: "POST",
- 	// 		url: "application/pengguna/upload.php",
- 	// 		data: {
- 	// 			id_mahasiswa: $(this).attr("data"),
+ 	$(".upload-file-skripsi").click(function() {
+ 		$.ajax({
+ 			type: "POST",
+ 			url: "application/pengguna/upload.php",
+ 			data: {
+ 				id_mahasiswa: $(this).attr("data"),
 
- 	// 		},
+ 			},
 
- 	// 		success: function(ajaxData) {
- 	// 			$("#data-skripsi").html(ajaxData);
- 	// 			$("#data-skripsi").modal('show', {
- 	// 				backdrop: 'true'
- 	// 			});
- 	// 		}
- 	// 	});
- 	// });
+ 			success: function(ajaxData) {
+ 				$("#data-skripsi").html(ajaxData);
+ 				$("#data-skripsi").modal('show', {
+ 					backdrop: 'true'
+ 				});
+ 			}
+ 		});
+ 	});
 
  	// mengupload 
  	$(".upload-abstrak").click(function() {

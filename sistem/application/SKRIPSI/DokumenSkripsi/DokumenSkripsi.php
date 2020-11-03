@@ -3,12 +3,12 @@
 class DokumenSkripsi
 {
     public $id_dokumen_skripsi,
-           $id_bimbingan,
-           $file_abstrak_indonesia,
-           $file_abstrak_inggris,
-           $file_bab_I,
-           $file_full_skripsi,
-           $file_full_proposal;
+        $id_bimbingan,
+        $file_abstrak_indonesia,
+        $file_abstrak_inggris,
+        $file_bab_I,
+        $file_full_skripsi,
+        $file_full_proposal;
 
     function getIdDokumenSkripsi()
     {
@@ -29,7 +29,7 @@ class DokumenSkripsi
     {
         return $this->file_abstrak_inggris;
     }
-     function getFileBabI()
+    function getFileBabI()
     {
         return $this->file_bab_I;
     }
@@ -42,11 +42,11 @@ class DokumenSkripsi
         return $this->file_full_proposal;
     }
 
-    
 
 
 
-    
+
+
     function setIdDokumenSkripsi($id_dokumen_skripsi)
     {
         $this->id_dokumen_skripsi = $id_dokumen_skripsi;
@@ -80,40 +80,64 @@ class DokumenSkripsi
     }
 
 
-
+    // ============== SUDAH DI PERBAIKI =============================
+    // ============== SUDAH DI PERBAIKI =============================
     public function queryMelihatDokumen()
     {
-        $sql= "SELECT * FROM dokumen_skripsi ds, bimbingan mf,mahasiswa m where mf.id_bimbingan=ds.id_bimbingan AND m.id_mahasiswa=mf.id_mahasiswa";
+
+        if ($_SESSION['hak_akses'] == 'mahasiswa') {
+            $id_mahasiwa = $_SESSION['id_mahasiswa'];
+
+            $sql = "
+            SELECT * FROM
+                mahasiswa m 
+            INNER JOIN
+                bimbingan b
+            ON m.id_mahasiswa=b.id_mahasiswa
+            WHERE m.id_mahasiswa='$id_mahasiwa'";
+        } else {
+
+            $sql = "SELECT * FROM dokumen_skripsi ds, bimbingan b,mahasiswa m where b.id_bimbingan=ds.id_bimbingan AND m.id_mahasiswa=b.id_mahasiswa";
+        }
         $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
-        
+        // print_r($id_mahasiwa);
+        // die;
         return $query;
     }
 
     public function queryJumlahDokumen()
     {
-        $sql= "SELECT count(id_dokumen_skripsi) as jumlah_skripsi FROM dokumen_skripsi";
+        $sql = "SELECT count(id_dokumen_skripsi) as jumlah_skripsi FROM dokumen_skripsi";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
+    // ============== SUDAH DI PERBAIKI =============================
+    // ============== SUDAH DI PERBAIKI =============================
     public function queryMencariDokumen()
     {
-        $id_upload   = $this->getIdUpload();
+        $id_mahasiwa = $_SESSION['id_mahasiswa'];
 
-        $sql= "SELECT * FROM dokumen_skripsi d,bimbingan m, mahasiswa mh where d.id_bimbingan='$id_bimbingan' AND m.id_bimbingan=d.id_bimbingan AND mh.id_mahasiswa=m.id_mahasiswa";
+        $sql = "
+        SELECT * FROM 
+        bimbingan b
+        LEFT JOIN dokumen_skripsi dsk
+        ON b.id_bimbingan=dsk.id_bimbingan
+        WHERE b.id_mahasiswa='$id_mahasiwa' AND b.judul<>'-'
+        ";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
-     public function queryMencariDokumenabc()
+    public function queryMencariDokumenabc()
     {
         $id_dokumen_skripsi   = $this->getIdDokumenSkripsi();
 
-        $sql= "SELECT * FROM dokumen_skripsi d,bimbingan m, mahasiswa mh where d.id_dokumen_skripsi='$id_dokumen_skripsi' AND m.id_bimbingan=d.id_upload AND mh.id_mahasiswa=m.id_mahasiswa";
+        $sql = "SELECT * FROM dokumen_skripsi d,bimbingan m, mahasiswa mh where d.id_dokumen_skripsi='$id_dokumen_skripsi' AND m.id_bimbingan=d.id_upload AND mh.id_mahasiswa=m.id_mahasiswa";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
@@ -125,7 +149,7 @@ class DokumenSkripsi
         $file_bab_I                 = $this->getFileBabI();
         $file_full_skripsi          = $this->getFileFuellSkripsi();
         $file_full_proposal         = $this->getFileFullProposal();
-       
+
         $sql = "INSERT into dokumen_skripsi values (null,'$id_bimbingan','$file_abstrak_inggris','$file_abstrak_indonesia','$file_bab_I','$file_full_skripsi','$file_full_proposal')";
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
@@ -150,7 +174,7 @@ class DokumenSkripsi
                     </div>
                 </div>
             </div>';
-        }else{
+        } else {
             echo '<br><div class="alert alert-danger text-center">
                 Gagal
             </div>';
@@ -166,47 +190,47 @@ class DokumenSkripsi
         $file_bab_I                 = $this->getFileBabI();
         $file_full_skripsi          = $this->getFileFuellSkripsi();
         $file_full_proposal         = $this->getFileFullProposal();
-       
 
-        if ($file_abstrak_indonesia!="" && $id_bimbingan!="") {
+
+        if ($file_abstrak_indonesia != "" && $id_bimbingan != "") {
             $sql = "UPDATE dokumen_skripsi SET file_abstrak_indonesia='$file_abstrak_indonesia' where id_bimbingan='$id_bimbingan'";
         }
 
-        if ($file_abstrak_inggris!="" && $id_bimbingan!="") {
+        if ($file_abstrak_inggris != "" && $id_bimbingan != "") {
             $sql = "UPDATE dokumen_skripsi SET file_abstrak_inggris='$file_abstrak_inggris' where id_bimbingan='$id_bimbingan'";
         }
 
-        if ($file_bab_I!="" && $id_bimbingan!="") {
+        if ($file_bab_I != "" && $id_bimbingan != "") {
             $sql = "UPDATE dokumen_skripsi SET file_bab_I='$file_bab_I' where id_bimbingan='$id_bimbingan'";
         }
 
-        if ($file_full_skripsi!="" && $id_bimbingan!="") {
+        if ($file_full_skripsi != "" && $id_bimbingan != "") {
             $sql = "UPDATE dokumen_skripsi SET file_full_skripsi='$file_full_skripsi' where id_bimbingan='$id_bimbingan'";
         }
 
-        if ($file_full_proposal!="" && $id_bimbingan!="") {
+        if ($file_full_proposal != "" && $id_bimbingan != "") {
             $sql = "UPDATE dokumen_skripsi SET file_full_proposal='$file_full_proposal' where id_bimbingan='$id_bimbingan'";
         }
 
         //batas aja
 
-        if ($file_abstrak_inggris!="" AND $file_abstrak_indonesia!="") {
+        if ($file_abstrak_inggris != "" and $file_abstrak_indonesia != "") {
             $sql = "INSERT into dokumen_skripsi values (null,'$id_bimbingan','$file_abstrak_inggris','$file_abstrak_indonesia','','','')";
         }
 
-        if ($file_bab_I!="") {
+        if ($file_bab_I != "") {
             $sql = "UPDATE dokumen_skripsi SET file_bab_I='$file_bab_I' where id_bimbingan='$id_bimbingan'";
         }
 
-        if ($file_full_skripsi!="") {
+        if ($file_full_skripsi != "") {
             $sql = "UPDATE dokumen_skripsi SET file_full_skripsi='$file_full_skripsi' where id_bimbingan='$id_bimbingan'";
         }
 
-        if ($file_full_proposal!="") {
+        if ($file_full_proposal != "") {
             $sql = "UPDATE dokumen_skripsi SET file_full_proposal='$file_full_proposal' where id_bimbingan='$id_bimbingan'";
         }
 
-       
+
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
 
@@ -230,14 +254,14 @@ class DokumenSkripsi
                     </div>
                 </div>
             </div>';
-        }else{
+        } else {
             echo "Gagal";
         }
     }
 
     public function queryMenghapusDokumen()
     {
-        $id_dokumen_skripsi= $this->getIdDokumenSkripsi();
+        $id_dokumen_skripsi = $this->getIdDokumenSkripsi();
 
         $sql = "DELETE from dokumen_skripsi where id_dokumen_skripsi='$id_dokumen_skripsi'";
         $prepare = $this->konek->execute()->prepare($sql);
@@ -245,19 +269,26 @@ class DokumenSkripsi
 
         if ($proses) {
             echo "berhasil di hapus";
-        }else{
+        } else {
             echo "Gagal";
         }
-
     }
 
- 
+    public function queryCek()
+    {
+        $id_bimbingan = $this->getIdBimbingan();
+        $sql = "
+            SELECT if(COUNT(*)>0,1,0) as data
+            FROM dokumen_skripsi
+            WHERE id_bimbingan = '$id_bimbingan'
+        ";
+        $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
+        return $query->data;
+    }
+
+
 
     function __destruct()
     {
-
     }
-
-
 }
-?>
