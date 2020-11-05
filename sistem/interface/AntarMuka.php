@@ -238,9 +238,10 @@ class AntarMuka
 
 	function formPencarianDokumenSkripsi($sesi = '')
 	{
-
-		$data_Dokumenskripsi = $this->DokumenSkripsi->MencariDokumen();
-
+		$bimbingan = $this->UploadSkripsi;
+		$data_Dokumenskripsi = $bimbingan->MencariDokumen();
+		// print_r($data_Dokumenskripsi);
+		// die;
 		if ($sesi == "") {
 			require "application/SKRIPSI/DokumenSkripsi/form-ubah.php";
 		} else {

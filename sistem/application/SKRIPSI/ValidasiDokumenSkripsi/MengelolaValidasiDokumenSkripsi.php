@@ -8,7 +8,7 @@ class MengelolaValidasiDokumenSkripsi extends ValidasiDokumenSkripsi
 		$this->konek = new KoneksiBasisData();
 
 		$this->id_val_skripsi  		= $id_val_skripsi;
-		$this->id_admin   			= $id_admin;
+		$this->id_admin				= $id_admin;
 		$this->id_dokumen_skripsi   = $id_dokumen_skripsi;
 		$this->tanggal_validasi 	= $tanggal_validasi;
 		$this->id_status_validasi	= $id_status_validasi;
@@ -33,6 +33,11 @@ class MengelolaValidasiDokumenSkripsi extends ValidasiDokumenSkripsi
 	function mencariValidasi()
 	{
 		return $this->queryMencariValidasi();
+	}
+
+	function memasukkanValidasi()
+	{
+		return $this->queryMemeriksaDokumenSkripsi();
 	}
 
 	function MemasukkanDokumenSkripsi()

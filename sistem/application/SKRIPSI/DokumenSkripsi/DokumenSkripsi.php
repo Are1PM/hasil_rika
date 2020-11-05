@@ -117,15 +117,16 @@ class DokumenSkripsi
     // ============== SUDAH DI PERBAIKI =============================
     public function queryMencariDokumen()
     {
-        $id_mahasiwa = $_SESSION['id_mahasiswa'];
+        $id_bimbingan = $this->getIdBimbingan();
 
         $sql = "
         SELECT * FROM 
         bimbingan b
         LEFT JOIN dokumen_skripsi dsk
         ON b.id_bimbingan=dsk.id_bimbingan
-        WHERE b.id_mahasiswa='$id_mahasiwa' AND b.judul<>'-'
+        WHERE b.id_bimbingan='$id_bimbingan' AND b.judul<>'-'
         ";
+
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
 
         return $query;

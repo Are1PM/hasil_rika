@@ -102,25 +102,37 @@ class Bimbingan
     // ============== SUDAH DI PERBAIKI =============================
     public function queryMencariDokumen()
     {
-        $id_mahasiswa = $_SESSION['id_mahasiswa'];
-        // $sql = "
-        // SELECT * FROM 
-        // bimbingan b
-        // LEFT JOIN mahasiswa m
-        // ON m.id_mahasiswa=b.id_mahasiswa
-        // LEFT JOIN  dosen_pembimbing dp 
-        // ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing
-        // LEFT JOIN dokumen_skripsi dsk
-        // ON b.id_bimbingan=dsk.id_bimbingan
-        // WHERE b.id_mahasiswa='$id_mahasiswa'
-        // ";
-        $sql = "
-        SELECT * FROM 
-        mahasiswa m
-        LEFT JOIN bimbingan b
-        ON m.id_mahasiswa=b.id_mahasiswa AND b.judul<>'-'
-        WHERE b.id_mahasiswa='$id_mahasiswa'
-        ";
+        if ($_SESSION['hak_akses'] == "mahasiswa") {
+
+            $id_mahasiswa = $_SESSION['id_mahasiswa'];
+            // $sql = "
+            // SELECT * FROM 
+            // bimbingan b
+            // LEFT JOIN mahasiswa m
+            // ON m.id_mahasiswa=b.id_mahasiswa
+            // LEFT JOIN  dosen_pembimbing dp 
+            // ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing
+            // LEFT JOIN dokumen_skripsi dsk
+            // ON b.id_bimbingan=dsk.id_bimbingan
+            // WHERE b.id_mahasiswa='$id_mahasiswa'
+            // ";
+            $sql = "
+            SELECT * FROM 
+            mahasiswa m
+            LEFT JOIN bimbingan b
+            ON m.id_mahasiswa=b.id_mahasiswa AND b.judul<>'-'
+            WHERE b.id_mahasiswa='$id_mahasiswa'
+            ";
+        } else {
+            $id_bimbingan = $_GET['id_bimbingan'];
+            $sql = "
+            SELECT * FROM 
+            mahasiswa m
+            LEFT JOIN bimbingan b
+            ON m.id_mahasiswa=b.id_mahasiswa AND b.judul<>'-'
+            WHERE b.id_bimbingan='$id_bimbingan'
+            ";
+        }
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
         return $query;
     }

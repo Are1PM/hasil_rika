@@ -91,17 +91,36 @@ class DosenPembimbing
     public function queryMencariDosen()
     {
         $status = $this->getStatusPembimbing();
-        $id_mahasiswa = $_SESSION['id_mahasiswa'];
-        $sql = "
-        SELECT * FROM 
-        bimbingan b
-        LEFT JOIN  dosen_pembimbing dp 
-        ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing
-        LEFT JOIN dosen d
-        ON dp.id_dosen=d.id_dosen
-        WHERE b.id_mahasiswa='$id_mahasiswa' AND dp.Id_status_dosen_pembimbing='$status'
-        ";
+        if ($_SESSION['hak_akses'] == "mahasiswa") {
+
+            $id_mahasiswa = $_SESSION['id_mahasiswa'];
+            $sql = "
+                SELECT * FROM 
+                bimbingan b
+                LEFT JOIN  dosen_pembimbing dp 
+                ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing
+                LEFT JOIN dosen d
+                ON dp.id_dosen=d.id_dosen
+                WHERE b.id_mahasiswa='$id_mahasiswa' AND dp.Id_status_dosen_pembimbing='$status'
+                ";
+        } else {
+            $id_mahasiswa = $this->getIdMahasiswa();
+            $sql = "
+                SELECT * FROM 
+                bimbingan b
+                LEFT JOIN  dosen_pembimbing dp 
+                ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing
+                LEFT JOIN dosen d
+                ON dp.id_dosen=d.id_dosen
+                WHERE b.id_mahasiswa='$id_mahasiswa' AND dp.Id_status_dosen_pembimbing='$status'
+                ";
+        }
+
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
+        // if ($status == '2') {
+        //     var_dump($query);
+        //     die;
+        // }
 
         return $query;
     }

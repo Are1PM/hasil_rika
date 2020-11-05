@@ -66,6 +66,7 @@ class MengelolaDokumenSkripsi extends DokumenSkripsi
 	{
 		return $this->queryCek();
 	}
+
 	function cekFile($cek)
 	{
 		$angka = array("*");

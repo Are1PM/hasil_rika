@@ -87,7 +87,7 @@
                                         $datahhh = new MengelolaDosenPembimbing('', '', $id_uploadp, '2');
                                         $datacv = $datahhh->MencariDosen();
                                         if ($datacv->Id_dosen_pembimbing == "") {
-                                            echo "Belum ada Pembimbing I";
+                                            echo "Belum ada Pembimbing II";
                                         } else {
                                             echo $datacv->nama;
                                         }
@@ -108,8 +108,8 @@
                                     </td>
                                 </tr>
                                 <?php
-                                $id_upload = "";
-                                $skripsi = new MengelolaDokumenSkripsi('', $id_upload, '', '', '', '', '');
+                                $id_bimbingan = $data_UploadSkripsi->id_bimbingan;
+                                $skripsi = new MengelolaDokumenSkripsi('', $id_bimbingan, '', '', '', '', '');
                                 $data = $skripsi->MencariDokumen();
                                 ?>
                                 <tr>

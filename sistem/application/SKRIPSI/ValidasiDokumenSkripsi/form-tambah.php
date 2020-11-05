@@ -17,15 +17,15 @@ session_start();
                 <div class="form-group">
                     <input type="hidden" value="<?= $_POST['id_dokumen_skripsi']; ?>" name="id_dokumen_skripsi">
                 </div>
-                 <div class="form-group">
+                <div class="form-group">
                     <input type="hidden" value="<?= $_SESSION['id_admin']; ?>" name="id_admin">
                 </div>
                 <div class="form-group">
-                    <label>Id Status Validasi</label>
+                    <label>Status</label>
                     <select name="id_status_validasi" class="form-control" required="">
                         <option>--Pilih--</option>
-                        <option>Valid</option>
-                        <option>Tidak Valid</option>
+                        <option value="1">Valid</option>
+                        <option value="2">Tidak Valid</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -37,6 +37,6 @@ session_start();
                 <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
                 <button type="submit" class="btn btn-primary" name="proses">Simpan</button>
             </div>
+        </form>
     </div>
-    </form>
 </div>

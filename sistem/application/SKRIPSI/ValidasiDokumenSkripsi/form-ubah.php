@@ -1,5 +1,5 @@
 <div class="row">
-     <!-- page header -->
+    <!-- page header -->
     <div class="col-lg-12">
         <h1 class="page-header">Ubah Validasi Dokumen Skripsi</h1>
     </div>
@@ -36,30 +36,28 @@
                                 <label>Keterangan</label>
                                 <input type="text" name="keterangan" class="form-control" placeholder="Keterangan" required>
                             </div>
-                            
+
                             <button type="submit" class="btn btn-primary" name="simpan">Simpan</button>
                             <button type="reset" class="btn btn-success">Reset</button>
                         </form>
                         <?php
                         if (isset($_POST['simpan'])) {
-                        
+
                             $id_dokumen_skripsi = $_POST['id_dokumen_skripsi'];
-                            $id_admin=$_POST['id_admin'];
-                            $tanggal_validasi=$_POST['tanggal_validasi'];
-                            $id_status_validasi=$_POST['id_status_validasi'];
-                            $keterangan=$_POST['keterangan'];
-                            
+                            $id_admin = $_POST['id_admin'];
+                            $tanggal_validasi = $_POST['tanggal_validasi'];
+                            $id_status_validasi = $_POST['id_status_validasi'];
+                            $keterangan = $_POST['keterangan'];
+
 
                             $tambah = new MengelolaValidasiDokumenSkripsi($id_dokumen_skripsi, $id_admin, $tanggal_validasi, $id_status_validasi, $keterangan);
                             $tambah->MemasukkanValidasiDokumenSkripsi();
-                            
-
                         }
                         ?>
                     </div>
                 </div>
             </div>
         </div>
-         <!-- End Form Elements -->
+        <!-- End Form Elements -->
     </div>
 </div>

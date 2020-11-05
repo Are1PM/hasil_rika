@@ -170,7 +170,7 @@
  			url: "application/SKRIPSI/ValidasiDokumenSkripsi/form-tambah.php",
  			data: {
  				id_dokumen_skripsi: $(this).attr("data-id"),
- 				id_upload: $(this).attr("data"),
+ 				id_bimbingan: $(this).attr("data-bimbingan"),
  			},
 
  			success: function(ajaxData) {
@@ -181,6 +181,7 @@
  			}
  		});
  	});
+
 
  	// validasi skripsi
  	$(".validasi_kkp").click(function() {

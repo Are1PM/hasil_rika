@@ -86,7 +86,6 @@ class ValidasiDokumenSkripsi
         return $query;
     }
 
-
     public function queryMencariDokumenSkripsi()
     {
         $id_dokumen_skripsi   = $this->getIdDokumenSkripsi();
@@ -96,6 +95,10 @@ class ValidasiDokumenSkripsi
 
         return $query;
     }
+
+    // ==========================================
+    // ======= SUDAH DIPERBAIKI =================
+    // ==========================================
 
     public function queryMencariValidasi()
     {
@@ -109,14 +112,13 @@ class ValidasiDokumenSkripsi
 
     public function queryMemeriksaDokumenSkripsi()
     {
-        $id_val_skripsi  = $this->getIdValSkripsi();
         $id_dokumen_skripsi        = $this->getIdDokumenSkripsi();
         $id_admin    = $this->getIdAdmin();
         $tanggal_validasi    = $this->getTanggalValidasi();
         $id_status_validasi     = $this->getIdStatusValidasi();
         $keterangan     = $this->getKeterangan();
 
-        $sql = "INSERT into memvalidasi_dokumen_skripsi values (null,'$id_dokumen_skripsi','$id_admin','$tanggal_validasi','$id_status_validasi','keterangan')";
+        $sql = "INSERT into memvalidasi_dokumen_skripsi values (null,'$id_dokumen_skripsi','$id_admin','$tanggal_validasi','$id_status_validasi','$keterangan')";
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
 
