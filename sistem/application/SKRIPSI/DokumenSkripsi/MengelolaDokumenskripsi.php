@@ -61,6 +61,11 @@ class MengelolaDokumenSkripsi extends DokumenSkripsi
 	{
 	}
 
+	function kosongkanFile($id, $id_val)
+	{
+		return $this->kosongkanDataFile($id, $id_val);
+	}
+
 	// Cek jika data dokumen skripsi ada
 	function cek()
 	{

@@ -107,11 +107,6 @@
                                         <h3>DATA DOKUMEN</h3>
                                     </td>
                                 </tr>
-                                <?php
-                                $id_bimbingan = $data_UploadSkripsi->id_bimbingan;
-                                $skripsi = new MengelolaDokumenSkripsi('', $id_bimbingan, '', '', '', '', '');
-                                $data = $skripsi->MencariDokumen();
-                                ?>
                                 <tr>
                                     <td>Abstrak Bahasa Inggris</td>
                                     <td>
@@ -129,7 +124,7 @@
                                     <td>Abstrak Bahasa Indonesia</td>
                                     <td>
                                         <?php
-                                        if ($data->file_abstrak_inggris == "") { ?>
+                                        if ($data->file_abstrak_indonesia == "") { ?>
                                             <a href="#" title="upload" class="upload-abstrak" data-id="<?= $data_UploadSkripsi->id_bimbingan; ?>"><i class="fa fa-upload"></i></a>
                                         <?php } else { ?>
                                             <a href="assets/dokumen_skripsi/<?= $data->file_abstrak_indonesia; ?>" target="_blank">
@@ -183,13 +178,11 @@
                                     <td></td>
                                     <td>
                                         <?php
+
                                         if ($_SESSION['hak_akses'] == "mahasiswa") {
-                                            $id_dokumen_skripsi = $data->id_dokumen_skripsi;
 
-                                            $dataa = new MengelolaValidasiDokumenSkripsi('', '', $id_dokumen_skripsi, '', '', '');
-                                            $cek = $dataa->mencariValidasi();
 
-                                            if ($cek->status_validasi != "") {
+                                            if ($cek->Id_status_validasi == 1) {
                                         ?>
 
                                                 <button onclick="printContent('print');" class="btn btn-danger">
@@ -197,10 +190,16 @@
                                                 </button>
 
                                             <?php
-                                            } else {
+                                            } else if ($cek->keterangan != "") {
                                             ?>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="alert alert-danger">Catatan : <?= $cek->keterangan ?> <br><br><i><b>(Silahkan upload ulang seluruh dokumen beserta perbaikannya)</b></i></div>
+                                    </td>
+                                </tr>
+                            <?php
+                                            } else 
 
-                                                <?php
                                                 if ($data->file_full_skripsi != '' && $data->file_full_proposal != '' && $data->file_bab_I != '') { ?>
                                 <tr>
                                     <td colspan="2">
@@ -208,15 +207,14 @@
                                     </td>
                                 </tr>
 
-                            <?php } ?>
-
-                        <?php
+                            <?php
                                             }
-                                        } else { ?>
-                        <a href="#" class="validasi_skripsi btn btn-warning" data-id="<?= $data_UploadSkripsi->id_dokumen_skripsi; ?>" data="<?= $data_UploadSkripsi->id_upload; ?>"> Validasi</a>
-                    <?php } ?>
-                    </td>
-                    </tr>
+                                        } else {
+                            ?>
+                            <a href="#" class="validasi_skripsi btn btn-warning" data-id="<?= $data_UploadSkripsi->id_dokumen_skripsi; ?>" data="<?= $data_UploadSkripsi->id_upload; ?>"> Validasi</a>
+                        <?php } ?>
+                        </td>
+                        </tr>
                             </tbody>
                         </table>
                     </div>

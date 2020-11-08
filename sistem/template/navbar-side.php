@@ -60,7 +60,7 @@
                 <li class="<?php if ($_GET['rik'] == "data-Kelompok" or $_GET['rik'] == "tambah-Kelompok" or $_GET['rik'] == "detail-Kelompok" or $_GET['rik'] == "ubah-Kelompok" or $_GET['rik'] == "data-DokumenKkp" or $_GET['rik'] == "detail-DokumenKkp" or $_GET['rik'] == "hapus-Kelompok" or $_GET['rik'] == "ubah-DokumenKkp" or $_GET['rik'] == "data-DokumenKkp" or $_GET['rik'] == "data-DownloadDokumenKKP") {
                                 echo 'active';
                             } ?>">
-                    <a href="#"><i class="fa fa-file-text fa-fw"></i> KKP<span class="fa arrow"></span></a>
+                    <a href=""><i class="fa fa-file-text fa-fw"></i> KKP<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li class="child-menu <?php if ($_GET['rik'] == "data-Kelompok" or $_GET['rik'] == "tambah-Kelompok" or $_GET['rik'] == "detail-Kelompok" or $_GET['rik'] == "ubah-Kelompok") {
                                                     echo 'selected';

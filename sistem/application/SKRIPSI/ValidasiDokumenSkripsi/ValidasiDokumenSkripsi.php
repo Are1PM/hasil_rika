@@ -188,19 +188,13 @@ class ValidasiDokumenSkripsi
         }
     }
 
-    public function queryMenghapusDokumen()
+    public function queryMenghapusDokumen($id)
     {
-        $id_val_skripsi = $this->getIdValSkripsi();
+        $id_val_skripsi = $id;
 
-        $sql = "DELETE from ValidaDokumenSkripsi where id_val_skripsi='$id_val_skripsi'";
+        $sql = "DELETE from memvalidasi_dokumen_skripsi where id_val_skripsi='$id_val_skripsi'";
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
-
-        if ($proses) {
-            echo "berhasil di hapus";
-        } else {
-            echo "Gagal";
-        }
     }
 
 

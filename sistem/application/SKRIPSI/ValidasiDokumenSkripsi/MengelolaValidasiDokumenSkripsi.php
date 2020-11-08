@@ -47,11 +47,11 @@ class MengelolaValidasiDokumenSkripsi extends ValidasiDokumenSkripsi
 
 	function MengubahDokumenSkripsi()
 	{
-		return $this->queryMengubahDokumenSkripsi();
+		return $this->queryMengubahDokumen();
 	}
 
-	function MenghapusDokumenSkripsi()
+	function menghapusValidasi($id)
 	{
-		return $this->queryMenghapusDokumenSkripsi();
+		return $this->queryMenghapusDokumen($id);
 	}
 }

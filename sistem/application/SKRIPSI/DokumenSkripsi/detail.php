@@ -112,20 +112,25 @@
                                         <h3>DATA DOKUMEN</h3>
                                     </td>
                                 </tr>
-
+                                <?php
+                                $id_bimbingan = $data_Dokumenskripsi->id_bimbingan;
+                                $file = new MengelolaDokumenSkripsi('', $id_bimbingan, '', '', '', '', '');
+                                $data_file = $file->MencariDokumen();
+                                ?>
                                 <tr>
                                     <td>Abstrak Bahasa Inggris</td>
                                     <td>
-                                        <a href="application/SKRIPSI/preview/skripsi.php?filename=<?= str_replace('*', '', $data_Dokumenskripsi->file_abstrak_inggris); ?>" target="_blank">Preview</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="application/SKRIPSI/preview/skripsi.php?filename=<?= str_replace('*', '', $data_file->file_abstrak_inggris); ?>" target="_blank">Preview</a>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <a href="application/SKRIPSI/cek-file/cek-abstrak-ing.php?id_bimbingan=<?= $data_Dokumenskripsi->id_bimbingan; ?>&filename=<?= str_replace('*', '', $data_Dokumenskripsi->file_abstrak_inggris); ?>">
                                             <i class="fa fa-file fa-3x"></i>
                                         </a>
                                         <?php
-                                        $id_bimbingan = $data_Dokumenskripsi->id_bimbingan;
-                                        $file = new MengelolaDokumenSkripsi('', $id_bimbingan, '', '', '', '', '');
-                                        $data_file = $file->MencariDokumen();
+
                                         $a = $data_file->file_abstrak_inggris;
-                                        if ($this->DokumenSkripsi->cekFile($a) == '1') { ?>
+                                        // if ($this->DokumenSkripsi->cekFile($a) == '1') {
+                                        if ($a == '') {
+
+                                        ?>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <i class="label label-danger">
                                                 Belum
@@ -141,13 +146,16 @@
                                 <tr>
                                     <td>Abstrak Bahasa Indonesia</td>
                                     <td>
-                                        <a href="application/SKRIPSI/preview/skripsi.php?filename=<?= str_replace('*', '', $data_Dokumenskripsi->file_abstrak_indonesia); ?>" target="_blank">Preview</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="application/SKRIPSI/preview/skripsi.php?filename=<?= str_replace('*', '', $data_file->file_abstrak_indonesia); ?>" target="_blank">Preview</a>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <a href="application/SKRIPSI/cek-file/cek-abstrak-indo.php?id_bimbingan=<?= $data_Dokumenskripsi->id_bimbingan; ?>&filename=<?= str_replace('*', '', $data_Dokumenskripsi->file_abstrak_indonesia); ?>">
                                             <i class="fa fa-file fa-3x"></i>
                                         </a>
                                         <?php
                                         $b = $data_file->file_abstrak_indonesia;
-                                        if ($this->DokumenSkripsi->cekFile($b) == '1') { ?>
+                                        // if ($this->DokumenSkripsi->cekFile($b) == '1') {
+                                        if ($b == '') {
+
+                                        ?>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <i class="label label-danger">
                                                 Belum
@@ -163,14 +171,17 @@
                                 <tr>
                                     <td>File Bab I</td>
                                     <td>
-                                        <a href="application/SKRIPSI/preview/skripsi.php?filename=<?= str_replace('*', '', $data_Dokumenskripsi->file_bab_I); ?>" target="_blank">Preview</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="application/SKRIPSI/preview/skripsi.php?filename=<?= str_replace('*', '', $data_file->file_bab_I); ?>" target="_blank">Preview</a>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <a href="application/SKRIPSI/cek-file/cek-file-bab-1.php?id_bimbingan=<?= $data_Dokumenskripsi->id_bimbingan; ?>&filename=<?= str_replace('*', '', $data_Dokumenskripsi->file_bab_I); ?>">
                                             <i class="fa fa-file fa-3x"></i>
                                         </a>
                                         <?php
 
                                         $c = $data_file->file_bab_I;
-                                        if ($this->DokumenSkripsi->cekFile($c) == '1') { ?>
+                                        // if ($this->DokumenSkripsi->cekFile($c) == '1') {
+                                        if ($c == '') {
+
+                                        ?>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <i class="label label-danger">
                                                 Belum
@@ -186,14 +197,17 @@
                                 <tr>
                                     <td>File Full Skripsi</td>
                                     <td>
-                                        <a href="application/SKRIPSI/preview/skripsi.php?filename=<?= str_replace('*', '', $data_Dokumenskripsi->file_full_skripsi); ?>" target="_blank">Preview</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="application/SKRIPSI/preview/skripsi.php?filename=<?= str_replace('*', '', $data_file->file_full_skripsi); ?>" target="_blank">Preview</a>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <a href="application/SKRIPSI/cek-file/cek-file-skripsi.php?id_bimbingan=<?= $data_Dokumenskripsi->id_bimbingan; ?>&filename=<?= str_replace('*', '', $data_Dokumenskripsi->file_full_skripsi); ?>">
                                             <i class="fa fa-file fa-3x"></i>
                                         </a>
 
                                         <?php
                                         $d = $data_file->file_full_skripsi;
-                                        if ($this->DokumenSkripsi->cekFile($d) == '1') { ?>
+                                        // if ($this->DokumenSkripsi->cekFile($d) == '1') {
+                                        if ($d == '') {
+
+                                        ?>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <i class="label label-danger">
                                                 Belum
@@ -210,13 +224,16 @@
                                 <tr>
                                     <td>File Full Proposal</td>
                                     <td>
-                                        <a href="application/SKRIPSI/preview/skripsi.php?filename=<?= str_replace('*', '', $data_Dokumenskripsi->file_full_proposal); ?>" target="_blank">Preview</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="application/SKRIPSI/preview/skripsi.php?filename=<?= str_replace('*', '', $data_file->file_full_proposal); ?>" target="_blank">Preview</a>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <a href="application/SKRIPSI/cek-file/cek-file-proposal.php?id_bimbingan=<?= $data_Dokumenskripsi->id_bimbingan; ?>&filename=<?= str_replace('*', '', $data_Dokumenskripsi->file_full_proposal); ?>">
                                             <i class="fa fa-file fa-3x"></i>
                                         </a>
                                         <?php
                                         $e = $data_file->file_full_proposal;
-                                        if ($this->DokumenSkripsi->cekFile($e) == '1') { ?>
+                                        // if ($this->DokumenSkripsi->cekFile($e) == '1') {
+                                        if ($e == '') {
+
+                                        ?>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <i class="label label-danger">
                                                 Belum
@@ -233,36 +250,48 @@
                                     <td></td>
                                     <td>
                                         <?php
-                                        if ($_SESSION['hak_akses'] == "mahasiswa") {
-                                            $id_dokumen_skripsi = $data_Dokumenskripsi->id_dokumen_skripsi;
-                                            $data = new MengelolaValidasiDokumenSkripsi('', '', $id_dokumen_skripsi, '', '', '');
-                                            $cek = $data->MencariDokumen();
+                                        $id_dokumen_skripsi = $data_file->id_dokumen_skripsi;
+                                        $val = new MengelolaValidasiDokumenSkripsi('', '', $id_dokumen_skripsi, '', '', '');
+                                        $cek_val = $val->mencariValidasi();
 
-                                            if ($cek->id_dokumen_skripsi != "") { ?>
+                                        if ($_SESSION['hak_akses'] == "mahasiswa") {
+
+                                            if ($cek_val->Id_status_validasi == 1) { ?>
                                                 <button onclick="printContent('print');" class="btn btn-danger">
                                                     Cetak
                                                 </button>
 
-                                            <?php } else { ?>
-
+                                            <?php
+                                            } else {
+                                            ?>
                                 <tr>
                                     <td colspan="2">
                                         <div class="alert alert-success">Catatan : Dokumen Anda Sedang dalam proses validasi.</div>
                                     </td>
                                 </tr>
 
-                            <?php  }
+                            <?php
+                                            }
                                         } else { ?>
                             <?php
-                                            $id_dokumen_skripsi = $data_file->id_dokumen_skripsi;
-                                            $val = new MengelolaValidasiDokumenSkripsi('', '', $id_dokumen_skripsi, '', '', '');
-                                            $cek_val = $val->mencariValidasi();
-                                            // var_dump(isset($cek_val->Id_status_validasi));
-                                            // print_r($cek_val->Id_status_validasi);
-                                            // die;
                                             if (!$cek_val->Id_status_validasi) { ?>
                                 <a href="#" class="validasi_skripsi btn btn-warning" data-id="<?= $data_file->id_dokumen_skripsi; ?>" data-bimbingan="<?= $data_Dokumenskripsi->id_bimbingan; ?>"> Validasi</a>
-                        <?php }
+                            <?php } else if ($cek_val->keterangan != "") {
+                            ?>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="alert alert-danger">Catatan yang diberikan: <?= $cek_val->keterangan ?></div>
+                                    </td>
+                                </tr>
+                            <?php } else if ($cek_val->Id_status_validasi == 1) {
+                            ?>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="alert alert-success"><b>DATA VALID</b></div>
+                                    </td>
+                                </tr>
+                        <?php
+                                            }
                                         } ?>
                         </td>
                         </tr>

@@ -191,13 +191,13 @@ class DokumenSkripsi
         $file_bab_I                 = $this->getFileBabI();
         $file_full_skripsi          = $this->getFileFuellSkripsi();
         $file_full_proposal         = $this->getFileFullProposal();
-
-
-        if ($file_abstrak_indonesia != "" && $id_bimbingan != "") {
+        // print_r($file_abstrak_inggris);
+        // die;
+        if ($file_abstrak_indonesia != "" && $file_abstrak_inggris != "" && $id_bimbingan != "") {
+            $sql = "UPDATE dokumen_skripsi SET file_abstrak_indonesia='$file_abstrak_indonesia', file_abstrak_inggris='$file_abstrak_inggris' where id_bimbingan='$id_bimbingan'";
+        } else if ($file_abstrak_indonesia != "" && $id_bimbingan != "") {
             $sql = "UPDATE dokumen_skripsi SET file_abstrak_indonesia='$file_abstrak_indonesia' where id_bimbingan='$id_bimbingan'";
-        }
-
-        if ($file_abstrak_inggris != "" && $id_bimbingan != "") {
+        } else if ($file_abstrak_inggris != "" && $id_bimbingan != "") {
             $sql = "UPDATE dokumen_skripsi SET file_abstrak_inggris='$file_abstrak_inggris' where id_bimbingan='$id_bimbingan'";
         }
 
@@ -215,26 +215,27 @@ class DokumenSkripsi
 
         //batas aja
 
-        if ($file_abstrak_inggris != "" and $file_abstrak_indonesia != "") {
-            $sql = "INSERT into dokumen_skripsi values (null,'$id_bimbingan','$file_abstrak_inggris','$file_abstrak_indonesia','','','')";
-        }
+        // if ($file_abstrak_inggris != "" and $file_abstrak_indonesia != "") {
+        //     $sql = "INSERT into dokumen_skripsi values (null,'$id_bimbingan','$file_abstrak_inggris','$file_abstrak_indonesia','','','')";
+        // }
 
-        if ($file_bab_I != "") {
-            $sql = "UPDATE dokumen_skripsi SET file_bab_I='$file_bab_I' where id_bimbingan='$id_bimbingan'";
-        }
+        // if ($file_bab_I != "") {
+        //     $sql = "UPDATE dokumen_skripsi SET file_bab_I='$file_bab_I' where id_bimbingan='$id_bimbingan'";
+        // }
 
-        if ($file_full_skripsi != "") {
-            $sql = "UPDATE dokumen_skripsi SET file_full_skripsi='$file_full_skripsi' where id_bimbingan='$id_bimbingan'";
-        }
+        // if ($file_full_skripsi != "") {
+        //     $sql = "UPDATE dokumen_skripsi SET file_full_skripsi='$file_full_skripsi' where id_bimbingan='$id_bimbingan'";
+        // }
 
-        if ($file_full_proposal != "") {
-            $sql = "UPDATE dokumen_skripsi SET file_full_proposal='$file_full_proposal' where id_bimbingan='$id_bimbingan'";
-        }
+        // if ($file_full_proposal != "") {
+        //     $sql = "UPDATE dokumen_skripsi SET file_full_proposal='$file_full_proposal' where id_bimbingan='$id_bimbingan'";
+        // }
 
 
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
-
+        // print_r($proses);
+        // die;
         if ($proses) {
             echo '<div id="myModal" class="modal fade" role="dialog">
                 <div class="modal-dialog">
@@ -258,6 +259,33 @@ class DokumenSkripsi
         } else {
             echo "Gagal";
         }
+    }
+
+    public function kosongkanDataFile($id, $id_val)
+    {
+        $id_bimbingan = $id;
+        $file_abstrak_inggris       = '';
+        $file_abstrak_indonesia     = '';
+        $file_bab_I                 = '';
+        $file_full_skripsi          = '';
+        $file_full_proposal         = '';
+
+        $sql = "
+            UPDATE dokumen_skripsi 
+            SET 
+                file_abstrak_indonesia='$file_abstrak_indonesia',
+                file_abstrak_inggris ='$file_abstrak_inggris',
+                file_bab_I = '$file_bab_I',
+                file_full_skripsi = '$file_full_skripsi',
+                file_full_proposal = '$file_full_proposal'
+            WHERE id_bimbingan='$id_bimbingan'";
+
+        $prepare = $this->konek->execute()->prepare($sql);
+        $proses = $prepare->execute();
+
+        $sql = "UPDATE memvalidasi_dokumen_skripsi SET Id_status_validasi='3' where id_val_skripsi='$id_val'";
+        $prepare = $this->konek->execute()->prepare($sql);
+        $proses = $prepare->execute();
     }
 
     public function queryMenghapusDokumen()

@@ -266,15 +266,40 @@ class AntarMuka
 	{
 		require "application/SKRIPSI/bimbingan/form-tambah.php";
 	}
+
+
 	function formPencarianBimbingan($sesi = '')
 	{
 		$id = $_GET['id_upload'];
 
 		$data_UploadSkripsi = $this->UploadSkripsi->MencariDokumen();
 
+		// MENGAMBIL DATA DOKUMEN SKRIPSI
+		$id_bimbingan = $data_UploadSkripsi->id_bimbingan;
+
+		$skripsi = new MengelolaDokumenSkripsi('', $id_bimbingan, '', '', '', '', '');
+		$data = $skripsi->MencariDokumen();
+
+		// MENGAMBIL DATA VALIDASI
+		$id_dokumen_skripsi = $data->id_dokumen_skripsi;
+		$dataa = new MengelolaValidasiDokumenSkripsi('', '', $id_dokumen_skripsi, '', '', '');
+		$cek = $dataa->mencariValidasi();
+
+		//		KALAU TIDAK VALID
+		if ($cek->Id_status_validasi == 2 && $data->file_full_skripsi != '' && $data->file_full_proposal != '' && $data->file_bab_I != '') {
+			$skripsi->kosongkanFile($id_bimbingan, $cek->id_val_skripsi);
+			$data = $skripsi->MencariDokumen();
+		}
+
+		//		KALAU TIDAK VALID DAN FILE TELAH DI UPLOAD ULANG
+		if ($cek->Id_status_validasi == 3 && $data->file_full_skripsi != '' && $data->file_full_proposal != '' && $data->file_bab_I != '') {
+			$dataa->menghapusValidasi($cek->id_val_skripsi);
+		}
+
 		if ($sesi == "") {
 			require "application/SKRIPSI/bimbingan/form-ubah.php";
 		} else {
+
 			require "application/SKRIPSI/bimbingan/detail.php";
 		}
 	}
