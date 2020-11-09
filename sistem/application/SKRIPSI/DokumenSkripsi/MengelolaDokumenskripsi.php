@@ -37,6 +37,11 @@ class MengelolaDokumenSkripsi extends DokumenSkripsi
 		return $this->queryMencariDokumenabc();
 	}
 
+	function mencariByJudulTahun($judul, $tahun)
+	{
+		return $this->queryMencariByJudulTahun($judul, $tahun);
+	}
+
 	function MemasukkanDokumen()
 	{
 		return $this->queryMemasukkanDokumen();
@@ -83,5 +88,10 @@ class MengelolaDokumenSkripsi extends DokumenSkripsi
 			}
 		}
 		return $hasil;
+	}
+
+	function countByTahun()
+	{
+		return $this->queryCountByTahun();
 	}
 }

@@ -13,8 +13,58 @@
  <script src="assets/plugins/dataTables/dataTables.bootstrap.js"></script>
  <script src="assets/sw/dist/sweetalert.min.js"></script>
 
+ <!-- Page-Level Plugin Scripts-->
+ <script src="assets/plugins/morris/raphael-2.1.0.min.js"></script>
+ <script src="assets/plugins/morris/morris.js"></script>
+ <!-- <script src="assets/scripts/morris-demo.js"></script> -->
+ <?php
+	$data = Main::$grafik;
+	if (count($data) > 0) {
+		// Penyimpanan data grafik
+		$grafik = [];
+		// Tahun saat ini
+		$thn = date('Y');
 
+		// MEMBUAT STRUKTUR DATA GRAFIK
+		$ke = 0;
+		for ($i = $thn; $i > ($thn - 3); $i--) {
+			// Nilai key di ambil dari tahun yang berkurang
+			$key = $i;
 
+			// Ambil jumlah KKP pada tahun itu
+			$grafik[$key][] = (isset($data['kkp'][$ke]) && $data['kkp'][$ke][0] == $key) ? $data['kkp'][$ke][1] : 0;
+
+			// Ambil jumlah SKRIPSI pada tahun itu
+			$grafik[$key][] = (isset($data['skripsi'][$ke]) && $data['skripsi'][$ke][0] == $key) ? $data['skripsi'][$ke][1] : 0;
+
+			$ke++;
+		}
+		// DATA GRAFIK DI URUTKAN DARI YANG TAHUN TERKECIL
+		ksort($grafik);
+
+		// STRUKTUR DATA GRAFIK
+		// {
+		// 	y: '2006',
+		// 	a: 100,
+		// 	b: 90
+		// },
+
+		// MENYUSUN STRUKTUR DATA GRAFIK
+		$dt = "";
+		$a = 0;
+		foreach ($grafik as $key => $value) {
+			if ($a == 2) {
+				$dt .=   "{ y: " . $key . ", a: " . $value[0] . ", b: " . $value[1] . "}";
+				break;
+			}
+			$dt .=   "{ y: " . $key . ", a: " . $value[0] . ", b: " . $value[1] . "},";
+			$a++;
+		}
+	}
+	// var_dump(isset($dt));
+	// echo "\n\n";
+	// die;
+	?>
 
 
  <script>
@@ -256,6 +306,28 @@
  			fileInput.value = '';
  		}
  	}
+
+
+ 	//morris area chart
+
+ 	jQuery(document).ready(function() {
+
+
+
+ 		//morris bar chart
+ 		Morris.Bar({
+ 			element: 'cek-bar',
+ 			data: [<?= (isset($dt)) ? $dt : "" ?>],
+ 			xkey: 'y',
+ 			ykeys: ['a', 'b'],
+ 			labels: ['KKP', 'SKRIPSI'],
+ 			hideHover: 'auto',
+ 			resize: true,
+ 			barColors: ['#4542f5', '#ff401f']
+ 		});
+
+
+ 	});
  </script>
  </body>
 

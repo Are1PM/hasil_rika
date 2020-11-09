@@ -6,7 +6,7 @@
                     <div class="form-row tm-search-form-row">
                         <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
                             <label for="inputCity">Judul</label>
-                            <input name="judul" name="judul" value="<?= $_POST['judul'] ?>" type="text" class="form-control" placeholder="Ketik Penggalan Judul" required style="width: 250px;">
+                            <input name="judul" name="judul" value="<?= isset($_POST['judul']) ? $_POST['judul'] : "" ?>" type="text" class="form-control" required="" placeholder="Ketik Penggalan Judul" style="width: 250px;">
                         </div>
                         <div class="form-group tm-form-group tm-form-group-3">
                             <label for="inputRoom">Tahun</label>
@@ -34,8 +34,17 @@
 </section>
 <?php
 
-if (isset($_POST['cari-skripsi'])) { ?>
+if (isset($_POST['cari-skripsi'])) {
 
+    $tahun_cari = $_POST['tahun'];
+    $judul_cari = $_POST['judul'];
+
+
+    $dok_kkp = new MengelolaDokumenSkripsi();
+    $data_skripsi = $dok_kkp->mencariByJudulTahun($judul_cari, $tahun_cari);
+    // print_r($data_skripsi);
+    // die;
+?>
     <section class="p-5 tm-container-outer tm-bg-gray">
         <div class="container">
             <div class="row">
@@ -68,7 +77,7 @@ if (isset($_POST['cari-skripsi'])) { ?>
 
                                 <tr>
                                     <td><?= $data->id_mahasiswa ?></td>
-                                    <td><?= $data->nama ?></td>
+                                    <td><?= $data->nama_mahasiswa ?></td>
                                     <td><?= $data->judul ?></td>
                                     <td><?= $data->email ?></td>
 

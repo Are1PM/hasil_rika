@@ -71,19 +71,6 @@ class DownloadDokumenSkripsi
         return $query;
     }
 
-    public function queryMendownloadDokumenKkp()
-    {
-        $id_dokumen_skripsi          = $this->getIdDokumenSkripsi();
-        $id_dosen      = $this->getIdDosen();
-        $tanggal_download      = $this->getTanggalDownload();
-        
-
-        $sql = "INSERT into download_skripsi values (null,'$id_dokumen_skripsi','$id_dosen','$tanggal_download')";
-        $prepare = $this->konek->execute()->prepare($sql);
-        $proses = $prepare->execute();
-
-    }
-
     function __destruct()
     {
 
@@ -91,4 +78,3 @@ class DownloadDokumenSkripsi
 
 
 }
-?>

@@ -315,6 +315,43 @@ class DokumenSkripsi
         return $query->data;
     }
 
+    public function queryMencariByJudulTahun($judul, $tahun)
+    {
+
+        $sql = "
+                SELECT
+                    m.id_mahasiswa,m.nama_mahasiswa,m.email,b.judul,b.tahun,ds.file_abstrak_indonesia, ds.file_full_skripsi
+                FROM
+                    dokumen_skripsi ds
+                LEFT JOIN
+                    bimbingan b
+                ON b.id_bimbingan=ds.id_bimbingan
+                LEFT JOIN
+                    mahasiswa m
+                ON m.id_mahasiswa = b.id_mahasiswa
+                WHERE b.judul LIKE '%$judul%' AND b.tahun='$tahun'
+            ";
+
+
+        $hasil = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
+        return $hasil;
+    }
+
+    public function queryCountByTahun()
+    {
+        $sql = "
+        SELECT b.tahun, COUNT(*) jumlah FROM dokumen_skripsi ds
+        LEFT JOIN bimbingan b ON ds.id_bimbingan = b.id_bimbingan
+        LEFT JOIN memvalidasi_dokumen_skripsi ms ON ds.id_dokumen_skripsi = ms.id_dokumen_skripsi
+        WHERE ms.Id_status_validasi=1 AND b.tahun > (YEAR(NOW())-3)
+        GROUP BY b.tahun
+        ORDER BY b.tahun DESC
+        ";
+
+        $hasil = $this->konek->execute()->query($sql)->fetchAll();
+        return $hasil;
+    }
+
 
 
     function __destruct()

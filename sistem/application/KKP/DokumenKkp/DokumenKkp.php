@@ -396,6 +396,20 @@ class DokumenKkp
         return $hasil;
     }
 
+    public function queryCountByTahun()
+    {
+        $sql = "
+        SELECT dk.tahun, COUNT(*) as jumlah FROM dokumen_kkp dk 
+        RIGHT JOIN memvalidasi_dokumen_kkp mk ON dk.id_dokumen_kkp=mk.id_dokumen_kkp 
+        WHERE mk.Id_status_validasi=1 AND dk.tahun > (YEAR(NOW())-3)
+        GROUP BY dk.tahun
+        ORDER BY dk.tahun DESC
+        ";
+
+        $result = $this->konek->execute()->query($sql)->fetchAll();
+        return $result;
+    }
+
     function __destruct()
     {
     }

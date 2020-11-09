@@ -8,6 +8,7 @@
 	class Main
 	{
 		public $main;
+		public static $grafik = [];
 
 		public function __construct()
 		{
@@ -306,6 +307,16 @@
 																	if ($_GET['rik'] == "ubah-pengaturan") {
 																		$this->main->UbahPengaturan();
 																	} else {
+																		$kkp = new MengelolaDokumenKkp();
+																		$data_kkp = $kkp->queryCountByTahun();
+																		self::$grafik['kkp'] = $data_kkp;
+																		$skripsi = new MengelolaDokumenSkripsi();
+																		$data_skripsi = $skripsi->queryCountByTahun();
+																		self::$grafik['skripsi'] = $data_skripsi;
+																		// echo "cek";
+																		// print_r($data_skripsi);
+																		// echo "cek";
+																		// die;
 																		require "template/content.php";
 																	}
 		}

@@ -4,7 +4,7 @@ if (isset($_GET['filename'])) {
     $filename    = $_GET['filename'];
 
     $back_dir    = "../../../sistem/assets/dokumen_kkp/";
-    $file = $back_dir . $_GET['filename'];
+    $file = $back_dir . $filename;
 
     if (file_exists($file)) {
         header('Content-Description: File Transfer');

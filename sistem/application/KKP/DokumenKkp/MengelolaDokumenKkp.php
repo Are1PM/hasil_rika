@@ -64,4 +64,9 @@ class MengelolaDokumenKkp extends DokumenKkp
 	{
 		return $this->queryMencariByTahun($tahun);
 	}
+
+	function countByTahun()
+	{
+		return $this->queryCountByTahun();
+	}
 }
