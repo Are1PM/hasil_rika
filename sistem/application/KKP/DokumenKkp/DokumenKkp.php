@@ -73,7 +73,20 @@ class DokumenKkp
 
     public function queryMelihatDokumen()
     {
-        $sql = "SELECT * FROM dokumen_kkp d, mahasiswa m where m.id_mahasiswa=d.id_mahasiswa";
+        if ($_SESSION['hak_akses'] == "mahasiswa") {
+            $id_mahasiswa = $_SESSION['id_mahasiswa'];
+
+            $sql = "
+                SELECT * FROM mahasiswa m 
+                LEFT JOIN dokumen_kkp d
+                ON  m.id_mahasiswa=d.id_mahasiswa
+                where
+                    m.id_mahasiswa='$id_mahasiswa'
+                ";
+        } else {
+
+            $sql = "SELECT * FROM dokumen_kkp d, mahasiswa m where m.id_mahasiswa=d.id_mahasiswa";
+        }
         $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
 
         return $query;

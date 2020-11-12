@@ -34,8 +34,8 @@ if (isset($_POST['simpan']) && $_FILES['file_bab_1']['size'] <= $maxsize) {
             $tambah->MemasukkanDokumen();
         }
     } else {
-        header("location:?rik=data-DokumenKkp");
+        header("location:?rik=detail-DokumenKkp");
     }
 } else {
-    header("location:?rik=data-DokumenKkp");
+    header("location:?rik=detail-DokumenKkp");
 }

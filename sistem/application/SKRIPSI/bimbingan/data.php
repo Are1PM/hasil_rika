@@ -20,8 +20,9 @@
 
                 <?php } elseif ($cek->id_mahasiswa == NULL) { ?>
                     <br>
+                    <!-- success info warning danger primary -->
                     <div class="alert alert-info text-center">
-                        Minta ke admin untuk menginputkan pembimbing terlebih dahulu.
+                        Inputkan data pembimbing terlebih dahulu.
                     </div>
                 <?php } ?>
             </div>

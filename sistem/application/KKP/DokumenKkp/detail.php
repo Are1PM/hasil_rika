@@ -71,7 +71,9 @@
                             <tr>
                                 <td>File BAB I</td>
                                 <td>
-                                    <a href="assets/dokumen_kkp/<?= $data_DokumenKkp->file_bab_I ?>" title="<?= $data_DokumenKkp->file_bab_I ?>">Preview</a> |
+                                    <a href="assets/dokumen_kkp/<?= $data_DokumenKkp->file_bab_I ?>" title="<?= $data_DokumenKkp->file_bab_I ?>">
+                                        <i class="fa fa-file fa-3x"></i>
+                                    </a>
                                     <?php
                                     if (!$_SESSION['hak_akses'] == "admin") {
 
@@ -99,7 +101,10 @@
                             <tr>
                                 <td>File Lengkap Laporan KKP</td>
                                 <td>
-                                    <a href="assets/dokumen_kkp/<?= $data_DokumenKkp->file_lengkap_laporan_kkp ?>" title="<?= $data_DokumenKkp->file_lengkap_laporan_kkp ?>">Preview</a> |
+                                    <a href="assets/dokumen_kkp/<?= $data_DokumenKkp->file_lengkap_laporan_kkp ?>" title="<?= $data_DokumenKkp->file_lengkap_laporan_kkp ?>">
+                                        <i class="fa fa-file fa-3x"></i>
+                                    </a>
+
                                     <?php
                                     if (!$_SESSION['hak_akses'] == "admin") {
                                         if ($data_DokumenKkp->file_lengkap_laporan_kkp == '' and $val->Id_status_validasi == '') {

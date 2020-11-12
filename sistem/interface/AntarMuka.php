@@ -322,16 +322,19 @@ class AntarMuka
 
 		$data_DokumenKkp = $this->dokumen_kkp->MencariDokumen();
 
-		if ($sesi == "") {
-			require "application/KKP/DokumenKkp/form-ubah.php";
-		} else {
+		if ($_SESSION['hak_akses'] == "mahasiswa") {
+
+			$data = $this->dokumen_kkp->MenampilkanDokumenPermahasiswa();
+			require "application/KKP/DokumenKkp/detail-kkp.php";
+		} else if ($sesi != "" && isset($_GET["id_dokumen_kkp"])) {
+
 			require "application/KKP/DokumenKkp/detail.php";
 		}
 	}
 	function tampilDokumenKkp()
 	{
 		if ($_SESSION['hak_akses'] == "mahasiswa") {
-			$data = $this->dokumen_kkp->MenampilkanDokumenPermahasiswa();
+			$data_DokumenKkp = $this->dokumen_kkp->MelihatDokumen();
 			require "application/KKP/DokumenKkp/data.php";
 		} else {
 			$data_DokumenKkp = $this->dokumen_kkp->MelihatDokumen();
