@@ -35,6 +35,11 @@ class MengelolaDokumenKkp extends DokumenKkp
 		return $this->queryMencariDokumen();
 	}
 
+	function mengosongkanFile($id)
+	{
+		return $this->queryMengosongkanFile($id);
+	}
+
 	function MencariDokumenKKP($id_mahasiswa)
 	{
 		return $this->queryMencariDokumenKKP($id_mahasiswa);

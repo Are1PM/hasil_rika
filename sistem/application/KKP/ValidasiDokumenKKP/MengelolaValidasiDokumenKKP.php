@@ -34,4 +34,9 @@ class MengelolaValidasiDokumenKkp extends ValidasiDokumenKKP
 	{
 		return $this->queryMemeriksaDokumenKkp();
 	}
+
+	function hapusDataValidasi($id)
+	{
+		return $this->queryMenghapusDokumen($id);
+	}
 }

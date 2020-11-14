@@ -100,21 +100,43 @@
  	$('#myModal').modal('show');
 
  	// konfirmasi dokument
- 	$(".upload-laporan-kkp").click(function() {
+ 	$(".upload-file-bab1-kkp").click(function() {
  		$.ajax({
- 			type: "POST",
- 			url: "application/KKP/Upload_LaporanKkp/form-tambah.php",
+ 			type: "GET",
+ 			url: "application/KKP/DokumenKkp/form-tambah-bab1.php",
  			data: {
- 				id_kelompok: $(this).attr("data"),
+ 				m: $(this).data("id"),
 
  			},
 
  			success: function(ajaxData) {
+ 				// alert(ajaxData)
  				$("#data").html(ajaxData);
  				$("#data").modal('show', {
  					backdrop: 'true'
  				});
  			}
+
+ 		});
+ 	});
+
+ 	$(".upload-file-lengkap-laporan-kkp").click(function() {
+ 		$.ajax({
+ 			type: "GET",
+ 			url: "application/KKP/DokumenKkp/form-tambah-lengkap.php",
+ 			data: {
+ 				m: $(this).data("id"),
+
+ 			},
+
+ 			success: function(ajaxData) {
+ 				// alert(ajaxData)
+ 				$("#data").html(ajaxData);
+ 				$("#data").modal('show', {
+ 					backdrop: 'true'
+ 				});
+ 			}
+
  		});
  	});
 

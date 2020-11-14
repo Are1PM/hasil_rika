@@ -66,14 +66,16 @@
                             $validasi = new MengelolaValidasiDokumenKkp('', '', $id_dokumen_kkp, '', '', '');
                             $val      = $validasi->MencariDokumenKkp();
 
-
+                            $daval = [2, 3];
                             ?>
                             <tr>
                                 <td>File BAB I</td>
                                 <td>
+
                                     <a href="assets/dokumen_kkp/<?= $data_DokumenKkp->file_bab_I ?>" title="<?= $data_DokumenKkp->file_bab_I ?>">
                                         <i class="fa fa-file fa-3x"></i>
                                     </a>
+
                                     <?php
                                     if (!$_SESSION['hak_akses'] == "admin") {
 
@@ -137,27 +139,40 @@
                                 <td><?= $data_DokumenKkp->tahun; ?></td>
                             </tr>
                             <?php
+                            $valid = "";
                             if ($val->keterangan != '') { ?>
                                 <tr>
+                                    <td>Catatan </td>
                                     <td colspan="2">
-                                        Catatan : <label class="label label-danger"><?= $val->keterangan ?></label>
+                                        <label class="label label-info"><?= $val->keterangan ?></label>
                                     </td>
                                 </tr>
-                            <?php } ?>
-                            <tr>
-                                <td></td>
-                                <td>
-                                    <?php
-                                    if ($val->Id_status_validasi == '' or $val->Id_status_validasi == 2) {
-                                        echo '<a href="#" class="validasi_kkp btn btn-warning" data-id="' . $data_DokumenKkp->id_dokumen_kkp . '" data="' . $data_DokumenKkp->id_upload_kkp . '"> Validasi</a>';
-                                    } else {
-                                        echo '<i class="label label-warning">Telah di Validasi.</i>';
-                                    }
-                                    ?>
-                                </td>
-                            </tr>
+                            <?php }
+                            if ($val->Id_status_validasi == '' && $data_DokumenKkp->file_lengkap_laporan_kkp != '') {
+                            ?>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <a href="#" class="validasi_kkp btn btn-warning" data-id="<?= $data_DokumenKkp->id_dokumen_kkp ?>" data="<?= $data_DokumenKkp->id_upload_kkp ?>"> Validasi</a>
+                                    </td>
+                                </tr>
+                            <?php
+                            } else if ($val->Id_status_validasi == 1) {
+                            ?>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="alert alert-success"><b>Data telah divalidasi</b></div>
+                                    </td>
+                                </tr>
+                            <?php
+                            } else if ($val->Id_status_validasi == 2 || $val->Id_status_validasi == 3 || $data_DokumenKkp->file_lengkap_laporan_kkp == '') {
+
+                                $valid = ' <div class="alert alert-info"><b>Menunggu Perbaikan</b></div>';
+                            } ?>
+
                         </tbody>
                     </table>
+                    <?php echo $valid; ?>
                 </div>
             </div>
         </div>

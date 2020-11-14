@@ -170,22 +170,14 @@ class ValidasiDokumenKKP
         }
     }
 
-    public function queryMenghapusDokumen()
+    public function queryMenghapusDokumen($id)
     {
-        $id_val_kkp = $this->getIdValKkp();
+        $id_val_kkp = $id;
 
         $sql = "DELETE from memvalidasi_dokumen_kkp where id_val_kkp='$id_val_kkp'";
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
-
-        if ($proses) {
-            echo "berhasil di hapus";
-        } else {
-            echo "Gagal";
-        }
     }
-
-
 
     function __destruct()
     {

@@ -319,12 +319,23 @@ class AntarMuka
 	}
 	function formPencarianDokumenKkp($sesi = '')
 	{
-
 		$data_DokumenKkp = $this->dokumen_kkp->MencariDokumen();
+
 
 		if ($_SESSION['hak_akses'] == "mahasiswa") {
 
 			$data = $this->dokumen_kkp->MenampilkanDokumenPermahasiswa();
+
+			if ($data->Id_status_validasi == 2) {
+				$this->dokumen_kkp->mengosongkanFile($data->id_dokumen_kkp);
+				$data = $this->dokumen_kkp->MenampilkanDokumenPermahasiswa();
+			}
+			// print_r($data);
+			// die;
+			if ($data->Id_status_validasi == 3 && $data->file_bab_I != '' && $data->file_lengkap_laporan_kkp != '') {
+				$this->ValidasiDokumenKKP->hapusDataValidasi($data->id_val_kkp);
+			}
+
 			require "application/KKP/DokumenKkp/detail-kkp.php";
 		} else if ($sesi != "" && isset($_GET["id_dokumen_kkp"])) {
 

@@ -132,7 +132,7 @@ class DokumenKkp
 
     public function queryMencariDokumenKKP($id_mahasiswa)
     {
-        $sql = "SELECT COUNT(*) as ada FROM dokumen_kkp WHERE id_mahasiswa='$id_mahasiswa'";
+        $sql = "SELECT *,COUNT(*) ada FROM dokumen_kkp WHERE id_mahasiswa='$id_mahasiswa'";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
         return $query;
     }
@@ -209,6 +209,25 @@ class DokumenKkp
         }
     }
 
+    public function queryMengosongkanFile($id)
+    {
+        $id_mahasiswa = $_SESSION['id_mahasiswa'];
+
+        $sql = "
+            UPDATE dokumen_kkp
+            SET 
+                file_bab_I = '',
+                file_lengkap_laporan_kkp = ''
+            WHERE id_mahasiswa='$id_mahasiswa'";
+
+        $prepare = $this->konek->execute()->prepare($sql);
+        $proses = $prepare->execute();
+
+        $sql = "UPDATE memvalidasi_dokumen_kkp SET Id_status_validasi='3' where id_dokumen_kkp='$id'";
+        $prepare = $this->konek->execute()->prepare($sql);
+        $proses = $prepare->execute();
+    }
+
     public function queryMengubahDokumenKKP()
     {
 
@@ -227,13 +246,10 @@ class DokumenKkp
 
         $sql = "SELECT id_dokumen_kkp FROM dokumen_kkp WHERE id_mahasiswa='$id_mahasiswa'";
         $proses = $this->konek->execute()->query($sql)->fetch();
+        // print_r($proses);
+        // die;
 
         if ($proses) {
-
-            $id_dokumen_kkp = $proses['id_dokumen_kkp'];
-            $sql = "DELETE FROM memvalidasi_dokumen_kkp WHERE id_dokumen_kkp='$id_dokumen_kkp'";
-            $prepare = $this->konek->execute()->prepare($sql);
-            $proses = $prepare->execute();
 
             if ($proses) {
                 echo '<div id="myModal" class="modal fade" role="dialog">

@@ -10,7 +10,12 @@
         <!-- Advanced Tables -->
         <div class="panel panel-default">
             <div class="panel-heading">
-                <?php if (!count($data_DokumenKkp) > 0) : ?>
+                <?php
+                // print_r($data_DokumenKkp);
+                if ($data_DokumenKkp[0]->id_kelompok == 0) :
+                    $data_DokumenKkp = [];
+                ?>
+
                     <div class="alert alert-info text-center">
                         Inputkan data kelompok terlebih dahulu.
                     </div>
@@ -40,7 +45,7 @@
 
                                 <tr class="even gradeC">
                                     <td><?= $i++; ?>.</td>
-                                    <td><?= $data->id_mahasiswa; ?></td>
+                                    <td><?= $_SESSION['id_mahasiswa']; ?></td>
 
                                     <td><?= $data->tanggal_upload; ?></td>
                                     <td><?= $data->tahun; ?></td>
