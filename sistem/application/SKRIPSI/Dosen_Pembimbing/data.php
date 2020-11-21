@@ -21,6 +21,7 @@
                                 <th width="35px">No.</th>
                                 <th>Dosen Pembimbing</th>
                                 <th>Judul Skripsi</th>
+                                <th>Nama Mahasiswa</th>
                                 <th>Status Dosen Pembimbing</th>
                                 <th>Aksi</th>
                             </tr>
@@ -35,11 +36,12 @@
                                     <td><?= $i++; ?>.</td>
                                     <td><?= $data->nama; ?></td>
                                     <td><?= $data->judul; ?></td>
+                                    <td><?= $data->nama_mahasiswa; ?></td>
                                     <td><?= $data->status_dosen_pembimbing; ?></td>
                                     <td class="center">
-                                        <a href="?rik=detail-dosen-pembimbing&id_dosen_pembimbing=<?= $data->Id_dosen_pembimbing; ?>&parameter=1"><i class="fa fa-eye"></i></a> |
-                                        <a href="?rik=ubah-dosen-pembimbing&id_dosen_pembimbing=<?= $data->Id_dosen_pembimbing; ?>&parameter=1"><i class="fa fa-pencil"></i></a> |
-                                        <a href="?rik=hapus-dosen-pembimbing&id_dosen_pembimbing=<?= $data->Id_dosen_pembimbing; ?>" onclick="javascript: return confirm('Anda yakin ingin menghapus ?')"><i class="fa fa-trash-o"></i></a>
+                                        <a href="?rik=detail-dosen-pembimbing&id_bimbingan=<?= $data->id_bimbingan; ?>&id_dosen=<?= $data->id_dosen; ?>&parameter=1"><i class="fa fa-eye"></i></a> |
+                                        <a href="?rik=ubah-dosen-pembimbing&id_bimbingan=<?= $data->id_bimbingan; ?>&id_dosen=<?= $data->id_dosen; ?>&parameter=1"><i class="fa fa-pencil"></i></a> |
+                                        <a href="?rik=hapus-dosen-pembimbing&id_bimbingan=<?= $data->id_bimbingan; ?>&id_status=<?= $data->Id_status_dosen_pembimbing; ?>" onclick="javascript: return confirm('Anda yakin ingin menghapus ?')"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
 

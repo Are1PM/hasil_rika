@@ -279,10 +279,12 @@
 															} elseif ($_GET['rik'] == "ubah-dosen-pembimbing") {
 																$this->main->formPencarianDosenPembimbing();
 															} elseif ($_GET['rik'] == "hapus-dosen-pembimbing") {
-																$id_dosen_pembimbing = $_GET['id_dosen_pembimbing'];
-																$data = new MengelolaDosenPembimbing($id_dosen_pembimbing);
-																$data->MenghapusDosenPembimbing();
+																$id_bimbingan = $_GET['id_bimbingan'];
+																$id_status = $_GET['id_status'];
+																$data = new MengelolaDosenPembimbing('', '', $id_status);
+																$data->MenghapusDosenPembimbing($id_bimbingan);
 																$this->main->tampilDosenPembimbing();
+																header("Location:index.php?rik=data-dosen-pembimbing");
 															} else
 																/**
 			 * 

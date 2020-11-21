@@ -4,13 +4,13 @@ require "DosenPembimbing.php";
 class MengelolaDosenPembimbing extends DosenPembimbing
 {
 	// '', $id_dosen, $id_mahasiswa, $id_status_dosen_pembimbing
-	public function __construct($id_mahasiswa = '', $id_dosen_I = '', $id_dosen_II = '')
+	public function __construct($id_mahasiswa = '', $id_dosen = '', $id_status_dosen_pembimbing = '')
 	{
 		$this->konek = new KoneksiBasisData();
 
 		$this->id_mahasiswa 	= $id_mahasiswa;
-		$this->id_dosen_I     			= $id_dosen_I;
-		$this->id_dosen_II   	   		= $id_dosen_II;
+		$this->id_dosen     			= $id_dosen;
+		$this->id_status_dosen_pembimbing		= $id_status_dosen_pembimbing;
 	}
 
 	function MelihatDosenPembimbing()
@@ -18,9 +18,9 @@ class MengelolaDosenPembimbing extends DosenPembimbing
 		return $this->queryMelihatDosenPembimbing();
 	}
 
-	function MencariDosenPembimbing($id = "")
+	function MencariDosenPembimbing($id = "", $id_dsn = "")
 	{
-		return $this->queryMencariDosenPembimbing($id);
+		return $this->queryMencariDosenPembimbing($id, $id_dsn);
 	}
 
 	function MencariDosen()
@@ -38,8 +38,8 @@ class MengelolaDosenPembimbing extends DosenPembimbing
 		return $this->queryMengubahDosenPembimbing();
 	}
 
-	function MenghapusDosenPembimbing()
+	function MenghapusDosenPembimbing($id)
 	{
-		return $this->queryMenghapusDosenPembimbing();
+		return $this->queryMenghapusDosenPembimbing($id);
 	}
 }

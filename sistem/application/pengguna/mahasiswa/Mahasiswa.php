@@ -117,7 +117,13 @@ class mahasiswa
         if ($id != "") {
             $sql = "SELECT * FROM mahasiswa WHERE id_mahasiswa='$id'";
         } else {
-            $sql = "SELECT * FROM mahasiswa";
+
+            $sql = "SELECT m.*, COUNT(m.id_mahasiswa) jumlah_pembimbing FROM mahasiswa m
+            LEFT JOIN bimbingan bm
+            ON m.id_mahasiswa=bm.id_mahasiswa
+            LEFT JOIN membimbing mb
+            ON bm.id_bimbingan=mb.id_bimbingan
+            GROUP BY m.id_mahasiswa ";
         }
         $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
 

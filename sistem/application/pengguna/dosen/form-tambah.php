@@ -17,6 +17,10 @@
                     <div class="col-lg-6">
                         <form role="form" method="post" action="">
                             <div class="form-group">
+                                <label>NIP</label>
+                                <input type="text" name="id_dosen" class="form-control" placeholder="NIP Dosen" required>
+                            </div>
+                            <div class="form-group">
                                 <label>Nama dosen</label>
                                 <input type="text" name="nama" class="form-control" placeholder="Nama Dosen" required>
                             </div>
@@ -41,14 +45,14 @@
                         </form>
                         <?php
                         if (isset($_POST['simpan'])) {
-
+                            $id_dosen = $_POST['id_dosen'];
                             $nama = $_POST['nama'];
                             $number_handphone = $_POST['number_handphone'];
                             $email = $_POST['email'];
                             $username = $_POST['username'];
                             $password = $_POST['password'];
 
-                            $tambah = new MengelolaDosen('', $nama, $number_handphone, $email, $username, $password);
+                            $tambah = new MengelolaDosen($id_dosen, $nama, $number_handphone, $email, $username, $password);
                             $tambah->MemasukkanDosen();
                         }
                         ?>

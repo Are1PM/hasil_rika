@@ -480,21 +480,23 @@ class AntarMuka
 	{
 		$data_dosen = $this->dosen->MelihatDosen();
 		if (isset($_SESSION['id_mahasiswa'])) {
+
 			$data_Uploadskripsi = $this->mahasiswa->MelihatMahasiswaSkripsi($_SESSION['id_mahasiswa']);
 		} else {
 			$data_Uploadskripsi = $this->mahasiswa->MelihatMahasiswaSkripsi();
 		}
-		$data_sdp = $this->status_dosen_pembimbing->MelihatStatusDosenPembimbing();
+		$data_status = $this->status_dosen_pembimbing->MelihatStatusDosenPembimbing();
 
 		require "application/SKRIPSI/Dosen_Pembimbing/form-tambah.php";
 	}
 	function formPencarianDosenPembimbing($sesi = '')
 	{
-		$id = $_GET['id_dosen_pembimbing'];
-		$data = $this->DosenPembimbing->MencariDosenPembimbing($id);
+		$id = $_GET['id_bimbingan'];
+		$id_dsn = $_GET['id_dosen'];
+		$data = $this->DosenPembimbing->MencariDosenPembimbing($id, $id_dsn);
 		$data_dosen = $this->dosen->MelihatDosen();
-		$data_Uploadskripsi = $this->UploadSkripsi->MelihatDokumen();
-
+		$data_Uploadskripsi = $this->mahasiswa->MelihatMahasiswaSkripsi();
+		$data_status = $this->status_dosen_pembimbing->MelihatStatusDosenPembimbing();
 		if ($sesi == "") {
 			require "application/SKRIPSI/Dosen_Pembimbing/form-ubah.php";
 		} else {

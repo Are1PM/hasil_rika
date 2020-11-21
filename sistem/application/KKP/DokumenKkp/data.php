@@ -17,7 +17,7 @@
                 ?>
 
                     <div class="alert alert-info text-center">
-                        Inputkan data kelompok terlebih dahulu.
+                        Penginputkan file arsip dapat dilakuakn setelah data kelompok di inputkan oleh admin
                     </div>
                     <!-- <a href="?rik=detail-DokumenKkp&id_dokumen_kkp" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</a> -->
                 <?php endif; ?>

@@ -1,9 +1,9 @@
 <div class="row">
-     <!--  page header -->
+    <!--  page header -->
     <div class="col-lg-12">
         <h1 class="page-header">Data Dosen</h1>
     </div>
-     <!-- end  page header -->
+    <!-- end  page header -->
 </div>
 <div class="row">
     <div class="col-lg-12">
@@ -31,21 +31,23 @@
                         </thead>
                         <tbody>
                             <?php
-                            $i=1;
-                            foreach ($data_dosen as $data) { ?>
-                            <tr class="even gradeC">
-                                <td><?= $i++; ?>.</td>
-                                <td><?= $data->nama ?></td>
-                                <td><?= $data->number_handphone ?></td>
-                                <td><?= $data->email ?></td>
-                                <td><?= $data->username ?></td>
-                                <td><?= $data->password ?></td>
-                                <td class="center">
-                                    <a href="?rik=detail-dosen&id_dosen=<?= $data->id_dosen; ?>&parameter=1"><i class="fa fa-eye"></i></a> |
-                                    <a href="?rik=ubah-dosen&id_dosen=<?= $data->id_dosen; ?>&parameter=1"><i class="fa fa-pencil"></i></a> |
-                                    <a href="?rik=hapus-dosen&id_dosen=<?= $data->id_dosen; ?>" ><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
+                            $i = 1;
+                            foreach ($data_dosen as $data) {
+                                if ($data->id_dosen == "-") continue;
+                            ?>
+                                <tr class="even gradeC">
+                                    <td><?= $i++; ?>.</td>
+                                    <td><?= $data->nama ?></td>
+                                    <td><?= $data->number_handphone ?></td>
+                                    <td><?= $data->email ?></td>
+                                    <td><?= $data->username ?></td>
+                                    <td><?= $data->password ?></td>
+                                    <td class="center">
+                                        <a href="?rik=detail-dosen&id_dosen=<?= $data->id_dosen; ?>&parameter=1"><i class="fa fa-eye"></i></a> |
+                                        <a href="?rik=ubah-dosen&id_dosen=<?= $data->id_dosen; ?>&parameter=1"><i class="fa fa-pencil"></i></a> |
+                                        <a href="?rik=hapus-dosen&id_dosen=<?= $data->id_dosen; ?>"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
                             <?php } ?>
                         </tbody>
                     </table>
@@ -55,4 +57,3 @@
         <!--End Advanced Tables -->
     </div>
 </div>
-

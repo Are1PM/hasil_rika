@@ -16,31 +16,52 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <form role="form" method="post" action="">
-                            <input type="hidden" name="id_mahasiswa" value="<?= $data_Uploadskripsi[0]->id_mahasiswa; ?>" class="form-control">
                             <div class="form-group">
                                 <label>Mahasiswa yang dibimbing</label>
-                                <input type="text" name="nama_mahasiswa" value="<?= $data_Uploadskripsi[0]->nama_mahasiswa; ?>" class="form-control" readonly>
+                                <?php if ($_SESSION['hak_akses'] == "admin") { ?>
+                                    <select name="id_mahasiswa" class="form-control select2">
+                                        <option>--Pilih--</option>
+                                        <?php
+                                        foreach ($data_Uploadskripsi as $data) {
+                                            if ($data->jumlah_pembimbing > 1) continue;
+                                        ?>
+                                            <option value="<?= $data->id_mahasiswa ?>"><?= $data->nama_mahasiswa ?></option>
+
+                                        <?php } ?>
+                                    </select>
+                                <?php } else { ?>
+
+                                    <input type="hidden" name="id_mahasiswa" value="<?= $data_Uploadskripsi[0]->id_mahasiswa; ?>">
+
+                                    <input type="text" name="nama_mahasiswa" value="<?= $data_Uploadskripsi[0]->nama_mahasiswa; ?>" class="form-control" readonly>
+                                <?php } ?>
                             </div>
                             <div class="form-group">
-                                <label>Dosen Pembibing I</label>
-                                <select name="id_dosen_I" class="form-control select2">
+                                <label>Dosen Pembimbing</label>
+                                <select name="id_dosen" class="form-control select2">
                                     <option>--Pilih--</option>
                                     <?php
-                                    foreach ($data_dosen as $datal) { ?>
+                                    foreach ($data_dosen as $datal) {
+                                        if ($datal->id_dosen == "-") continue;
+                                    ?>
+
 
                                         <option value="<?= $datal->id_dosen ?>"><?= $datal->nama ?></option>
 
                                     <?php } ?>
                                 </select>
                             </div>
+
                             <div class="form-group">
-                                <label>Dosen Pembimbing II</label>
-                                <select name="id_dosen_II" class="form-control select2">
+                                <label>Status Dosen</label>
+                                <select name="id_status_dosen_pembimbing" class="form-control select2">
                                     <option>--Pilih--</option>
                                     <?php
-                                    foreach ($data_dosen as $datal) { ?>
+                                    foreach ($data_status as $datas) {
+                                        if ($datas->id_dosen == "-") continue;
+                                    ?>
 
-                                        <option value="<?= $datal->id_dosen ?>"><?= $datal->nama ?></option>
+                                        <option value="<?= $datas->Id_status_dosen_pembimbing ?>"><?= $datas->status_dosen_pembimbing ?></option>
 
                                     <?php } ?>
                                 </select>
@@ -53,11 +74,11 @@
                         if (isset($_POST['simpan'])) {
 
                             $id_mahasiswa = $_POST['id_mahasiswa'];
-                            $id_dosen_I = $_POST['id_dosen_I'];
-                            $id_dosen_II = $_POST['id_dosen_II'];
+                            $id_dosen = $_POST['id_dosen'];
+                            $id_status_dosen_pembimbing = $_POST['id_status_dosen_pembimbing'];
 
                             // Menginputkan pembimbing I
-                            $tambah = new MengelolaDosenPembimbing($id_mahasiswa, $id_dosen_I, $id_dosen_II);
+                            $tambah = new MengelolaDosenPembimbing($id_mahasiswa, $id_dosen, $id_status_dosen_pembimbing);
                             $tambah->MemasukkanDosenPembimbing();
                             // Menginputkan pembimbing II
 

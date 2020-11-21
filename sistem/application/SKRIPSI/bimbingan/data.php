@@ -22,7 +22,7 @@
                     <br>
                     <!-- success info warning danger primary -->
                     <div class="alert alert-info text-center">
-                        Inputkan data pembimbing terlebih dahulu.
+                        Inputkan data dosen pembimbing terlebih dahulu yang terdapat pada menu master data .
                     </div>
                 <?php } ?>
             </div>

@@ -3,11 +3,11 @@
 class dosen
 {
     public $id_dosen,
-           $nama,
-           $number_handphone,
-           $email,
-           $username,
-           $password;
+        $nama,
+        $number_handphone,
+        $email,
+        $username,
+        $password;
 
     function getIdDosen()
     {
@@ -37,8 +37,8 @@ class dosen
         return $this->password;
     }
 
-    
-    
+
+
     function setIdDosen($id_dosen)
     {
         $this->id_dosen = $id_dosen;
@@ -72,9 +72,9 @@ class dosen
 
     public function queryMelihatDosen()
     {
-        $sql= "SELECT * FROM dosen";
+        $sql = "SELECT * FROM dosen";
         $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
@@ -84,22 +84,22 @@ class dosen
         $nama           = $this->getNama();
         $username       = $this->getUsername();
 
-        $sql= "SELECT * FROM dosen where id_dosen='$id_dosen' OR nama='$nama' OR username='$username'";
+        $sql = "SELECT * FROM dosen where id_dosen='$id_dosen' OR nama='$nama' OR username='$username'";
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
-        
+
         return $query;
     }
 
     public function queryMemasukkanDosen()
     {
-     
+        $id_dosen           = $this->getIdDosen();
         $nama               = $this->getNama();
         $number_handphone   = $this->getNumberHandphone();
         $email              = $this->getEmail();
         $username           = $this->getUsername();
         $password           = $this->getPassword();
 
-        $sql = "INSERT into dosen values (NULL,'$nama','$number_handphone','$email','$username','$password')";
+        $sql = "INSERT into dosen values ('$id_dosen','$nama','$number_handphone','$email','$username','$password')";
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
 
@@ -123,7 +123,7 @@ class dosen
                     </div>
                 </div>
             </div>';
-        }else{
+        } else {
             echo '<br><div class="alert alert-danger text-center">
                 Gagal
             </div>';
@@ -163,14 +163,14 @@ class dosen
                     </div>
                 </div>
             </div>';
-        }else{
+        } else {
             echo "Gagal";
         }
     }
 
     public function queryMenghapusDosen()
     {
-        $id_dosen= $this->getIdDosen();
+        $id_dosen = $this->getIdDosen();
 
         $sql = "DELETE from dosen where id_dosen='$id_dosen'";
         $prepare = $this->konek->execute()->prepare($sql);
@@ -178,15 +178,14 @@ class dosen
 
         if ($proses) {
             echo "berhasil di hapus";
-        }else{
+        } else {
             echo "Gagal";
         }
-
     }
 
     public function queryCekLogin($username, $password)
     {
-        $sql= "SELECT * FROM dosen where username='$username' AND password='$password'";
+        $sql = "SELECT * FROM dosen where username='$username' AND password='$password'";
         $query = $this->konek->execute()->query($sql)->fetchAll(PDO::FETCH_OBJ);
 
         return $query;
@@ -194,9 +193,5 @@ class dosen
 
     function __destruct()
     {
-
     }
-
-
 }
-?>
