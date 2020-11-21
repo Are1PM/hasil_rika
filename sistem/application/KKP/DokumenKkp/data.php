@@ -29,7 +29,9 @@
                             <tr>
                                 <th width="35px">No.</th>
                                 <th>NIM</th>
-
+                                <th>Nama Kelompok</th>
+                                <th>Instansi</th>
+                                <th>Pembimbing Lapangan</th>
                                 <th>Tanggal Upload</th>
                                 <th>Tahun</th>
                                 <th>Dokumen</th>
@@ -46,7 +48,9 @@
                                 <tr class="even gradeC">
                                     <td><?= $i++; ?>.</td>
                                     <td><?= $_SESSION['id_mahasiswa']; ?></td>
-
+                                    <td><?= $data->nama_instansi; ?></td>
+                                    <td><?= $data->nama_kelompok; ?></td>
+                                    <td><?= $data->nama_pembimbing_lapangan; ?></td>
                                     <td><?= $data->tanggal_upload; ?></td>
                                     <td><?= $data->tahun; ?></td>
                                     <td>

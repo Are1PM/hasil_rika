@@ -4,14 +4,13 @@ require "DosenPembimbing.php";
 class MengelolaDosenPembimbing extends DosenPembimbing
 {
 	// '', $id_dosen, $id_mahasiswa, $id_status_dosen_pembimbing
-	public function __construct($id, $id_dosen = '', $id_mahasiswa = '', $id_status_dosen_pembimbing = '')
+	public function __construct($id_mahasiswa = '', $id_dosen_I = '', $id_dosen_II = '')
 	{
 		$this->konek = new KoneksiBasisData();
 
-		$this->id_mahasiswa 			= $id_mahasiswa;
-		$this->id_dosen   	       			= $id_dosen;
-		$this->id_status_dosen_pembimbing   = $id_status_dosen_pembimbing;
-		$this->id_dosen_pembimbing = $id;
+		$this->id_mahasiswa 	= $id_mahasiswa;
+		$this->id_dosen_I     			= $id_dosen_I;
+		$this->id_dosen_II   	   		= $id_dosen_II;
 	}
 
 	function MelihatDosenPembimbing()

@@ -16,9 +16,14 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <form role="form" method="post" action="">
+                            <input type="hidden" name="id_mahasiswa" value="<?= $data_Uploadskripsi[0]->id_mahasiswa; ?>" class="form-control">
                             <div class="form-group">
-                                <label>Nama Dosen</label>
-                                <select name="id_dosen" class="form-control select2">
+                                <label>Mahasiswa yang dibimbing</label>
+                                <input type="text" name="nama_mahasiswa" value="<?= $data_Uploadskripsi[0]->nama_mahasiswa; ?>" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Dosen Pembibing I</label>
+                                <select name="id_dosen_I" class="form-control select2">
                                     <option>--Pilih--</option>
                                     <?php
                                     foreach ($data_dosen as $datal) { ?>
@@ -29,29 +34,18 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Mahasiswa yang dibimbing</label>
-                                <select name="id_mahasiswa" class="form-control select2">
+                                <label>Dosen Pembimbing II</label>
+                                <select name="id_dosen_II" class="form-control select2">
                                     <option>--Pilih--</option>
                                     <?php
-                                    foreach ($data_Uploadskripsi as $datak) { ?>
+                                    foreach ($data_dosen as $datal) { ?>
 
-                                        <option value="<?= $datak->id_mahasiswa ?>"><?= $datak->nama_mahasiswa ?></option>
+                                        <option value="<?= $datal->id_dosen ?>"><?= $datal->nama ?></option>
 
                                     <?php } ?>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label>Status Dosen Pembimbing</label>
-                                <select name="id_status_dosen_pembimbing" class="form-control select2">
-                                    <option>--Pilih--</option>
-                                    <?php
-                                    foreach ($data_sdp as $dt) { ?>
 
-                                        <option value="<?= $dt->Id_status_dosen_pembimbning ?>"><?= $dt->status_dosen_pembimbing ?></option>
-
-                                    <?php } ?>
-                                </select>
-                            </div>
                             <button type="submit" class="btn btn-primary" name="simpan">Simpan</button>
                             <button type="reset" class="btn btn-success">Reset</button>
                         </form>
@@ -59,11 +53,14 @@
                         if (isset($_POST['simpan'])) {
 
                             $id_mahasiswa = $_POST['id_mahasiswa'];
-                            $id_dosen = $_POST['id_dosen'];
-                            $id_status_dosen_pembimbing = $_POST['id_status_dosen_pembimbing'];
+                            $id_dosen_I = $_POST['id_dosen_I'];
+                            $id_dosen_II = $_POST['id_dosen_II'];
 
-                            $tambah = new MengelolaDosenPembimbing('', $id_dosen, $id_mahasiswa, $id_status_dosen_pembimbing);
+                            // Menginputkan pembimbing I
+                            $tambah = new MengelolaDosenPembimbing($id_mahasiswa, $id_dosen_I, $id_dosen_II);
                             $tambah->MemasukkanDosenPembimbing();
+                            // Menginputkan pembimbing II
+
                         }
                         ?>
                     </div>

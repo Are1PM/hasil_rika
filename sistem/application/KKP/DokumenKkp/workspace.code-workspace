@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../../.."
+		},
+		{
+			"path": "../../../../../projek-rika"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "rika"
+	}
+}

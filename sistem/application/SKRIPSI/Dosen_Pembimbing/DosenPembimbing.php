@@ -4,44 +4,35 @@ class DosenPembimbing
 {
     public
         $id_mahasiswa,
-        $id_dosen,
-        $id_status_dosen_pembimbing,
-        $id_dosen_pembimbing;
+        $id_dosen_I,
+        $id_dosen_II;
 
-    function getIdDosenPembimbing()
-    {
-        return $this->id_dosen_pembimbing;
-    }
 
     function getIdMahasiswa()
     {
         return $this->id_mahasiswa;
     }
 
-    function getIdDosen()
+    function getIdDosenI()
     {
-        return $this->id_dosen;
+        return $this->id_dosen_II;
     }
 
-    function getStatusPembimbing()
+    function getIdDosenII()
     {
-        return $this->id_status_dosen_pembimbing;
+        return $this->id_dosen_I;
     }
 
-
-    function setIdDosenPembimbing($id_dosen_pembimbing)
+    function setIdDosenI($id_dosen)
     {
-        $this->id_dosen_pembimbing = $id_dosen_pembimbing;
+        $this->id_dosen_I = $id_dosen;
     }
 
-    function setIdDosen($id_dosen)
+    function setIdDosenII($id_dosen)
     {
-        $this->id_dosen = $id_dosen;
+        $this->id_dosen_II = $id_dosen;
     }
-    function setIdStatusDosenPembimbing($id_status_dosen_pembimbing)
-    {
-        $this->id_status_dosen_pembimbing = $id_status_dosen_pembimbing;
-    }
+
 
     // ============== SUDAH DI PERBAIKI =============================
     // ============== SUDAH DI PERBAIKI =============================
@@ -50,11 +41,11 @@ class DosenPembimbing
         $id_mahasiswa = $_SESSION['id_mahasiswa'];
 
         if ($_SESSION['hak_akses'] == "mahasiswa") {
-            $sql = "SELECT * FROM dosen_pembimbing dp
-            LEFT JOIN dosen ds ON ds.id_dosen=dp.id_dosen 
-            LEFT JOIN bimbingan b ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing 
-            LEFT JOIN status_dosen_pembimbing sdp ON dp.Id_status_dosen_pembimbing=sdp.Id_status_dosen_pembimbning
-            WHERE b.id_mahasiswa='$id_mahasiswa'
+            $sql = "SELECT * FROM membimbing mb
+                LEFT JOIN dosen ds ON ds.id_dosen=mb.id_dosen 
+                LEFT JOIN bimbingan b ON b.id_bimbingan=mb.id_bimbingan 
+                LEFT JOIN status_dosen_pembimbing sdp ON mb.Id_status_dosen_pembimbing=sdp.Id_status_dosen_pembimbning
+                WHERE b.id_mahasiswa='$id_mahasiswa'
             ";
         } else {
             $sql = "SELECT * FROM dosen_pembimbing dp
@@ -90,7 +81,7 @@ class DosenPembimbing
     // ============== SUDAH DI PERBAIKI =============================
     public function queryMencariDosen()
     {
-        $status = $this->getStatusPembimbing();
+        // $status = $this->getStatusPembimbing();
         if ($_SESSION['hak_akses'] == "mahasiswa") {
 
             $id_mahasiswa = $_SESSION['id_mahasiswa'];
@@ -101,7 +92,7 @@ class DosenPembimbing
                 ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing
                 LEFT JOIN dosen d
                 ON dp.id_dosen=d.id_dosen
-                WHERE b.id_mahasiswa='$id_mahasiswa' AND dp.Id_status_dosen_pembimbing='$status'
+                WHERE b.id_mahasiswa='$id_mahasiswa'
                 ";
         } else {
             $id_mahasiswa = $this->getIdMahasiswa();
@@ -112,7 +103,7 @@ class DosenPembimbing
                 ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing
                 LEFT JOIN dosen d
                 ON dp.id_dosen=d.id_dosen
-                WHERE b.id_mahasiswa='$id_mahasiswa' AND dp.Id_status_dosen_pembimbing='$status'
+                WHERE b.id_mahasiswa='$id_mahasiswa' 
                 ";
         }
 
@@ -131,16 +122,17 @@ class DosenPembimbing
     public function queryMemasukkanDosenPembimbing()
     {
         $id_mahasiswa        = $this->getIdMahasiswa();
-        $id_dosen        = $this->getIdDosen();
-        $id_status_dosen_pembimbing        = $this->getStatusPembimbing();
+        $id_dosen_I        = $this->getIdDosenI();
+        $id_dosen_II        = $this->getIdDosenII();
+
         $con = $this->konek->execute();
 
-        $sql = "INSERT INTO dosen_pembimbing (id_dosen,Id_status_dosen_pembimbing) values('$id_dosen','$id_status_dosen_pembimbing');";
+        $sql = "INSERT INTO bimbingan values (NULL,'$id_mahasiswa','-',YEAR(NOW()),'','',NOW())";
         $exe = $con->exec($sql);
 
         $last_id = $con->lastInsertId();
 
-        $sql = "INSERT INTO bimbingan values (NULL,'$id_mahasiswa','-',YEAR(NOW()),'','',NOW(),'$last_id')";
+        $sql = "INSERT INTO membimbing (id_dosen,Id_status_dosen_pembimbing,id_bimbingan) values ('$id_dosen_I','1','$last_id'),('$id_dosen_II','2','$last_id');";
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
 

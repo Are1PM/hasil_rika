@@ -77,11 +77,17 @@ class DokumenKkp
             $id_mahasiswa = $_SESSION['id_mahasiswa'];
 
             $sql = "
-                SELECT * FROM mahasiswa m 
-                LEFT JOIN dokumen_kkp d
-                ON  m.id_mahasiswa=d.id_mahasiswa
-                where
-                    m.id_mahasiswa='$id_mahasiswa'
+            SELECT m.*,k.nama_kelompok,i.nama_instansi,pl.nama_pembimbing_lapangan FROM mahasiswa m 
+            LEFT JOIN dokumen_kkp d
+            ON  m.id_mahasiswa=d.id_mahasiswa
+            LEFT JOIN kelompok k
+            ON m.id_kelompok=k.id_kelompok
+            LEFT JOIN pembimbing_lapangan pl
+            ON pl.id_kelompok=k.id_kelompok
+            LEFT JOIN instansi i
+            ON i.id_instansi=pl.id_instansi
+            where
+                m.id_mahasiswa='$id_mahasiswa'
                 ";
         } else {
 
