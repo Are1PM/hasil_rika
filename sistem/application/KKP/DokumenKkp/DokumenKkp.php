@@ -77,7 +77,7 @@ class DokumenKkp
             $id_mahasiswa = $_SESSION['id_mahasiswa'];
 
             $sql = "
-            SELECT m.*,k.nama_kelompok,i.nama_instansi,pl.nama_pembimbing_lapangan FROM mahasiswa m 
+            SELECT m.*,k.nama_kelompok,i.nama_instansi,pl.nama_pembimbing_lapangan, mdk.*,d.* FROM mahasiswa m 
             LEFT JOIN dokumen_kkp d
             ON  m.id_mahasiswa=d.id_mahasiswa
             LEFT JOIN kelompok k
@@ -86,6 +86,8 @@ class DokumenKkp
             ON pl.id_kelompok=k.id_kelompok
             LEFT JOIN instansi i
             ON i.id_instansi=pl.id_instansi
+            LEFT JOIN memvalidasi_dokumen_kkp mdk
+            ON mdk.id_dokumen_kkp=d.id_dokumen_kkp
             where
                 m.id_mahasiswa='$id_mahasiswa'
                 ";

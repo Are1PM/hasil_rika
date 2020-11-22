@@ -1,18 +1,16 @@
 <div class="row">
-    <!--  page header -->
     <div class="col-lg-12">
-        <h1 class="page-header">Data Mahasiswa</h1>
+        <h1 class="page-header">Data Anggota</h1>
     </div>
-    <!-- end  page header -->
 </div>
 <div class="row">
     <div class="col-lg-12">
         <!-- Advanced Tables -->
         <div class="panel panel-default">
             <div class="panel-heading">
-                <a href="?rik=tambah-mahasiswa&r=<?= $_GET['r'] ?>" class="btn btn-primary">
+                <a href="?rik=tambah-anggota&r=<?= $_GET['r'] ?>" class="btn btn-primary">
                     <i class="fa fa-plus"></i>
-                    Tambah
+                    Tambah Anggota
                 </a>
             </div>
             <div class="panel-body">
@@ -48,7 +46,7 @@
                                     <td class="center">
                                         <a href="?rik=detail-mahasiswa&id_mahasiswa=<?= $data->id_mahasiswa; ?>&parameter=1"><i class="fa fa-eye"></i></a> |
                                         <a href="?rik=ubah-mahasiswa&id_mahasiswa=<?= $data->id_mahasiswa; ?>&parameter=1"><i class="fa fa-pencil"></i></a> |
-                                        <a href="?rik=hapus-mahasiswa&id_mahasiswa=<?= $data->id_mahasiswa; ?>&r=<?= $_GET['r'] ?>"><i class="fa fa-trash-o"></i></a>
+                                        <a href="?rik=hapus-anggota&id_mahasiswa=<?= $data->id_mahasiswa; ?>&r=<?= $_GET['r'] ?>"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
 

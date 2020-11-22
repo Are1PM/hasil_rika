@@ -246,7 +246,7 @@ class mahasiswa
                             </div>
                             <br>
                               <div class="form-group">
-                                <a href="?rik=data-mahasiswa&r=' . $id_kelompok . '"><button class="btn btn-info">Lihat Data</button></a>
+                                <a href="?rik=data-anggota&r=' . $id_kelompok . '"><button class="btn btn-info">Lihat Data</button></a>
                               </div>
                             </form>
                         </div>
@@ -322,6 +322,38 @@ class mahasiswa
                             <br>
                               <div class="form-group">
                                 <a href="?rik=data-mahasiswa&r=' . $id_kelompok . '"><button class="btn btn-info">Kembali</button></a>
+                              </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+        }
+    }
+
+    public function queryMenghapusAnggotaMahasiswa()
+    {
+        $id_mahasiswa = $this->getIdMahasiswa();
+        $id_kelompok  = $_GET['r'];
+
+        $sql = "UPDATE mahasiswa SET id_kelompok='0' where id_mahasiswa='$id_mahasiswa'";
+        $prepare = $this->konek->execute()->prepare($sql);
+        $proses = $prepare->execute();
+
+        if ($proses) {
+            echo '<div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <br><div class="alert alert-success text-center">
+                                Berhasil dihapus dari kelompok ini
+                            </div>
+                            <br>
+                              <div class="form-group">
+                                <a href="?rik=data-anggota&r=' . $id_kelompok . '"><button class="btn btn-info">Kembali</button></a>
                               </div>
                             </form>
                         </div>

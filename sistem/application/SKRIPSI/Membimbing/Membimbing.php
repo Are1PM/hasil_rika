@@ -1,6 +1,6 @@
 <?php
 
-class DosenPembimbing
+class Membimbing
 {
     public
         $id_mahasiswa,
@@ -36,7 +36,7 @@ class DosenPembimbing
 
     // ============== SUDAH DI PERBAIKI =============================
     // ============== SUDAH DI PERBAIKI =============================
-    public function queryMelihatDosenPembimbing()
+    public function queryMelihatMembimbing()
     {
         $id_mahasiswa = $_SESSION['id_mahasiswa'];
 
@@ -66,7 +66,7 @@ class DosenPembimbing
 
     // ============== SUDAH DI PERBAIKI =============================
     // ============== SUDAH DI PERBAIKI =============================
-    public function queryMencariDosenPembimbing($id, $id_dsn)
+    public function queryMencariMembimbing($id, $id_dsn)
     {
         $id_bimbingan = $id;
         $id_dosen = $id_dsn;
@@ -91,37 +91,24 @@ class DosenPembimbing
     // ============== SUDAH DI PERBAIKI =============================
     public function queryMencariDosen()
     {
-        // $status = $this->getStatusPembimbing();
+        $status = $this->getIdStatusDosenPembimbing();
         if ($_SESSION['hak_akses'] == "mahasiswa") {
-
             $id_mahasiswa = $_SESSION['id_mahasiswa'];
-            $sql = "
-                SELECT * FROM 
-                bimbingan b
-                LEFT JOIN  dosen_pembimbing dp 
-                ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing
-                LEFT JOIN dosen d
-                ON dp.id_dosen=d.id_dosen
-                WHERE b.id_mahasiswa='$id_mahasiswa'
-                ";
         } else {
             $id_mahasiswa = $this->getIdMahasiswa();
-            $sql = "
-                SELECT * FROM 
-                bimbingan b
-                LEFT JOIN  dosen_pembimbing dp 
-                ON b.Id_dosen_pembimbing=dp.Id_dosen_pembimbing
-                LEFT JOIN dosen d
-                ON dp.id_dosen=d.id_dosen
-                WHERE b.id_mahasiswa='$id_mahasiswa' 
-                ";
         }
 
+        $sql = "
+        SELECT * FROM 
+        bimbingan b
+        LEFT JOIN  membimbing bm 
+        ON b.id_bimbingan=bm.id_bimbingan
+        LEFT JOIN dosen d
+        ON bm.id_dosen=d.id_dosen
+        WHERE b.id_mahasiswa='$id_mahasiswa' AND bm.Id_status_dosen_pembimbing='$status'
+        ";
+
         $query = $this->konek->execute()->query($sql)->fetch(PDO::FETCH_OBJ);
-        // if ($status == '2') {
-        //     var_dump($query);
-        //     die;
-        // }
 
         return $query;
     }
@@ -129,7 +116,7 @@ class DosenPembimbing
 
     // ============== SUDAH DI PERBAIKI =============================
     // ============== SUDAH DI PERBAIKI =============================
-    public function queryMemasukkanDosenPembimbing()
+    public function queryMemasukkanMembimbing()
     {
         $id_mahasiswa        = $this->getIdMahasiswa();
         $id_dosen        = $this->getIdDosen();
@@ -188,15 +175,14 @@ class DosenPembimbing
         }
     }
 
-    public function queryMengubahDosenPembimbing()
+    public function queryMengubahMembimbing()
     {
-        $id_bimbingan        = $this->getIdBimbingan();
+        $id_mahasiswa        = $this->getIdMahasiswa();
         $id_dosen        = $this->getIdDosen();
-        $id_dosen_pembimbing = $this->getIdDosenPembimbing();
         $id_status_dosen_pembimbing        = $this->getIdStatusDosenPembimbing();
 
 
-        $sql = "UPDATE dosen_pembimbing SET id_dosen='$id_dosen',id_upload='$id_bimbingan',id_status_dosen_pembimbing='$id_status_dosen_pembimbing' where id_dosen_pembimbing='$id_dosen_pembimbing'";
+        $sql = "UPDATE membimbing SET id_dosen='$id_dosen',id_status_dosen_pembimbing='$id_status_dosen_pembimbing' where id_bimbingan IN (SELECT id_bimbingan FROM bimbingan WHERE id_mahasiswa='$id_mahasiswa')";
         $prepare = $this->konek->execute()->prepare($sql);
         $proses = $prepare->execute();
 
@@ -227,7 +213,7 @@ class DosenPembimbing
 
     // ============== SUDAH DI PERBAIKI =============================
     // ============== SUDAH DI PERBAIKI =============================
-    public function queryMenghapusDosenPembimbing($id)
+    public function queryMenghapusMembimbing($id)
     {
         $id_bimbingan = $id;
         $id_status = $this->getIdStatusDosenPembimbing();

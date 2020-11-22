@@ -29,9 +29,9 @@
                         <tbody>
                             <?php
                             $i = 1;
-                            // print_r($DosenPembimbing);
+                            // print_r($Membimbing);
                             // die;
-                            foreach ($DosenPembimbing as $data) { ?>
+                            foreach ($Membimbing as $data) { ?>
                                 <tr class="even gradeC">
                                     <td><?= $i++; ?>.</td>
                                     <td><?= $data->nama; ?></td>

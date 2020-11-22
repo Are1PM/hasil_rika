@@ -55,6 +55,10 @@
 					 */
 					if ($_GET['rik'] == "data-Kelompok") {
 						$this->main->tampilKelompok();
+					} elseif ($_GET['rik'] == "data-anggota") {
+						$this->main->tampilAnggotaKelompok();
+					} elseif ($_GET['rik'] == "tambah-anggota") {
+						$this->main->tambahAnggotaKelompok();
 					} elseif ($_GET['rik'] == "tambah-Kelompok") {
 						$this->main->formKelompok();
 					} elseif ($_GET['rik'] == "detail-Kelompok") {
@@ -66,6 +70,11 @@
 						$data = new MengelolaKelompok($id_kelompok);
 						$data->MenghapusKelompok();
 						$this->main->tampilKelompok();
+					} elseif ($_GET['rik'] == "hapus-anggota") {
+						$id_mahasiswa = $_GET['id_mahasiswa'];
+						$data = new MengelolaMahasiswa($id_mahasiswa);
+						$data->MenghapusAnggotaMahasiswa();
+						$this->main->tampilAnggotaKelompok();
 					} else
 						/**
 					 * 
@@ -271,37 +280,37 @@
 															} else
 																
 																if ($_GET['rik'] == "data-dosen-pembimbing") {
-																$this->main->tampilDosenPembimbing();
+																$this->main->tampilMembimbing();
 															} elseif ($_GET['rik'] == "tambah-dosen-pembimbing") {
-																$this->main->formDosenPembimbing();
+																$this->main->formMembimbing();
 															} elseif ($_GET['rik'] == "detail-dosen-pembimbing") {
-																$this->main->formPencarianDosenPembimbing(1);
+																$this->main->formPencarianMembimbing(1);
 															} elseif ($_GET['rik'] == "ubah-dosen-pembimbing") {
-																$this->main->formPencarianDosenPembimbing();
+																$this->main->formPencarianMembimbing();
 															} elseif ($_GET['rik'] == "hapus-dosen-pembimbing") {
 																$id_bimbingan = $_GET['id_bimbingan'];
 																$id_status = $_GET['id_status'];
-																$data = new MengelolaDosenPembimbing('', '', $id_status);
-																$data->MenghapusDosenPembimbing($id_bimbingan);
-																$this->main->tampilDosenPembimbing();
+																$data = new MengelolaMembimbing('', '', $id_status);
+																$data->MenghapusMembimbing($id_bimbingan);
+																$this->main->tampilMembimbing();
 																header("Location:index.php?rik=data-dosen-pembimbing");
 															} else
 																/**
 			 * 
 			 */
-																if ($_GET['rik'] == "data-StatusDosenPembimbing") {
-																	$this->main->tampilStatusDosenPembimbing();
-																} elseif ($_GET['rik'] == "tambah-StatusDosenPembimbing") {
-																	$this->main->formStatusDosenPembimbing();
-																} elseif ($_GET['rik'] == "detail-StatusDosenPembimbing") {
-																	$this->main->formPencarianStatusDosenPembimbing(1);
-																} elseif ($_GET['rik'] == "ubah-StatusDosenPembimbing") {
-																	$this->main->formPencarianStatusDosenPembimbing();
-																} elseif ($_GET['rik'] == "hapus-StatusDosenPembimbing") {
+																if ($_GET['rik'] == "data-StatusMembimbing") {
+																	$this->main->tampilStatusMembimbing();
+																} elseif ($_GET['rik'] == "tambah-StatusMembimbing") {
+																	$this->main->formStatusMembimbing();
+																} elseif ($_GET['rik'] == "detail-StatusMembimbing") {
+																	$this->main->formPencarianStatusMembimbing(1);
+																} elseif ($_GET['rik'] == "ubah-StatusMembimbing") {
+																	$this->main->formPencarianStatusMembimbing();
+																} elseif ($_GET['rik'] == "hapus-StatusMembimbing") {
 																	$id_dosen_pembimbing = $_GET['id_status_dosen_pembimbing'];
-																	$data = new MengelolaStatusDosenPembimbing($id_status_dosen_pembimbing);
-																	$data->MenghapusStatusDosenPembimbing();
-																	$this->main->tampilStatusDosenPembimbing();
+																	$data = new MengelolaStatusMembimbing($id_status_dosen_pembimbing);
+																	$data->MenghapusStatusMembimbing();
+																	$this->main->tampilStatusMembimbing();
 																} else
 																	/**
 			 * 

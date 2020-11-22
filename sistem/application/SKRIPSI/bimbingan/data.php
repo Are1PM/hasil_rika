@@ -35,11 +35,14 @@
                                 <th>NIM</th>
                                 <th>Judul Skripsi</th>
                                 <th>Tahun</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
+                            // print_r($data_Uploadskripsi);
+                            // die;
                             $i = 1;
                             foreach ($data_Uploadskripsi as $data) { ?>
                                 <tr class="even gradeC">
@@ -47,6 +50,17 @@
                                     <td><?= $data->id_mahasiswa; ?></td>
                                     <td><?= $data->judul; ?></td>
                                     <td><?= $data->tahun; ?></td>
+                                    <td>
+                                        <?php
+                                        if ($data->Id_status_validasi == 1) {
+                                            echo '<i class="label label-success">Telah di Validasi</i>';
+                                        } elseif ($data->Id_status_validasi == 2) {
+                                            echo '<i class="label label-danger">Tidak Valid</i>';
+                                        } else {
+                                            echo '<i class="label label-warning">Belum di Validasi</i>';
+                                        }
+                                        ?>
+                                    </td>
                                     <td class="center">
                                         <a href="?rik=detail-UploadSkripsi&id_upload=<?= $data->id_bimbingan; ?>&parameter=1"><i class="fa fa-upload"></i></a> |
                                         <a href="?rik=ubah-UploadSkripsi&id_upload=<?= $data->id_bimbingan; ?>&parameter=1"><i class="fa fa-pencil"></i></a>

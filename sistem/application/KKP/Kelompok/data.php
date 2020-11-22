@@ -8,11 +8,11 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <?php
-                if ($_SESSION['hak_akses']=="admin") { ?>
-                <a href="?rik=tambah-Kelompok" class="btn btn-primary">
-                    <i class="fa fa-plus"></i>
-                    Tambah Kelompok
-                </a>
+                if ($_SESSION['hak_akses'] == "admin") { ?>
+                    <a href="?rik=tambah-Kelompok" class="btn btn-primary">
+                        <i class="fa fa-plus"></i>
+                        Tambah Kelompok
+                    </a>
                 <?php } ?>
             </div>
             <div class="panel-body">
@@ -34,20 +34,20 @@
                             <?php
                             $i = 1;
                             foreach ($data_kelompok as $data) { ?>
-                            <tr class="even gradeC">
-                                <td><?= $i++; ?>.</td>
-                                <td><?= $data->nama_kelompok; ?></td>
-                                <td><?= $data->tanggal_masuk; ?></td>
-                                <td><?= $data->tanggal_keluar; ?></td>
-                                <td><?= $data->nama; ?></td>
-                                <td><?= $data->tahun_akademik; ?></td>
-                                <td><a href="?rik=data-mahasiswa&r=<?= $data->id_kelompok ?>"><i class="fa fa-plus"></i> Add</a></td>
-                                <td class="center">
-                                    <a href="?rik=detail-Kelompok&id_kelompok=<?= $data->id_kelompok; ?>&parameter=1"><i class="fa fa-eye"></i></a> 
-                                    |
-                                    <a href="?rik=ubah-Kelompok&id_kelompok=<?= $data->id_kelompok; ?>&parameter=1"><i class="fa fa-pencil"></i></a> |
-                                    <a href="?rik=hapus-Kelompok&id_kelompok=<?= $data->id_kelompok; ?>" onclick="javascript: return confirm('Anda yakin ingin menghapus ?')"><i class="fa fa-trash-o"></i></a> 
-                                </td>
+                                <tr class="even gradeC">
+                                    <td><?= $i++; ?>.</td>
+                                    <td><?= $data->nama_kelompok; ?></td>
+                                    <td><?= $data->tanggal_masuk; ?></td>
+                                    <td><?= $data->tanggal_keluar; ?></td>
+                                    <td><?= $data->nama; ?></td>
+                                    <td><?= $data->tahun_akademik; ?></td>
+                                    <td><a href="?rik=data-anggota&r=<?= $data->id_kelompok ?>"><i class="fa fa-plus"></i> Add</a></td>
+                                    <td class="center">
+                                        <a href="?rik=detail-Kelompok&id_kelompok=<?= $data->id_kelompok; ?>&parameter=1"><i class="fa fa-eye"></i></a>
+                                        |
+                                        <a href="?rik=ubah-Kelompok&id_kelompok=<?= $data->id_kelompok; ?>&parameter=1"><i class="fa fa-pencil"></i></a> |
+                                        <a href="?rik=hapus-Kelompok&id_kelompok=<?= $data->id_kelompok; ?>" onclick="javascript: return confirm('Anda yakin ingin menghapus ?')"><i class="fa fa-trash-o"></i></a>
+                                    </td>
                                 </tr>
 
                             <?php } ?>
@@ -84,7 +84,7 @@ if (isset($_GET['pesan'])) {
                   </div>
               </div>
           </div>';
-    }else if ($_GET['pesan'] == "invalid-formatfile") {
+    } else if ($_GET['pesan'] == "invalid-formatfile") {
         echo '<div id="myModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
                   <div class="modal-content">
@@ -104,7 +104,7 @@ if (isset($_GET['pesan'])) {
                   </div>
               </div>
           </div>';
-    }else if ($_GET['pesan'] == "invalid-size") {
+    } else if ($_GET['pesan'] == "invalid-size") {
         echo '<div id="myModal" class="modal fade" role="dialog">
               <div class="modal-dialog">
                   <div class="modal-content">

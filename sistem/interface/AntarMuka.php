@@ -12,10 +12,10 @@ require_once "application/SKRIPSI/ValidasiDokumenSkripsi/MengelolaValidasiDokume
 require_once "application/pengguna/admin/MengelolaAdmin.php";
 require_once "application/KKP/ValidasiDokumenKKP/MengelolaValidasiDokumenKKP.php";
 require_once "application/KKP/Instansi/Pembimbing_Lapangan/MengelolaPembimbingLapangan.php";
-require_once "application/SKRIPSI/Dosen_Pembimbing/MengelolaDosenPembimbing.php";
+require_once "application/SKRIPSI/Membimbing/MengelolaMembimbing.php";
 require_once "application/pengaturan/pengaturan.php";
 require_once "application/KKP/Kelompok/Status_kelompok/MengelolaStatusKelompok.php";
-require_once "application/SKRIPSI/Dosen_Pembimbing/status_dosen_pembimbing/MengelolaStatusDosenPembimbing.php";
+require_once "application/SKRIPSI/Membimbing/status_dosen_pembimbing/MengelolaStatusDosenPembimbing.php";
 require_once "application/status_validasi/MengelolaStatusValidasi.php";
 
 
@@ -47,7 +47,7 @@ class AntarMuka
 	protected $DownloadDokumenSkripsi;
 	protected $DokumenSkripsiabc;
 	protected $PembimbingLapangan;
-	protected $DosenPembimbing;
+	protected $Membimbing;
 	protected $Pengaturan;
 	protected $Status_Kelompok;
 	protected $status_dosen_pembimbing;
@@ -122,7 +122,7 @@ class AntarMuka
 		$this->ValidasiDokumenKKP = new MengelolaValidasiDokumenKKP($this->id_val_kkp);
 		$this->DokumenSkripsiabc = new MengelolaDokumenskripsi($this->id_dokumen_skripsi);
 		$this->PembimbingLapangan = new MengelolaPembimbingLapangan($this->id_pembimbing_lapangan);
-		$this->DosenPembimbing = new MengelolaDosenPembimbing($this->id_dosen_pembimbing);
+		$this->Membimbing = new MengelolaMembimbing($this->id_dosen_pembimbing);
 		$this->Pengaturan = new Pengaturan();
 		$this->StatusKelompok = new MengelolaStatusKelompok($this->id_status_kelompok);
 		$this->status_dosen_pembimbing = new MengelolaStatusDosenPembimbing($this->id_status_dosen_pembimbing);
@@ -202,6 +202,19 @@ class AntarMuka
 		$data_kelompok = $this->kelompok->MelihatKelompok();
 		require "application/KKP/Kelompok/data.php";
 	}
+
+	function tampilAnggotaKelompok()
+	{
+		$data_mahasiswa = $this->mahasiswa->MelihatMahasiswa();
+		require "application/KKP/Kelompok/data-anggota.php";
+	}
+
+	function tambahAnggotaKelompok()
+	{
+		$allMahasiswa = $this->mahasiswa->semuaMahasiswa();
+		$data_status_kelompok = $this->StatusKelompok->MelihatStatusKelompok();
+		require "application/KKP/Kelompok/form-tambah-anggota.php";
+	}
 	/**
 	 * 
 	 */
@@ -238,8 +251,8 @@ class AntarMuka
 
 	function formPencarianDokumenSkripsi($sesi = '')
 	{
-		$bimbingan = $this->UploadSkripsi;
-		$data_Dokumenskripsi = $bimbingan->MencariDokumen();
+
+		$data_Dokumenskripsi = $this->UploadSkripsi->MencariDokumen();
 		// print_r($data_Dokumenskripsi);
 		// die;
 		if ($sesi == "") {
@@ -284,6 +297,7 @@ class AntarMuka
 		$id_dokumen_skripsi = $data->id_dokumen_skripsi;
 		$dataa = new MengelolaValidasiDokumenSkripsi('', '', $id_dokumen_skripsi, '', '', '');
 		$cek = $dataa->mencariValidasi();
+
 
 		//		KALAU TIDAK VALID
 		if ($cek->Id_status_validasi == 2 && $data->file_full_skripsi != '' && $data->file_full_proposal != '' && $data->file_bab_I != '') {
@@ -346,6 +360,8 @@ class AntarMuka
 	{
 		if ($_SESSION['hak_akses'] == "mahasiswa") {
 			$data_DokumenKkp = $this->dokumen_kkp->MelihatDokumen();
+			// print_r($data_DokumenKkp);
+			// die;
 			require "application/KKP/DokumenKkp/data.php";
 		} else {
 			$data_DokumenKkp = $this->dokumen_kkp->MelihatDokumen();
@@ -476,7 +492,7 @@ class AntarMuka
 	/**
 	 * 
 	 */
-	function formDosenPembimbing()
+	function formMembimbing()
 	{
 		$data_dosen = $this->dosen->MelihatDosen();
 		if (isset($_SESSION['id_mahasiswa'])) {
@@ -487,50 +503,50 @@ class AntarMuka
 		}
 		$data_status = $this->status_dosen_pembimbing->MelihatStatusDosenPembimbing();
 
-		require "application/SKRIPSI/Dosen_Pembimbing/form-tambah.php";
+		require "application/SKRIPSI/Membimbing/form-tambah.php";
 	}
-	function formPencarianDosenPembimbing($sesi = '')
+	function formPencarianMembimbing($sesi = '')
 	{
 		$id = $_GET['id_bimbingan'];
 		$id_dsn = $_GET['id_dosen'];
-		$data = $this->DosenPembimbing->MencariDosenPembimbing($id, $id_dsn);
+		$data = $this->Membimbing->MencariMembimbing($id, $id_dsn);
 		$data_dosen = $this->dosen->MelihatDosen();
 		$data_Uploadskripsi = $this->mahasiswa->MelihatMahasiswaSkripsi();
 		$data_status = $this->status_dosen_pembimbing->MelihatStatusDosenPembimbing();
 		if ($sesi == "") {
-			require "application/SKRIPSI/Dosen_Pembimbing/form-ubah.php";
+			require "application/SKRIPSI/Membimbing/form-ubah.php";
 		} else {
-			require "application/SKRIPSI/Dosen_Pembimbing/detail.php";
+			require "application/SKRIPSI/Membimbing/detail.php";
 		}
 	}
-	function tampilDosenPembimbing()
+	function tampilMembimbing()
 	{
-		$DosenPembimbing = $this->DosenPembimbing->MelihatDosenPembimbing();
+		$Membimbing = $this->Membimbing->MelihatMembimbing();
 
-		require "application/SKRIPSI/Dosen_Pembimbing/data.php";
+		require "application/SKRIPSI/Membimbing/data.php";
 	}
 	/**
 	 * 
 	 */
-	function formStatusDosenPembimbing()
+	function formStatusMembimbing()
 	{
-		require "application/SKRIPSI/Dosen_Pembimbing/status_dosen_pembimbing/form-tambah.php";
+		require "application/SKRIPSI/Membimbing/status_dosen_pembimbing/form-tambah.php";
 	}
-	function formPencarianStatusDosenPembimbing($sesi = '')
+	function formPencarianStatusMembimbing($sesi = '')
 	{
 
-		$data_StatusDosenPembimbing = $this->StatusDosenPembimbing->MencariStatusDosenPembimbing();
+		$data_StatusMembimbing = $this->StatusMembimbing->MencariStatusMembimbing();
 
 		if ($sesi == "") {
-			require "application/SKRIPSI/Dosen_Pembimbing/status_dosen_pembimbing/form-ubah.php";
+			require "application/SKRIPSI/Membimbing/status_dosen_pembimbing/form-ubah.php";
 		} else {
-			require "application/SKRIPSI/Dosen_Pembimbing/status_dosen_pembimbing/detail.php";
+			require "application/SKRIPSI/Membimbing/status_dosen_pembimbing/detail.php";
 		}
 	}
-	function tampilStatusDosenPembimbing()
+	function tampilStatusMembimbing()
 	{
-		$data_StatusDosenPembimbing = $this->StatusDosenPembimbing->MelihatStatusDosenPembimbing();
-		require "application/SKRIPSI/Dosen_Pembimbing/status_dosen_pembimbing/data.php";
+		$data_StatusMembimbing = $this->StatusMembimbing->MelihatStatusMembimbing();
+		require "application/SKRIPSI/Membimbing/status_dosen_pembimbing/data.php";
 	}
 	/**
 	 * 

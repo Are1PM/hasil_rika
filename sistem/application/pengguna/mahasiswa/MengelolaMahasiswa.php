@@ -62,4 +62,9 @@ class MengelolaMahasiswa extends Mahasiswa
 	{
 		return $this->queryMenghapusMahasiswa();
 	}
+
+	function MenghapusAnggotaMahasiswa()
+	{
+		return $this->queryMenghapusAnggotaMahasiswa();
+	}
 }

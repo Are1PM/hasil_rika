@@ -30,6 +30,10 @@
                                 <td><?= $data->judul; ?></td>
                             </tr>
                             <tr>
+                                <td><b>Nama Mahasiswa</b></td>
+                                <td><?= $data->nama_mahasiswa; ?></td>
+                            </tr>
+                            <tr>
                                 <td><b>Status Pembimbing</b></td>
                                 <td><?= $data->status_dosen_pembimbing; ?></td>
                             </tr>

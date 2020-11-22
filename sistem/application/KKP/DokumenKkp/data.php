@@ -34,15 +34,13 @@
                                 <th>Pembimbing Lapangan</th>
                                 <th>Tanggal Upload</th>
                                 <th>Tahun</th>
-                                <th>Dokumen</th>
                                 <th>Status</th>
-                                <!-- <th>Aksi</th> -->
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             $i = 1;
-
                             foreach ($data_DokumenKkp as $data) { ?>
 
                                 <tr class="even gradeC">
@@ -53,9 +51,7 @@
                                     <td><?= $data->nama_pembimbing_lapangan; ?></td>
                                     <td><?= $data->tanggal_upload; ?></td>
                                     <td><?= $data->tahun; ?></td>
-                                    <td>
-                                        <a href="?rik=detail-DokumenKkp&id_dokumen_kkp=<?= $data->id_dokumen_kkp; ?>">Kelengkapan dokumen</a>
-                                    </td>
+
                                     <?php
                                     $id_dokumen_kkp = $data->id_dokumen_kkp;
                                     $validasi = new MengelolaValidasiDokumenKkp('', '', $id_dokumen_kkp, '', '', '');
@@ -66,13 +62,15 @@
                                         if ($val->Id_status_validasi == 1) {
                                             echo '<i class="label label-success">Telah di Validasi</i>';
                                         } elseif ($val->Id_status_validasi == 2) {
-                                            echo '<i class="label label-warning">Tidak Valid</i>';
+                                            echo '<i class="label label-danger">Tidak Valid</i>';
                                         } else {
-                                            echo '<i class="label label-danger">Belum di Validasi</i>';
+                                            echo '<i class="label label-warning">Belum di Validasi</i>';
                                         }
                                         ?>
                                     </td>
-
+                                    <td>
+                                        <a href="?rik=detail-DokumenKkp&id_dokumen_kkp=<?= $data->id_dokumen_kkp; ?>"><i class="fa fa-upload"></i></a>
+                                    </td>
                                 </tr>
 
                             <?php } ?>

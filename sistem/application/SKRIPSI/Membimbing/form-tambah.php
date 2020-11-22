@@ -78,8 +78,8 @@
                             $id_status_dosen_pembimbing = $_POST['id_status_dosen_pembimbing'];
 
                             // Menginputkan pembimbing I
-                            $tambah = new MengelolaDosenPembimbing($id_mahasiswa, $id_dosen, $id_status_dosen_pembimbing);
-                            $tambah->MemasukkanDosenPembimbing();
+                            $tambah = new MengelolaMembimbing($id_mahasiswa, $id_dosen, $id_status_dosen_pembimbing);
+                            $tambah->MemasukkanMembimbing();
                             // Menginputkan pembimbing II
 
                         }

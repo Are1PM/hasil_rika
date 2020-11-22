@@ -76,28 +76,23 @@
                                         <i class="fa fa-file fa-3x"></i>
                                     </a>
 
-                                    <?php
-                                    if (!$_SESSION['hak_akses'] == "admin") {
 
-                                        if ($data_DokumenKkp->file_bab_I == '' and $val->Id_status_validasi == '') {
-                                            echo '<a href="#" class="validasi_kkp">Upload</a>';
-                                        } elseif ($data_DokumenKkp->file_bab_I != '' and $val->Id_status_validasi == '') {
-                                            echo '<label class="label label-info">Menunggu Validasi</label> | ';
-                                            echo '<a href="#" class="validasi_kkp">Reset</a>';
-                                        } elseif ($data_DokumenKkp->file_bab_I != '' and $val->Id_status_validasi == '2') {
-                                            echo '<label class="label label-info">Menunggu Validasi</label> | ';
-                                            echo '<a href="#" class="validasi_kkp">Reset</a>';
-                                        } else {
-                                            if ($val->Id_status_validasi == 1) {
-                                                echo '<label class="label label-success">Selesai</label>';
-                                            } elseif ($val->Id_status_validasi == 2 and $data_DokumenKkp->file_bab_I == '') {
-                                                echo '<a href="#" class="validasi_kkp">Upload Ulang</a>';
-                                            } else {
-                                                echo '<label class="label label-success">Selesai</label>';
-                                            }
-                                        }
-                                    }
+                                    <?php
+                                    $d = $data_DokumenKkp->file_bab_I;
+                                    // if ($this->DokumenSkripsi->cekFile($d) == '1') {
+                                    if ($d == '') {
+
                                     ?>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="label label-danger">
+                                            Belum
+                                        </i>
+                                    <?php } else { ?>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="label label-success">
+                                            Sudah
+                                        </i>
+                                    <?php } ?>
                                 </td>
                             </tr>
                             <tr>
@@ -107,27 +102,23 @@
                                         <i class="fa fa-file fa-3x"></i>
                                     </a>
 
+
                                     <?php
-                                    if (!$_SESSION['hak_akses'] == "admin") {
-                                        if ($data_DokumenKkp->file_lengkap_laporan_kkp == '' and $val->Id_status_validasi == '') {
-                                            echo '<a href="#" class="validasi_kkp">Upload</a>';
-                                        } elseif ($data_DokumenKkp->file_lengkap_laporan_kkp != '' and $val->Id_status_validasi == '') {
-                                            echo '<label class="label label-info">Menunggu Validasi</label> | ';
-                                            echo '<a href="#" class="validasi_kkp">Reset</a>';
-                                        } elseif ($data_DokumenKkp->file_lengkap_laporan_kkp != '' and $val->Id_status_validasi == '2') {
-                                            echo '<label class="label label-info">Menunggu Validasi</label> | ';
-                                            echo '<a href="#" class="validasi_kkp">Reset</a>';
-                                        } else {
-                                            if ($val->Id_status_validasi == 1) {
-                                                echo '<label class="label label-success">Selesai</label>';
-                                            } elseif ($data_DokumenKkp->file_lengkap_laporan_kkp == '' and $val->Id_status_validasi == 2) {
-                                                echo '<a href="#" class="validasi_kkp">Upload Ulang</a>';
-                                            } else {
-                                                echo '<label class="label label-success">Selesai</label>';
-                                            }
-                                        }
-                                    }
+                                    $d = $data_DokumenKkp->file_lengkap_laporan_kkp;
+                                    // if ($this->DokumenSkripsi->cekFile($d) == '1') {
+                                    if ($d == '') {
+
                                     ?>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="label label-danger">
+                                            Belum
+                                        </i>
+                                    <?php } else { ?>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="label label-success">
+                                            Sudah
+                                        </i>
+                                    <?php } ?>
                                 </td>
                             </tr>
                             <tr>

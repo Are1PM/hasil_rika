@@ -79,12 +79,13 @@
                         if (isset($_POST['simpan'])) {
                             $id_dosen_pembimbing = $_POST['id_dosen_pembimbing'];
                             $id_dosen = $_POST['id_dosen'];
-                            $id_bimbingan = $_POST['id_bimbingan'];
+                            // $id_bimbingan = $_POST['id_bimbingan'];
+                            $id_mahasiswa = $_POST['id_mahasiswa'];
                             $id_status_dosen_pembimbing = $_POST['id_status_dosen_pembimbing'];
 
-
-                            $tambah = new MengelolaDosenPembimbing($id_dosen_pembimbing, $id_dosen, $id_bimbingan, $id_status_dosen_pembimbing);
-                            $tambah->MengubahDosenPembimbing();
+                            //                                  $id_mahasiswa, $id_dosen, $id_status_dosen_pembimbing
+                            $tambah = new MengelolaMembimbing($id_mahasiswa, $id_dosen, $id_status_dosen_pembimbing);
+                            $tambah->MengubahMembimbing();
                         }
                         ?>
                     </div>

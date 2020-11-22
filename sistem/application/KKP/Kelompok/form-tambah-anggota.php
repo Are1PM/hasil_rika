@@ -1,7 +1,7 @@
 <div class="row">
-    <!-- page header -->
+     <!-- page header -->
     <div class="col-lg-12">
-        <h1 class="page-header">Tambah Mahasiswa Belum selesai</h1>
+        <h1 class="page-header">Tambah Anggota Kelompok</h1>
     </div>
     <!--end page header -->
 </div>
@@ -38,32 +38,33 @@
                         </form>
                         <?php
                         if (isset($_POST['simpan'])) {
-
+                        
                             $id_mahasiswa = $_POST['id_mahasiswa'];
                             $id_kelompok = $_POST['id_kelompok'];
                             $id_status_kelompok = $_POST['id_status_kelompok'];
 
-                            $tambah = new MengelolaMahasiswa($id_mahasiswa, $id_kelompok, $id_status_kelompok, '', '', '', '', '', '');
+                            $tambah = new MengelolaMahasiswa($id_mahasiswa,$id_kelompok,$id_status_kelompok,'','','','','','');
                             $tambah->tambahAnggotaKelompok();
+
                         }
                         ?>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Form Elements -->
+         <!-- End Form Elements -->
     </div>
 </div>
 
 <div class="modal fade" id="mahasiswa" role="dialog">
     <div class="modal-dialog" style="width: 30cm;">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">DATA MAHASISWA</h4>
-            </div>
-            <div class="panel-body">
+       <!-- Modal content-->
+       <div class="modal-content">
+          <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal">&times;</button>
+             <h4 class="modal-title">DATA MAHASISWA</h4>
+          </div>
+          <div class="panel-body">
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead>
@@ -81,32 +82,32 @@
                         </thead>
                         <tbody>
                             <?php
-                            $i = 1;
-                            foreach ($allMahasiswa as $data) { ?>
+                                $i=1;
+                                foreach ($allMahasiswa as $data) { ?>
+                               
+                            <tr class="even gradeC">
+                                <td><?= $i++; ?>.</td>
+                                <td>
+                                    <a id="data" onClick="masuk(this,'<?= $data->id_mahasiswa; ?>')" href="javascript:void(0)"><?= $data->id_mahasiswa; ?>
+                                    </a>
+                                </td>
+                                <td><?= $data->id_kelompok; ?></td>
+                                <td><?= $data->nama_mahasiswa; ?></td>
+                                <td><?= $data->angkatan; ?></td>
+                                <td><?= $data->email; ?></td>
+                                <td><?= $data->number_handphone; ?></td>
+                                <td><?= $data->username; ?></td>
+                                <td><?= $data->password; ?></td>
+                            </tr>
 
-                                <tr class="even gradeC">
-                                    <td><?= $i++; ?>.</td>
-                                    <td>
-                                        <a id="data" onClick="masuk(this,'<?= $data->id_mahasiswa; ?>')" href="javascript:void(0)"><?= $data->id_mahasiswa; ?>
-                                        </a>
-                                    </td>
-                                    <td><?= $data->id_kelompok; ?></td>
-                                    <td><?= $data->nama_mahasiswa; ?></td>
-                                    <td><?= $data->angkatan; ?></td>
-                                    <td><?= $data->email; ?></td>
-                                    <td><?= $data->number_handphone; ?></td>
-                                    <td><?= $data->username; ?></td>
-                                    <td><?= $data->password; ?></td>
-                                </tr>
-
-                            <?php } ?>
+                        <?php } ?>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
+          <div class="modal-footer">
+             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+       </div>
     </div>
-</div>
+ </div>

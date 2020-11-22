@@ -57,12 +57,12 @@
             <?php } ?>
             <?php
             if ($_SESSION['hak_akses'] == "admin") { ?>
-                <li class="<?php if ($_GET['rik'] == "data-Kelompok" or $_GET['rik'] == "tambah-Kelompok" or $_GET['rik'] == "detail-Kelompok" or $_GET['rik'] == "ubah-Kelompok" or $_GET['rik'] == "data-DokumenKkp" or $_GET['rik'] == "detail-DokumenKkp" or $_GET['rik'] == "hapus-Kelompok" or $_GET['rik'] == "ubah-DokumenKkp" or $_GET['rik'] == "data-DokumenKkp" or $_GET['rik'] == "data-DownloadDokumenKKP") {
+                <li class="<?php if ($_GET['rik'] == "data-Kelompok" or $_GET['rik'] == "data-anggota" or $_GET['rik'] == "tambah-anggota" or $_GET['rik'] == "tambah-Kelompok" or $_GET['rik'] == "detail-Kelompok" or $_GET['rik'] == "ubah-Kelompok" or $_GET['rik'] == "data-DokumenKkp" or $_GET['rik'] == "detail-DokumenKkp" or $_GET['rik'] == "hapus-Kelompok" or $_GET['rik'] == "ubah-DokumenKkp" or $_GET['rik'] == "data-DokumenKkp" or $_GET['rik'] == "data-DownloadDokumenKKP") {
                                 echo 'active';
                             } ?>">
                     <a href=""><i class="fa fa-file-text fa-fw"></i> KKP<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li class="child-menu <?php if ($_GET['rik'] == "data-Kelompok" or $_GET['rik'] == "tambah-Kelompok" or $_GET['rik'] == "detail-Kelompok" or $_GET['rik'] == "ubah-Kelompok") {
+                        <li class="child-menu <?php if ($_GET['rik'] == "data-Kelompok" or $_GET['rik'] == "data-anggota" or $_GET['rik'] == "tambah-anggota" or $_GET['rik'] == "tambah-Kelompok" or $_GET['rik'] == "detail-Kelompok" or $_GET['rik'] == "ubah-Kelompok") {
                                                     echo 'selected';
                                                 } ?>">
                             <a href="?rik=data-Kelompok">Kelompok</a>

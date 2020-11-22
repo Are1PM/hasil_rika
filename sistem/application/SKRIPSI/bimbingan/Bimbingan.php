@@ -82,7 +82,15 @@ class Bimbingan
         $id_mahasiswa   = $_SESSION['id_mahasiswa'];
 
         if ($_SESSION['hak_akses'] == "mahasiswa") {
-            $sql = "SELECT * FROM bimbingan u,mahasiswa m where u.id_mahasiswa='$id_mahasiswa' AND judul<>'-' AND m.id_mahasiswa=u.id_mahasiswa LIMIT 1";
+            $sql = "
+                SELECT * FROM mahasiswa m
+                LEFT JOIN bimbingan u
+                ON m.id_mahasiswa=u.id_mahasiswa
+                LEFT JOIN dokumen_skripsi ds
+                ON ds.id_bimbingan=u.id_bimbingan
+                LEFT JOIN memvalidasi_dokumen_skripsi mds
+                ON ds.id_dokumen_skripsi=mds.id_dokumen_skripsi
+                where u.id_mahasiswa='$id_mahasiswa' AND judul<>'-' LIMIT 1";
         } else {
             if ($id_mahasiswa != "") {
 

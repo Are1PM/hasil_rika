@@ -69,12 +69,14 @@
                                     <td>
                                         <?php
                                         $id_uploado = "";
-                                        $datahhh = new MengelolaDosenPembimbing('', '', $id_uploado, '1');
+                                        $datahhh = new MengelolaMembimbing($data_UploadSkripsi->id_mahasiswa, '', 1);
                                         $datacv = $datahhh->MencariDosen();
-                                        if ($datacv->Id_dosen_pembimbing == "") {
-                                            echo "Belum ada Pembimbing I";
-                                        } else {
+                                        // print_r($datacv);
+                                        // die;
+                                        if ($datacv->Id_status_dosen_pembimbing == "1") {
                                             echo $datacv->nama;
+                                        } else {
+                                            echo '<i class="label label-danger">Belum ada Pembimbing I</i>';
                                         }
                                         ?>
                                     </td>
@@ -84,12 +86,12 @@
                                     <td>
                                         <?php
                                         $id_uploadp = "";
-                                        $datahhh = new MengelolaDosenPembimbing('', '', $id_uploadp, '2');
+                                        $datahhh = new MengelolaMembimbing($data_UploadSkripsi->id_mahasiswa, '', 2);
                                         $datacv = $datahhh->MencariDosen();
-                                        if ($datacv->Id_dosen_pembimbing == "") {
-                                            echo "Belum ada Pembimbing II";
-                                        } else {
+                                        if ($datacv->Id_status_dosen_pembimbing == "2") {
                                             echo $datacv->nama;
+                                        } else {
+                                            echo '<i class="label label-danger">Belum ada Pembimbing II</i>';
                                         }
                                         ?>
                                     </td>
@@ -180,25 +182,25 @@
                                         <?php
 
                                         if ($_SESSION['hak_akses'] == "mahasiswa") {
+                                            if ($data->id_dokumen_skripsi != "") {
 
-
-                                            if ($cek->Id_status_validasi == 1) {
+                                                if ($cek->Id_status_validasi == 1) {
                                         ?>
 
-                                                <button onclick="printContent('print');" class="btn btn-danger">
-                                                    Cetak
-                                                </button>
+                                                    <button onclick="printContent('print');" class="btn btn-danger">
+                                                        Cetak
+                                                    </button>
 
-                                            <?php
-                                            } else if ($cek->keterangan != "") {
-                                            ?>
+                                                <?php
+                                                } else if ($cek->keterangan != "") {
+                                                ?>
                                 <tr>
                                     <td colspan="2">
                                         <div class="alert alert-danger">Catatan : <?= $cek->keterangan ?> <br><br><i><b>(Silahkan upload ulang seluruh dokumen beserta perbaikannya)</b></i></div>
                                     </td>
                                 </tr>
                             <?php
-                                            } else 
+                                                } else 
 
                                                 if ($data->file_full_skripsi != '' && $data->file_full_proposal != '' && $data->file_bab_I != '') { ?>
                                 <tr>
@@ -207,14 +209,15 @@
                                     </td>
                                 </tr>
 
-                            <?php
+                        <?php
+                                                }
                                             }
                                         } else {
-                            ?>
-                            <a href="#" class="validasi_skripsi btn btn-warning" data-id="<?= $data_UploadSkripsi->id_dokumen_skripsi; ?>" data="<?= $data_UploadSkripsi->id_upload; ?>"> Validasi</a>
-                        <?php } ?>
-                        </td>
-                        </tr>
+                        ?>
+                        <a href="#" class="validasi_skripsi btn btn-warning" data-id="<?= $data_UploadSkripsi->id_dokumen_skripsi; ?>" data="<?= $data_UploadSkripsi->id_upload; ?>"> Validasi</a>
+                    <?php } ?>
+                    </td>
+                    </tr>
                             </tbody>
                         </table>
                     </div>

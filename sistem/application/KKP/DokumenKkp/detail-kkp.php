@@ -69,38 +69,11 @@
                                     <td>File BAB I</td>
                                     <td>
                                         <?php if ($data->file_bab_I != "") : ?>
-                                            <a href="assets/dokumen_kkp/<?= $data->file_bab_I ?>" title="<?= $data->file_bab_I ?>"><i class="fa fa-file fa-3x"></i></a> |
+                                            <a href="assets/dokumen_kkp/<?= $data->file_bab_I ?>" title="<?= $data->file_bab_I ?>"><i class="fa fa-file fa-3x"></i></a>
                                         <?php else : ?>
                                             <a href="#" title="upload" class="upload-file-bab1-kkp" data-id="<?= $_SESSION['id_mahasiswa'] ?>"><i class="fa fa-upload"></i></a>
                                         <?php endif; ?>
                                         <?php
-                                        if ($data->file_bab_I != '' and ($val->Id_status_validasi == '' || $val->Id_status_validasi == 3)) {
-                                            echo '<label class="label label-info">Menunggu Validasi</label>';
-                                        } elseif ($val->Id_status_validasi == 1) {
-                                            echo '<label class="label label-success">Selesai</label>';
-                                        }
-                                        // if ($data->file_bab_I == '' and $val->Id_status_validasi == '') {
-                                        //     echo '<a href="#" title="upload" class="upload-full-proposal"><i class="fa fa-upload"></i></a>';
-                                        //     echo '<a href="#" class="validasi_kkp">Upload</a>';
-                                        // } elseif ($data->file_bab_I != '' and $val->Id_status_validasi == '') {
-                                        //     echo '<label class="label label-info">Menunggu Validasi</label>';
-                                        //     if ($_SESSION['hak_akses'] == 'admin') {
-                                        //         echo '| <a href="#" class="validasi_kkp">Reset</a>';
-                                        //     }
-                                        // } elseif ($data->file_bab_I != '' and $val->Id_status_validasi == '2') {
-                                        //     echo '<label class="label label-danger">Tidak Valid</label>';
-                                        //     if ($_SESSION['hak_akses'] == 'admin') {
-                                        //         echo ' | <a href="#" class="validasi_kkp">Reset</a>';
-                                        //     }
-                                        // } else {
-                                        //     if ($val->Id_status_validasi == 1) {
-                                        //         echo '<label class="label label-success">Selesai</label>';
-                                        //     } elseif ($val->Id_status_validasi == 2 and $data->file_bab_I == '') {
-                                        //         echo '<a href="#" class="validasi_kkp">Upload Ulang</a>';
-                                        //     } else {
-                                        //         echo '<label class="label label-success">Selesai</label>';
-                                        //     }
-                                        // }
                                         ?>
                                     </td>
                                 </tr>
@@ -108,16 +81,16 @@
                                     <td>File Lengkap Laporan KKP</td>
                                     <td>
                                         <?php if ($data->file_lengkap_laporan_kkp != "") : ?>
-                                            <a href="assets/dokumen_kkp/<?= $data->file_lengkap_laporan_kkp ?>" title="<?= $data->file_lengkap_laporan_kkp ?>"><i class="fa fa-file fa-3x"></i></a> |
+                                            <a href="assets/dokumen_kkp/<?= $data->file_lengkap_laporan_kkp ?>" title="<?= $data->file_lengkap_laporan_kkp ?>"><i class="fa fa-file fa-3x"></i></a>
                                         <?php else : ?>
                                             <a href="#" title="upload" class="upload-file-lengkap-laporan-kkp" data-id="<?= $_SESSION['id_mahasiswa'] ?>"><i class="fa fa-upload fa-1x"></i></a>
                                         <?php endif; ?>
                                         <?php
-                                        if ($data->file_lengkap_laporan_kkp != '' && ($val->Id_status_validasi == '' || $val->Id_status_validasi == 3)) {
-                                            echo '<label class="label label-info">Menunggu Validasi</label>';
-                                        } elseif ($val->Id_status_validasi == 1) {
-                                            echo '<label class="label label-success">Selesai</label>';
-                                        }
+                                        // if ($data->file_lengkap_laporan_kkp != '' && ($val->Id_status_validasi == '' || $val->Id_status_validasi == 3)) {
+                                        //     echo '<label class="label label-info">Menunggu Validasi</label>';
+                                        // } elseif ($val->Id_status_validasi == 1) {
+                                        //     echo '<label class="label label-success">Selesai</label>';
+                                        // }
                                         ?>
                                     </td>
                                 </tr>
@@ -131,22 +104,23 @@
                                 </tr>
                                 <?php
                                 $arr = [2, 3];
-                                // var_dump(in_array($data->Id_status_validasi, $arr));
+                                // var_dump($data);
                                 // die;
-                                if ($data->keterangan != "" || in_array($data->Id_status_validasi, $arr)) { ?>
+                                if ($data->Id_status_validasi == "") { ?>
                                     <tr>
-                                        <td>Catatan</td>
+                                        <!-- <td>Catatan</td> -->
                                         <td colspan="2">
-                                            <label class="label label-info"><?= $data->keterangan ?></label>
+                                            <div class="alert alert-info">Catatan : Dokumen sedang dalam proses validasi</div>
                                         </td>
                                     </tr>
+
                                 <?php } ?>
                                 <tr>
                                     <td></td>
                                     <td>
                                         <?php
                                         if ($data->Id_status_validasi == 1) {
-                                            echo '<button class="validasi_kkp btn btn-warning" onclick="printContent(\'print\');"> Cetak</button>';
+                                            echo '<button class="validasi_kkp btn btn-danger" onclick="printContent(\'print\');"> Cetak</button>';
                                         } else if ($data->Id_status_validasi == 2) {
                                             echo '<i class="label label-warning">Telah di Validasi.</i>';
                                         }
@@ -161,7 +135,11 @@
                         </table>
                         <?php if (in_array($data->Id_status_validasi, $arr)) :  ?>
 
-                            <div class="alert alert-danger"><i><b>Silahkan upload ulang seluruh dokumen beserta perbaikannya</b></i></div>
+                            <div class="alert alert-danger">
+                                Catatan : <?= $data->keterangan ?>
+                                <br><br>
+                                <i><b>Silahkan upload ulang seluruh dokumen beserta perbaikannya</b></i>
+                            </div>
 
 
                         <?php endif; ?>
