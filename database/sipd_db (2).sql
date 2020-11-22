@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 15, 2020 at 03:52 AM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.1.32
+-- Generation Time: Nov 22, 2020 at 09:33 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -42,7 +42,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id_admin`, `nama`, `number_handphone`, `email`, `username`, `password`) VALUES
-(4, 'Rika', '082394472445', 'rikasdianti@gmail.com', 'safar', 'safar');
+(4, 'Rika', '082394472445', 'rikasdianti@gmail.com', 'rika', 'rika');
 
 -- --------------------------------------------------------
 
@@ -57,9 +57,15 @@ CREATE TABLE `bimbingan` (
   `tahun` year(4) NOT NULL,
   `abstrak_inggris` longtext NOT NULL,
   `abstrak_indonesia` longtext NOT NULL,
-  `tanggal_upload` date NOT NULL,
-  `Id_dosen_pembimbing` int(11) NOT NULL
+  `tanggal_upload` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bimbingan`
+--
+
+INSERT INTO `bimbingan` (`id_bimbingan`, `id_mahasiswa`, `judul`, `tahun`, `abstrak_inggris`, `abstrak_indonesia`, `tanggal_upload`) VALUES
+(31, 'F1A316072', 'dgasdfghj', 2020, 'lkjhgfdljhgfd', 'lkjhgfd', '2020-11-21');
 
 -- --------------------------------------------------------
 
@@ -75,13 +81,6 @@ CREATE TABLE `dokumen_kkp` (
   `file_bab_I` text NOT NULL,
   `file_lengkap_laporan_kkp` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `dokumen_kkp`
---
-
-INSERT INTO `dokumen_kkp` (`id_dokumen_kkp`, `id_mahasiswa`, `tanggal_upload`, `tahun`, `file_bab_I`, `file_lengkap_laporan_kkp`) VALUES
-(9, 'F1A316003', '07-10-2020', 2020, '', 'sds');
 
 -- --------------------------------------------------------
 
@@ -106,7 +105,7 @@ CREATE TABLE `dokumen_skripsi` (
 --
 
 CREATE TABLE `dosen` (
-  `id_dosen` int(9) NOT NULL,
+  `id_dosen` varchar(25) NOT NULL,
   `nama` varchar(200) NOT NULL,
   `number_handphone` varchar(13) NOT NULL,
   `email` text NOT NULL,
@@ -119,25 +118,9 @@ CREATE TABLE `dosen` (
 --
 
 INSERT INTO `dosen` (`id_dosen`, `nama`, `number_handphone`, `email`, `username`, `password`) VALUES
-(0, '-', '-', '0', '-', '-'),
-(387629, 'Amalian Nurani Basyarah, ST., M.Kom', '085241698008', 'amalian@gmail.com', '1234567', '1234567'),
-(387630, 'Natalis Ransi,S.Si.,M.Cs', '081214004584', 'natalisransi@gmail.com', '1234567', '1234567'),
-(387631, 'Dr Andi Tendriawaru, S.Si.,M.Si', '082347984999', 'anditendriawaru@gmail.com', 'kaprodi', 'kaprodi'),
-(387632, 'Dr La Ode Saidi, M.Kom', '085241873014', 'saidi@gmail.com', '1234567', '1234567'),
-(387633, 'La Ode Umar Reky, S.Si, M.Si', '082194063634', 'umarreky@gmail.com', '1234567', '1234567'),
-(387634, 'Subardin, S.T.,M.T', '081345676789', 'subardin@gmail.com', '1234567', '1234567');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dosen_pembimbing`
---
-
-CREATE TABLE `dosen_pembimbing` (
-  `Id_dosen_pembimbing` int(11) NOT NULL,
-  `id_dosen` int(11) NOT NULL,
-  `Id_status_pembimbing` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+('-', '-', '-', '-', '-', '-'),
+('19860705 201903 1 012', 'Natalis Ransi, S.Si., M.Cs', '0821543211234', 'natalisrnsi@gmail.com', 'natalis', '1234567'),
+('19860705 201903 1 013', 'La Surimi, S.Si, M.Cs', '085243211234', 'surimi12@gmail.com', '1234567', '1234567');
 
 -- --------------------------------------------------------
 
@@ -173,7 +156,7 @@ CREATE TABLE `kelompok` (
   `nama_kelompok` varchar(100) NOT NULL,
   `tanggal_masuk` date NOT NULL,
   `tanggal_keluar` date NOT NULL,
-  `id_dosen` int(11) NOT NULL,
+  `id_dosen` varchar(25) NOT NULL,
   `tahun_akademik` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -182,8 +165,9 @@ CREATE TABLE `kelompok` (
 --
 
 INSERT INTO `kelompok` (`id_kelompok`, `nama_kelompok`, `tanggal_masuk`, `tanggal_keluar`, `id_dosen`, `tahun_akademik`) VALUES
-(0, '-', '2020-10-01', '2020-10-01', 0, '0000'),
-(2, 'BI_1', '2020-10-07', '2020-10-23', 387630, '20191');
+(0, '-', '0000-00-00', '0000-00-00', '-', '-'),
+(7, 'polda03', '2020-11-01', '2020-11-11', '19860705 201903 1 013', '20161'),
+(8, 'BI', '2020-11-11', '2020-11-24', '19860705 201903 1 012', '2021');
 
 -- --------------------------------------------------------
 
@@ -208,7 +192,28 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id_mahasiswa`, `id_kelompok`, `id_status_kelompok`, `nama_mahasiswa`, `angkatan`, `email`, `number_handphone`, `username`, `password`) VALUES
-('F1A316003', 2, 1, 'HERLINA', 2016, 'distan@distankonawe.id', '085246530343', 'safar', 'safar');
+('F1A316072', 0, 1, 'likom baru', 2016, 'ilkombaru@gmail.com', '085241630155', 'ilkom', 'ilkom'),
+('F1A316074', 8, 1, 'pindah4', 2030, 'pindah4@gmail.com', '45645646', 'pindah4', 'pindah4');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `membimbing`
+--
+
+CREATE TABLE `membimbing` (
+  `id_dosen` varchar(25) NOT NULL,
+  `Id_status_dosen_pembimbing` int(11) NOT NULL,
+  `id_bimbingan` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `membimbing`
+--
+
+INSERT INTO `membimbing` (`id_dosen`, `Id_status_dosen_pembimbing`, `id_bimbingan`) VALUES
+('19860705 201903 1 013', 1, 31),
+('19860705 201903 1 012', 2, 31);
 
 -- --------------------------------------------------------
 
@@ -224,13 +229,6 @@ CREATE TABLE `memvalidasi_dokumen_kkp` (
   `Id_status_validasi` int(11) NOT NULL,
   `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `memvalidasi_dokumen_kkp`
---
-
-INSERT INTO `memvalidasi_dokumen_kkp` (`id_val_kkp`, `id_admin`, `id_dokumen_kkp`, `tanggal_validasi`, `Id_status_validasi`, `keterangan`) VALUES
-(5, 4, 9, '2020-10-11', 2, 'ouiyutcyxtdrdfgvnb');
 
 -- --------------------------------------------------------
 
@@ -267,8 +265,8 @@ CREATE TABLE `pembimbing_lapangan` (
 --
 
 INSERT INTO `pembimbing_lapangan` (`id_pembimbing_lapangan`, `id_instansi`, `id_kelompok`, `nama_pembimbing_lapangan`, `alamat`, `number_handphone`) VALUES
-(1, 13, 0, 'subhan, S.Kom, M.Ap', 'liudh', '081214004584'),
-(3, 13, 2, 'SAFAR', 'HEA', '08543');
+(7, 13, 7, 'anita.S.ip', 'ajhakda', '0898768765'),
+(8, 13, 8, 'BLALALLALALAL', 'KENDARI', '99999');
 
 -- --------------------------------------------------------
 
@@ -289,7 +287,7 @@ CREATE TABLE `pengaturan` (
 --
 
 INSERT INTO `pengaturan` (`id`, `title`, `judul_top_bar`, `singkatan_apps`, `catatan_kaki`) VALUES
-(1, 'SISTEM INFORMASI PENGARSIPAN', 'Sistem Pengarsipan Dokumen', 'SIP', 'Created by Rika Asdianti');
+(1, 'SISTEM INFORMASI PENGARSIPAN', 'Sistem Informasi Pengarsipan', 'SIP', 'Created by Rika Asdianti');
 
 -- --------------------------------------------------------
 
@@ -298,9 +296,17 @@ INSERT INTO `pengaturan` (`id`, `title`, `judul_top_bar`, `singkatan_apps`, `cat
 --
 
 CREATE TABLE `status_dosen_pembimbing` (
-  `Id_status_dosen_pembimbning` int(11) NOT NULL,
+  `Id_status_dosen_pembimbing` int(11) NOT NULL,
   `status_dosen_pembimbing` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `status_dosen_pembimbing`
+--
+
+INSERT INTO `status_dosen_pembimbing` (`Id_status_dosen_pembimbing`, `status_dosen_pembimbing`) VALUES
+(1, 'Pembimbing I'),
+(2, 'Pembimbing II');
 
 -- --------------------------------------------------------
 
@@ -339,7 +345,8 @@ CREATE TABLE `status_validasi` (
 
 INSERT INTO `status_validasi` (`Id_status_validasi`, `status_validasi`) VALUES
 (1, 'Valid'),
-(2, 'Tidak Valid');
+(2, 'Tidak Valid'),
+(3, 'belum divalidasi');
 
 --
 -- Indexes for dumped tables
@@ -359,7 +366,6 @@ ALTER TABLE `bimbingan`
   ADD PRIMARY KEY (`id_bimbingan`),
   ADD KEY `Id_mahasiswa` (`id_mahasiswa`),
   ADD KEY `Id_Upload` (`id_bimbingan`),
-  ADD KEY `Id_dosen_pembimbing` (`Id_dosen_pembimbing`),
   ADD KEY `id_bimbingan` (`id_bimbingan`);
 
 --
@@ -385,14 +391,6 @@ ALTER TABLE `dosen`
   ADD KEY `id_dosen` (`id_dosen`);
 
 --
--- Indexes for table `dosen_pembimbing`
---
-ALTER TABLE `dosen_pembimbing`
-  ADD PRIMARY KEY (`Id_dosen_pembimbing`),
-  ADD KEY `id_dosen` (`id_dosen`),
-  ADD KEY `Id_status_pembimbing` (`Id_status_pembimbing`);
-
---
 -- Indexes for table `instansi`
 --
 ALTER TABLE `instansi`
@@ -415,6 +413,15 @@ ALTER TABLE `mahasiswa`
   ADD KEY `id_mahasiswa` (`id_mahasiswa`),
   ADD KEY `id_kelompok` (`id_kelompok`),
   ADD KEY `id_status_kelompok` (`id_status_kelompok`);
+
+--
+-- Indexes for table `membimbing`
+--
+ALTER TABLE `membimbing`
+  ADD UNIQUE KEY `unique_index` (`Id_status_dosen_pembimbing`,`id_bimbingan`,`id_dosen`),
+  ADD KEY `id_dosen` (`id_dosen`),
+  ADD KEY `Id_status_pembimbing` (`Id_status_dosen_pembimbing`),
+  ADD KEY `id_bimbingan` (`id_bimbingan`);
 
 --
 -- Indexes for table `memvalidasi_dokumen_kkp`
@@ -455,7 +462,7 @@ ALTER TABLE `pengaturan`
 -- Indexes for table `status_dosen_pembimbing`
 --
 ALTER TABLE `status_dosen_pembimbing`
-  ADD PRIMARY KEY (`Id_status_dosen_pembimbning`);
+  ADD PRIMARY KEY (`Id_status_dosen_pembimbing`);
 
 --
 -- Indexes for table `status_kelompok`
@@ -483,31 +490,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `bimbingan`
 --
 ALTER TABLE `bimbingan`
-  MODIFY `id_bimbingan` int(9) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_bimbingan` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `dokumen_kkp`
 --
 ALTER TABLE `dokumen_kkp`
-  MODIFY `id_dokumen_kkp` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_dokumen_kkp` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `dokumen_skripsi`
 --
 ALTER TABLE `dokumen_skripsi`
-  MODIFY `id_dokumen_skripsi` int(9) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `dosen`
---
-ALTER TABLE `dosen`
-  MODIFY `id_dosen` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=387635;
-
---
--- AUTO_INCREMENT for table `dosen_pembimbing`
---
-ALTER TABLE `dosen_pembimbing`
-  MODIFY `Id_dosen_pembimbing` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_dokumen_skripsi` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `instansi`
@@ -519,25 +514,25 @@ ALTER TABLE `instansi`
 -- AUTO_INCREMENT for table `kelompok`
 --
 ALTER TABLE `kelompok`
-  MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `memvalidasi_dokumen_kkp`
 --
 ALTER TABLE `memvalidasi_dokumen_kkp`
-  MODIFY `id_val_kkp` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_val_kkp` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `memvalidasi_dokumen_skripsi`
 --
 ALTER TABLE `memvalidasi_dokumen_skripsi`
-  MODIFY `id_val_skripsi` int(9) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_val_skripsi` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `pembimbing_lapangan`
 --
 ALTER TABLE `pembimbing_lapangan`
-  MODIFY `id_pembimbing_lapangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pembimbing_lapangan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `pengaturan`
@@ -549,7 +544,7 @@ ALTER TABLE `pengaturan`
 -- AUTO_INCREMENT for table `status_dosen_pembimbing`
 --
 ALTER TABLE `status_dosen_pembimbing`
-  MODIFY `Id_status_dosen_pembimbning` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_status_dosen_pembimbing` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `status_kelompok`
@@ -561,7 +556,7 @@ ALTER TABLE `status_kelompok`
 -- AUTO_INCREMENT for table `status_validasi`
 --
 ALTER TABLE `status_validasi`
-  MODIFY `Id_status_validasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_status_validasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -572,8 +567,7 @@ ALTER TABLE `status_validasi`
 --
 ALTER TABLE `bimbingan`
   ADD CONSTRAINT `bimbingan_ibfk_1` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id_mahasiswa`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `bimbingan_ibfk_2` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id_mahasiswa`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `bimbingan_ibfk_3` FOREIGN KEY (`Id_dosen_pembimbing`) REFERENCES `dosen_pembimbing` (`Id_dosen_pembimbing`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `bimbingan_ibfk_2` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id_mahasiswa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `dokumen_kkp`
@@ -589,24 +583,25 @@ ALTER TABLE `dokumen_skripsi`
   ADD CONSTRAINT `dokumen_skripsi_ibfk_2` FOREIGN KEY (`id_bimbingan`) REFERENCES `bimbingan` (`id_bimbingan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `dosen_pembimbing`
---
-ALTER TABLE `dosen_pembimbing`
-  ADD CONSTRAINT `dosen_pembimbing_ibfk_2` FOREIGN KEY (`id_dosen`) REFERENCES `dosen` (`id_dosen`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `dosen_pembimbing_ibfk_3` FOREIGN KEY (`Id_status_pembimbing`) REFERENCES `status_dosen_pembimbing` (`Id_status_dosen_pembimbning`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `kelompok`
 --
 ALTER TABLE `kelompok`
-  ADD CONSTRAINT `kelompok_ibfk_3` FOREIGN KEY (`id_dosen`) REFERENCES `dosen` (`id_dosen`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `kelompok_ibfk_1` FOREIGN KEY (`id_dosen`) REFERENCES `dosen` (`id_dosen`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
   ADD CONSTRAINT `mahasiswa_ibfk_1` FOREIGN KEY (`id_kelompok`) REFERENCES `kelompok` (`id_kelompok`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `mahasiswa_ibfk_2` FOREIGN KEY (`id_status_kelompok`) REFERENCES `status_kelompok` (`Id_status_kelompok`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `mahasiswa_ibfk_2` FOREIGN KEY (`id_status_kelompok`) REFERENCES `status_kelompok` (`id_status_kelompok`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `membimbing`
+--
+ALTER TABLE `membimbing`
+  ADD CONSTRAINT `membimbing_ibfk_3` FOREIGN KEY (`Id_status_dosen_pembimbing`) REFERENCES `status_dosen_pembimbing` (`Id_status_dosen_pembimbing`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `membimbing_ibfk_4` FOREIGN KEY (`id_bimbingan`) REFERENCES `bimbingan` (`id_bimbingan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `membimbing_ibfk_5` FOREIGN KEY (`id_dosen`) REFERENCES `dosen` (`id_dosen`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `memvalidasi_dokumen_kkp`
